@@ -1,0 +1,56 @@
+# ============================================================================
+# PROJECT .GITIGNORE
+# ============================================================================
+
+# --- Package Manager ---
+node_modules/
+.pnpm-debug.log*
+npm-debug.log*
+
+# --- Build Artifacts ---
+dist/
+dist-ssr/
+out/
+build/
+*.tsbuildinfo
+
+# --- Vite ---
+.vite_cache/
+.vite_temp/
+vite.config.*.timestamp-*
+
+# --- Secrets ---
+.env
+.env.*
+!.env.example
+.env.local
+.env.*.local
+
+# --- Linter / Formatter Cache ---
+.eslintcache
+
+# --- Test Coverage & Reports ---
+coverage/
+
+# --- Logs ---
+*.log
+logs/
+
+# --- IDE ---
+.idea/
+.vscode/*
+!.vscode/settings.json
+*.swp
+*.swo
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Temp ---
+.cache/
+.temp/
+.tmp/
+
+
+downloaded-assets/

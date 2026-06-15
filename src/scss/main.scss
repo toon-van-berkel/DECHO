@@ -1,0 +1,8 @@
+// 1. Import abstracts (variables, functions, mixins) first
+@use "abstracts" as *;
+
+// 2. Import base styles (reset, typography, global styles)
+@use "base";
+
+// 3. Import components (buttons, cards, modals)
+@use "components/ui";
