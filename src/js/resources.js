@@ -2,8 +2,10 @@ import { ImageSource, Sound, Resource, Loader } from "excalibur";
 
 // voeg hier jouw eigen resources toe
 const Resources = {
-  Walking: new ImageSource("images/Free/Walking.png"),
-  Idle: new ImageSource('images/Free/Idle.png')
+  Walking: new ImageSource("images/male/Walk/walk.png"),
+  House: new ImageSource("images/TILESET VILLAGE TOP DOWN/HOUSE 1 - DAY.png"),
+  Terrain: new ImageSource("images/TILESET VILLAGE TOP DOWN/TERRAIN SET 1 - DAY.png"),
+  Water: new ImageSource("images/TILESET VILLAGE TOP DOWN/WATER TILE - DAY.png"),
 };
 
 const ResourceLoader = new Loader();

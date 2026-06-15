@@ -1,14 +1,11 @@
 import "../css/style.css";
-import {
-  Engine,
-  Vector,
-  DisplayMode,
-} from "excalibur";
+
+import { Engine, Vector, DisplayMode } from "excalibur";
 
 import { ResourceLoader } from "./resources.js";
 import { Player } from "./player.js";
 
-export class Game extends Engine {
+class Game extends Engine {
   constructor() {
     super({
       width: 1280,
@@ -25,12 +22,11 @@ export class Game extends Engine {
   startGame() {
     const player = new Player();
 
-    player.pos = new Vector(
-      this.drawWidth / 2,
-      this.drawHeight / 2,
-    );
+    player.pos = new Vector(this.drawWidth / 2, this.drawHeight / 2);
 
     this.add(player);
+
+    this.currentScene.camera.strategy.lockToActor(player);
   }
 }
 
