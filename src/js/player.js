@@ -37,6 +37,16 @@ export class Player extends Actor {
       },
     });
 
+    const idleSheet = SpriteSheet.fromImageSource({
+      image: Resources.Idle,
+      grid: {
+        rows: 4,
+        columns: 8,
+        spriteWidth: 64,
+        spriteHeight: 128,
+      },
+    });
+
     this.walkAnimations = {
       down: Animation.fromSpriteSheet(
         walkingSheet,
@@ -67,18 +77,41 @@ export class Player extends Actor {
       ),
     };
 
-    this.idleSprites = {
-      down: walkingSheet.getSprite(0, 0),
-      left: walkingSheet.getSprite(0, 1),
-      right: walkingSheet.getSprite(0, 2),
-      up: walkingSheet.getSprite(0, 3),
+    this.idleAnimations = {
+      down: Animation.fromSpriteSheet(
+        idleSheet,
+        range(0, 7),
+        140,
+        AnimationStrategy.Loop,
+      ),
+
+      left: Animation.fromSpriteSheet(
+        idleSheet,
+        range(8, 15),
+        140,
+        AnimationStrategy.Loop,
+      ),
+
+      right: Animation.fromSpriteSheet(
+        idleSheet,
+        range(16, 23),
+        140,
+        AnimationStrategy.Loop,
+      ),
+
+      up: Animation.fromSpriteSheet(
+        idleSheet,
+        range(24, 31),
+        140,
+        AnimationStrategy.Loop,
+      ),
     };
 
     this.graphics.offset = new Vector(0, -48);
 
     this.useGraphic(
       "idle-down",
-      this.idleSprites.down,
+      this.idleAnimations.down,
     );
 
     this.vel = Vector.Zero;
@@ -130,7 +163,7 @@ export class Player extends Actor {
 
       this.useGraphic(
         `idle-${this.direction}`,
-        this.idleSprites[this.direction],
+        this.idleAnimations[this.direction],
       );
     }
   }
