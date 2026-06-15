@@ -1,14 +1,11 @@
-import { ImageSource, Sound, Resource, Loader } from "excalibur";
+import { ImageSource, Loader } from "excalibur";
+import { TiledResource } from "@excaliburjs/plugin-tiled";
 
-// voeg hier jouw eigen resources toe
 const Resources = {
-  Walking: new ImageSource("images/male/Walk/walk.png"),
-  MapV1: new ImageSource('images/map/EchoShardsV1.tmx')
+  Walking: new ImageSource("/images/male/Walk/walk.png"),
+  MapV1: new TiledResource("/images/map/EchoShardsV1.tmx"),
 };
 
-const ResourceLoader = new Loader();
-for (let res of Object.values(Resources)) {
-  ResourceLoader.addResource(res);
-}
+const ResourceLoader = new Loader(Object.values(Resources));
 
 export { Resources, ResourceLoader };

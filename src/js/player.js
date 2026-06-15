@@ -11,18 +11,28 @@ import {
 
 import { Resources } from "./resources.js";
 
+const DIRECTIONS = [
+  "down",
+  "downLeft",
+  "upLeft",
+  "up",
+  "upRight",
+  "downRight",
+];
+
 export class Player extends Actor {
-  constructor() {
+  constructor(x = 400, y = 300) {
     super({
+      pos: new Vector(x, y),
       width: 32,
       height: 32,
       collisionType: CollisionType.Active,
+      z: 100,
     });
 
-    this.scale = new Vector(3, 3);
     this.speed = 500;
     this.direction = "down";
-    this.currentAnimation = "";
+    this.currentGraphic = "";
 
     const sheet = SpriteSheet.fromImageSource({
       image: Resources.Walking,
@@ -34,71 +44,70 @@ export class Player extends Actor {
       },
     });
 
-    this.walk = {
-      down: this.createAnimation(sheet, 0),
-      downLeft: this.createAnimation(sheet, 8),
-      upLeft: this.createAnimation(sheet, 16),
-      up: this.createAnimation(sheet, 24),
-      upRight: this.createAnimation(sheet, 32),
-      downRight: this.createAnimation(sheet, 40),
-    };
+    this.walk = {};
+    this.idle = {};
 
-    this.idle = {
-      down: sheet.getSprite(0, 0),
-      downLeft: sheet.getSprite(0, 1),
-      upLeft: sheet.getSprite(0, 2),
-      up: sheet.getSprite(0, 3),
-      upRight: sheet.getSprite(0, 4),
-      downRight: sheet.getSprite(0, 5),
-    };
+    DIRECTIONS.forEach((direction, row) => {
+      const startFrame = row * 8;
+
+      this.walk[direction] = Animation.fromSpriteSheet(
+        sheet,
+        range(startFrame, startFrame + 7),
+        100,
+        AnimationStrategy.Loop,
+      );
+
+      this.idle[direction] = sheet.getSprite(0, row);
+    });
 
     this.graphics.offset = new Vector(0, -16);
-
-    this.setGraphic("idle-down", this.idle.down);
-  }
-
-  createAnimation(sheet, startFrame) {
-    return Animation.fromSpriteSheet(
-      sheet,
-      range(startFrame, startFrame + 7),
-      100,
-      AnimationStrategy.Loop,
-    );
+    this.useGraphic("idle-down", this.idle.down);
   }
 
   onPreUpdate(engine) {
-    let x = 0;
-    let y = 0;
+    const movement = new Vector(
+      Number(engine.input.keyboard.isHeld(Keys.D)) -
+        Number(engine.input.keyboard.isHeld(Keys.A)),
+      Number(engine.input.keyboard.isHeld(Keys.S)) -
+        Number(engine.input.keyboard.isHeld(Keys.W)),
+    );
 
-    if (engine.input.keyboard.isHeld(Keys.W)) y--;
-    if (engine.input.keyboard.isHeld(Keys.S)) y++;
-    if (engine.input.keyboard.isHeld(Keys.A)) x--;
-    if (engine.input.keyboard.isHeld(Keys.D)) x++;
-
-    if (x === 0 && y === 0) {
+    if (movement.equals(Vector.Zero)) {
       this.vel = Vector.Zero;
-      this.setGraphic(`idle-${this.direction}`, this.idle[this.direction]);
+      this.useGraphic(
+        `idle-${this.direction}`,
+        this.idle[this.direction],
+      );
       return;
     }
 
-    this.vel = new Vector(x, y).normalize().scale(this.speed);
+    this.vel = movement.normalize().scale(this.speed);
+    this.direction = this.getDirection(movement);
 
-    if (x < 0 && y > 0) this.direction = "downLeft";
-    else if (x < 0 && y < 0) this.direction = "upLeft";
-    else if (x > 0 && y < 0) this.direction = "upRight";
-    else if (x > 0 && y > 0) this.direction = "downRight";
-    else if (y > 0) this.direction = "down";
-    else if (y < 0) this.direction = "up";
-    else if (x < 0) this.direction = "downLeft";
-    else if (x > 0) this.direction = "downRight";
-
-    this.setGraphic(`walk-${this.direction}`, this.walk[this.direction]);
+    this.useGraphic(
+      `walk-${this.direction}`,
+      this.walk[this.direction],
+    );
   }
 
-  setGraphic(name, graphic) {
-    if (this.currentAnimation === name) return;
+  getDirection(movement) {
+    const { x, y } = movement;
 
-    this.currentAnimation = name;
+    if (x < 0 && y > 0) return "downLeft";
+    if (x < 0 && y < 0) return "upLeft";
+    if (x > 0 && y < 0) return "upRight";
+    if (x > 0 && y > 0) return "downRight";
+    if (y > 0) return "down";
+    if (y < 0) return "up";
+    if (x < 0) return "downLeft";
+
+    return "downRight";
+  }
+
+  useGraphic(name, graphic) {
+    if (this.currentGraphic === name) return;
+
+    this.currentGraphic = name;
     this.graphics.use(graphic);
   }
 }
