@@ -1,7 +1,7 @@
 {
   "name": "startproject",
   "version": "0.0.1",
-  "author":"CMGT",
+  "author": "CMGT",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,6 +11,7 @@
     "vite": "^8.0.1"
   },
   "dependencies": {
+    "@excaliburjs/plugin-tiled": "0.32.0",
     "excalibur": "^0.32.0"
   }
 }

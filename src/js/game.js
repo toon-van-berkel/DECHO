@@ -1,28 +1,28 @@
 import "../css/style.css";
-
-import { Engine, Vector, DisplayMode } from "excalibur";
-
-import { ResourceLoader } from "./resources.js";
+import { Engine, DisplayMode, Vector } from "excalibur";
+import { Resources, ResourceLoader } from "./resources.js";
 import { Player } from "./player.js";
 
-class Game extends Engine {
+export class Game extends Engine {
   constructor() {
     super({
       width: 1280,
       height: 720,
       maxFps: 60,
       displayMode: DisplayMode.FitScreen,
+      pixelArt: true,
     });
 
-    this.start(ResourceLoader).then(() => {
-      this.startGame();
-    });
+    this.start(ResourceLoader).then(() => this.startGame());
   }
 
   startGame() {
+    Resources.MapV1.addToScene(this.currentScene);
+
     const player = new Player();
 
-    player.pos = new Vector(this.drawWidth / 2, this.drawHeight / 2);
+    player.pos = new Vector(400, 300);
+    player.z = 100;
 
     this.add(player);
 
