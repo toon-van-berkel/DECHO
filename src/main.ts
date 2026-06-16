@@ -18,7 +18,13 @@ const game = new Engine({
   },
 });
 
-void game.start('map', {
-  loader,
-  inTransition: new FadeInOut({ duration: 800, direction: 'in', color: Color.Black }),
+game.start('start', { // name of the start scene 'start'
+  loader, // Optional loader (but needed for loading images/sounds)
+  inTransition: new FadeInOut({ // Optional in transition
+    duration: 1000,
+    direction: 'in',
+    color: Color.ExcaliburBlue
+  })
+}).then(() => {
+  // Do something after the game starts
 });
