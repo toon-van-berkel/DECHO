@@ -38,7 +38,7 @@ const loadAssetPath = (assetPath: any, assetFolder: any) => {
        * \. Looks for a dot
        * [^.]+$ Get all characters that follow untill the absolute end of the text
        */
-      .replace(/\.[^]+$/, '');
+      .replace(/\.[^.]+$/, '');
 
     // Create a new ImageScourse based on the Resource.assetFolder[name]
     assetFolder[cleanPath] = new ex.ImageSource(origionalPath);
