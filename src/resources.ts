@@ -14,8 +14,8 @@ const castToAssets = (globResult: Record<string, unknown>): Record<string, strin
 
 // Define paths to asset folders within the assets folder
 const backgroundAssets = castToAssets(import.meta.glob('./assets/backgrounds/background-*.png', { eager: true, import: 'default' }));
-const characterAssets = castToAssets(import.meta.glob('./assets/backgrounds/characters-*.png', { eager: true, import: 'default' }));
-const uiElementAssets = castToAssets(import.meta.glob('./assets/backgrounds/ui-*.png', { eager: true, import: 'default' }));
+const characterAssets = castToAssets(import.meta.glob('./assets/characters/character-*.png', { eager: true, import: 'default' }));
+const uiElementAssets = castToAssets(import.meta.glob('./assets/ui/ui-*.png', { eager: true, import: 'default' }));
 
 // Set the connection between all assets and their Resource folders
 const assetConnections = [
