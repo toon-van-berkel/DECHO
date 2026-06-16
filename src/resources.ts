@@ -48,7 +48,7 @@ const loadAssetPath = (
   }
 }
 
-// Loop though all connected assets
+// Loop through all connected assets
 for (const connection of assetConnections) {
   // Load the assets based on the connected items
   loadAssetPath(connection.assets, connection.folder);
