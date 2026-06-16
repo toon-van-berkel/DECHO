@@ -21,7 +21,7 @@ const assetConnections = [
 
 // Load the asset path dynamically using its path and folder
 const loadAssetPath = (
-  assetPath: Record<string, string>,
+  assetPath: Record<string, any>,
   assetFolder: Record<string, ex.ImageSource>
 ) => {
   // Loop through all the assetPaths
