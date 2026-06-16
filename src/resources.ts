@@ -32,7 +32,7 @@ const loadAssetPath = (
   // Loop through all the assetPaths
   for (const path in assetPath) {
     // Define the origional path of the asset
-    const origionalPath = assetPath[path];
+    const originalPath = assetPath[path];
 
     // Define the new clean name of the asset e.g. house || city
     const cleanPath = path
@@ -49,7 +49,7 @@ const loadAssetPath = (
       .replace(/\.[^.]+$/, '');
 
     // Create a new ImageSource based on the Resource.assetFolder[name]
-    assetFolder[cleanPath] = new ex.ImageSource(origionalPath);
+    assetFolder[cleanPath] = new ex.ImageSource(originalPath);
   }
 }
 
