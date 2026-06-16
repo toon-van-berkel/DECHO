@@ -7,10 +7,15 @@ export const Resources = {
   UIElements: {} as Record<string, ex.ImageSource>,
 }
 
+// A simple helper that forced TypeScript to see the Vite glob as Record<string, string>
+const castToAssets = (globResult: Record<string, unknown>): Record<string, string> => {
+  return globResult as Record<string, string>;
+};
+
 // Define paths to asset folders within the assets folder
-const backgroundAssets = import.meta.glob('./assets/backgrounds/background-*.png', { eager: true, import: 'default' });
-const characterAssets = import.meta.glob('./assets/backgrounds/characters-*.png', { eager: true, import: 'default' });
-const uiElementAssets = import.meta.glob('./assets/backgrounds/ui-*.png', { eager: true, import: 'default' });
+const backgroundAssets = castToAssets(import.meta.glob('./assets/backgrounds/background-*.png', { eager: true, import: 'default' }));
+const characterAssets = castToAssets(import.meta.glob('./assets/backgrounds/characters-*.png', { eager: true, import: 'default' }));
+const uiElementAssets = castToAssets(import.meta.glob('./assets/backgrounds/ui-*.png', { eager: true, import: 'default' }));
 
 // Set the connection between all assets and their Resource folders
 const assetConnections = [
@@ -21,7 +26,7 @@ const assetConnections = [
 
 // Load the asset path dynamically using its path and folder
 const loadAssetPath = (
-  assetPath: Record<string, any>,
+  assetPath: Record<string, string>,
   assetFolder: Record<string, ex.ImageSource>
 ) => {
   // Loop through all the assetPaths
@@ -43,7 +48,7 @@ const loadAssetPath = (
        */
       .replace(/\.[^.]+$/, '');
 
-    // Create a new ImageScourse based on the Resource.assetFolder[name]
+    // Create a new ImageSource based on the Resource.assetFolder[name]
     assetFolder[cleanPath] = new ex.ImageSource(origionalPath);
   }
 }
@@ -59,6 +64,9 @@ const allResources = Object.values(Resources).flatMap(category => Object.values(
 
 // Exporting the Resources as an Excalibur Loader
 export const ResourceLoader = new ex.Loader(allResources);
+
+// Backwards-compatible named export used by the main.ts
+export const loader = ResourceLoader;
 
 // Setting the ResouceLoader to default export
 export default ResourceLoader;
