@@ -10,13 +10,13 @@ export const Resources = {
 // Define paths to asset folders within the assets folder
 const backgroundAssets = import.meta.glob('./assets/backgrounds/background-*.png', { eager: true, import: 'default' });
 const characterAssets = import.meta.glob('./assets/backgrounds/characters-*.png', { eager: true, import: 'default' });
-const uiElemetAssets = import.meta.glob('./assets/backgrounds/ui-*.png', { eager: true, import: 'default' });
+const uiElementAssets = import.meta.glob('./assets/backgrounds/ui-*.png', { eager: true, import: 'default' });
 
 // Set the connection between all assets and their Resource folders
 const assetConnections = [
   { assets: backgroundAssets, folder: Resources.Backgrounds },
   { assets: characterAssets, folder: Resources.Characters },
-  { assets: uiElemetAssets, folder: Resources.UIElements },
+  { assets: uiElementAssets, folder: Resources.UIElements },
 ]
 
 // Load the asset path dynamically using its path and folder
