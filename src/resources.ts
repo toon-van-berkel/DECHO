@@ -20,11 +20,14 @@ const assetConnections = [
 ]
 
 // Load the asset path dynamically using its path and folder
-const loadAssetPath = (assetPath: any, assetFolder: any) => {
+const loadAssetPath = (
+  assetPath: Record<string, string>,
+  assetFolder: Record<string, ex.ImageSource>
+) => {
   // Loop through all the assetPaths
   for (const path in assetPath) {
     // Define the origional path of the asset
-    const origionalPath = assetPath[path] as string;
+    const origionalPath = assetPath[path];
 
     // Define the new clean name of the asset e.g. house || city
     const cleanPath = path
