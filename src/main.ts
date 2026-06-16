@@ -1,10 +1,11 @@
 import { Color, DisplayMode, Engine, FadeInOut } from "excalibur";
 import { loader } from "./resources";
+import { StartScene } from './scenes';
 import { MyLevel } from "./level";
 
 // Goal is to keep main.ts small and just enough to configure the engine
 
-export class Game extends Engine{
+export class Game extends Engine {
   constructor() {
     super({
       width: 800, // Logical width and height in game pixels
@@ -12,7 +13,7 @@ export class Game extends Engine{
       displayMode: DisplayMode.FitScreenAndFill, // Display mode tells excalibur how to fill the window
       pixelArt: true, // pixelArt will turn on the correct settings to render pixel art without jaggies or shimmering artifacts
       scenes: {
-        sceneStart: SceneStart,
+        sceneStart: StartScene,
 
       },
       maxFps: 60,
@@ -21,8 +22,8 @@ export class Game extends Engine{
   }
 
   public async start() {
-    return super.start(ResourceLoader).then(() => {
-      this.goToScene('');
+    return super.start(loader).then(() => {
+      this.goToScene('sceneStart');
     })
   }
 
