@@ -68,7 +68,7 @@ const allResources = Object.values(Resources).flatMap((category) => {
 // Exporting the Resources as an Excalibur Loader
 export const ResourceLoader = new ex.Loader(allResources);
 
-// Backwards-compatible named export used by the main.tsIt 
+// Backwards-compatible named export used by the main.ts 
 export const loader = ResourceLoader;
 
 // Setting the ResourceLoader to default export
