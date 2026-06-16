@@ -50,3 +50,12 @@ for (const connection of assetConnections) {
   // Load the assets based on the connected items
   loadAssetPath(connection.assets, connection.folder);
 }
+
+// Turning all Resources into a single flat map
+const allResources = Object.values(Resources).flatMap(category => Object.values(category));
+
+// Exporting the Resources as an Excalibur Loader
+export const ResourceLoader = new ex.Loader(allResources);
+
+// Setting the ResouceLoader to default export
+export default ResourceLoader;
