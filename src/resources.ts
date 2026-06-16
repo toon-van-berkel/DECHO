@@ -1,14 +1,67 @@
-import { ImageSource, Loader } from "excalibur";
+import * as ex from 'excalibur';
 
-// It is convenient to put your resources in one place
+// Define Resource folders
 export const Resources = {
-  Sword: new ImageSource("./images/sword.png") // Vite public/ directory serves the root images
-} as const; // the 'as const' is a neat typescript trick to get strong typing on your resources. 
-// So when you type Resources.Sword -> ImageSource
-
-// We build a loader and add all of our resources to the boot loader
-// You can build your own loader by extending DefaultLoader
-export const loader = new Loader();
-for (const res of Object.values(Resources)) {
-  loader.addResource(res);
+  Backgrounds: {} as Record<string, ex.ImageSource>,
+  Characters: {} as Record<string, ex.ImageSource>,
+  UIElements: {} as Record<string, ex.ImageSource>,
 }
+
+// Define paths to asset folders within the assets folder
+const backgroundAssets = import.meta.glob<string>('./assets/backgrounds/background-*.png', { eager: true, import: 'default' });
+const characterAssets = import.meta.glob<string>('./assets/characters/character-*.png', { eager: true, import: 'default' });
+const uiElementAssets = import.meta.glob<string>('./assets/ui/ui-*.png', { eager: true, import: 'default' });
+
+// Set the connection between all assets and their Resource folders
+const assetConnections = [
+  { assets: backgroundAssets, folder: Resources.Backgrounds },
+  { assets: characterAssets, folder: Resources.Characters },
+  { assets: uiElementAssets, folder: Resources.UIElements },
+]
+
+// Load the asset path dynamically using its path and folder
+const loadAssetPath = (
+  assetPath: Record<string, string>,
+  assetFolder: Record<string, ex.ImageSource>
+) => {
+  // Loop through all the assetPaths
+  for (const [path, originalPath] of Object.entries(assetPath)) {
+    // Define the new clean name of the asset e.g. house || city
+    const cleanPath = path
+      /** 
+       * RegEx / ... / look for text
+      * ^ Absolute start of the text which e.g. b in background
+      * .* Select all the text until -
+      */
+      .replace(/^.*-/, '')
+      /**
+       * \. Looks for a dot
+       * [^.]+$ Get all characters that follow until the absolute end of the text
+       */
+      .replace(/\.[^.]+$/, '');
+
+    // Create a new ImageSource based on the Resource.assetFolder[name]
+    assetFolder[cleanPath] = new ex.ImageSource(originalPath);
+  }
+}
+
+// Loop through all connected assets
+for (const connection of assetConnections) {
+  // Load the assets based on the connected items
+  loadAssetPath(connection.assets, connection.folder);
+}
+
+// Turning all Resources into a single flat map
+const allResources = Object.values(Resources).flatMap((category) => {
+  // Made this into a readable return for debugging in the future
+  return Object.values(category as Record<string, ex.ImageSource>);
+});
+
+// Exporting the Resources as an Excalibur Loader
+export const ResourceLoader = new ex.Loader(allResources);
+
+// Backwards-compatible named export used by the main.ts 
+export const loader = ResourceLoader;
+
+// Setting the ResourceLoader to default export
+export default ResourceLoader;
