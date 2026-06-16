@@ -25,10 +25,7 @@ const loadAssetPath = (
   assetFolder: Record<string, ex.ImageSource>
 ) => {
   // Loop through all the assetPaths
-  for (const path in assetPath) {
-    // Define the original path of the asset
-    const originalPath = assetPath[path];
-
+  for (const [path, originalPath] of Object.entries(assetPath)) {
     // Define the new clean name of the asset e.g. house || city
     const cleanPath = path
       /** 
