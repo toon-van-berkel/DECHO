@@ -39,12 +39,12 @@ const loadAssetPath = (
       /** 
        * RegEx / ... / look for text
       * ^ Absolute start of the text which e.g. b in background
-      * .* Select all the text untill -
+      * .* Select all the text until -
       */
       .replace(/^.*-/, '')
       /**
        * \. Looks for a dot
-       * [^.]+$ Get all characters that follow untill the absolute end of the text
+       * [^.]+$ Get all characters that follow until the absolute end of the text
        */
       .replace(/\.[^.]+$/, '');
 
