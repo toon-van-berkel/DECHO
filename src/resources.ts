@@ -68,5 +68,5 @@ export const ResourceLoader = new ex.Loader(allResources);
 // Backwards-compatible named export used by the main.ts
 export const loader = ResourceLoader;
 
-// Setting the ResouceLoader to default export
+// Setting the ResourceLoader to default export
 export default ResourceLoader;
