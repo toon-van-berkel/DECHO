@@ -26,7 +26,7 @@ const loadAssetPath = (
 ) => {
   // Loop through all the assetPaths
   for (const path in assetPath) {
-    // Define the origional path of the asset
+    // Define the original path of the asset
     const originalPath = assetPath[path];
 
     // Define the new clean name of the asset e.g. house || city
