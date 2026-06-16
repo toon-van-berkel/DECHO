@@ -7,15 +7,10 @@ export const Resources = {
   UIElements: {} as Record<string, ex.ImageSource>,
 }
 
-// A simple helper that forced TypeScript to see the Vite glob as Record<string, string>
-const castToAssets = (globResult: Record<string, unknown>): Record<string, string> => {
-  return globResult as Record<string, string>;
-};
-
 // Define paths to asset folders within the assets folder
-const backgroundAssets = castToAssets(import.meta.glob('./assets/backgrounds/background-*.png', { eager: true, import: 'default' }));
-const characterAssets = castToAssets(import.meta.glob('./assets/characters/character-*.png', { eager: true, import: 'default' }));
-const uiElementAssets = castToAssets(import.meta.glob('./assets/ui/ui-*.png', { eager: true, import: 'default' }));
+const backgroundAssets = import.meta.glob<string>('./assets/backgrounds/background-*.png', { eager: true, import: 'default' });
+const characterAssets = import.meta.glob<string>('./assets/characters/character-*.png', { eager: true, import: 'default' });
+const uiElementAssets = import.meta.glob<string>('./assets/ui/ui-*.png', { eager: true, import: 'default' });
 
 // Set the connection between all assets and their Resource folders
 const assetConnections = [
