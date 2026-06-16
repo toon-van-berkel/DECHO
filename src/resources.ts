@@ -60,12 +60,15 @@ for (const connection of assetConnections) {
 }
 
 // Turning all Resources into a single flat map
-const allResources = Object.values(Resources).flatMap(category => Object.values(category));
+const allResources = Object.values(Resources).flatMap((category) => {
+  // Made this into a readable return for debugging in the future
+  return Object.values(category as Record<string, ex.ImageSource>);
+});
 
 // Exporting the Resources as an Excalibur Loader
 export const ResourceLoader = new ex.Loader(allResources);
 
-// Backwards-compatible named export used by the main.ts
+// Backwards-compatible named export used by the main.tsIt 
 export const loader = ResourceLoader;
 
 // Setting the ResourceLoader to default export
