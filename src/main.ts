@@ -1,6 +1,6 @@
 import * as ex from 'excalibur';
 import { loader } from "./resources";
-import { StartScene } from './scenes';
+import { MainMenu } from './scenes';
 
 // Goal is to keep main.ts small and just enough to configure the engine
 
@@ -12,7 +12,7 @@ export class Game extends ex.Engine {
       displayMode: ex.DisplayMode.FitScreenAndFill, // Display mode tells excalibur how to fill the window
       pixelArt: true, // pixelArt will turn on the correct settings to render pixel art without jaggies or shimmering artifacts
       scenes: {
-        sceneStart: StartScene,
+        mainMenu: MainMenu,
 
       },
       maxFps: 60,

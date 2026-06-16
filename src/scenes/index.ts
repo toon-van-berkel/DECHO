@@ -1,1 +1,1 @@
-export * from './scene-start';
+export * from './main-menu';
