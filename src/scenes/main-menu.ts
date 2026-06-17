@@ -33,7 +33,7 @@ export class MainMenu extends ex.Scene {
         // For each of the scene buttons get the buttonData and i (index)
         sceneButtons.forEach((buttonData, i) => {
             // Calculate the y position of the UiButtons
-            let slotY = startY + (i * spacing);
+            const slotY = startY + (i * spacing);
             // Create the new UiButton based on the values
             const button = new UiButton(buttonData.text, buttonData.destination, slotY);
             // Add the new button
