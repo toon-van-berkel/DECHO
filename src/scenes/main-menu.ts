@@ -42,10 +42,3 @@ export class MainMenu extends ex.Scene {
     }
 
 }
-
-/**
- * I will delete this if all changes are accepted
- * Start | Continue button, Load Game,Settings
- * Create start button to start the game with (load next scene dynamically)
- * Add logic for saved player data in the localStorage => If playerData then Start becomes Continue
-**/ 
