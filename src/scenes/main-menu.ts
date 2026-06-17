@@ -15,6 +15,13 @@ export class MainMenu extends ex.Scene {
     onInitialize(engine: ex.Engine): void {
         // Once this scene activates decide if there is playerData stored in the localStorage
         const playerData = localStorage.getItem('playerData');
+        // Label to define the games current version, may later be changed
+        const gameVersion = new ex.Label({
+            text: "Game ver: 0.0.01",
+            pos: ex.vec(10, 10),
+        });
+
+
         // Set the startButtonText based on if there is existing playerData
         this.startButtonText = playerData ? 'Continue' : 'Start Game';
 
@@ -39,6 +46,8 @@ export class MainMenu extends ex.Scene {
             // Add the new button
             this.add(button);
         });
+        // Add the game version label
+        this.add(gameVersion);
     }
 
 }
