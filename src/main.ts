@@ -22,7 +22,7 @@ export class Game extends ex.Engine {
 
   public async start() {
     return super.start(loader).then(() => {
-      this.goToScene('sceneStart');
+      this.goToScene('mainMenu');
     })
   }
 };
