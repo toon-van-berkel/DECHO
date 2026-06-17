@@ -1,11 +1,9 @@
-import * as ex from 'excalibur';
-
 export interface Button {
     text: string,
-    ariaLabel?: string
     destination: string,
+    ariaLabel?: string,
 }
 
 export interface DialogButton extends Button{
-    onClick: void,
+    onClick: () => void,
 }

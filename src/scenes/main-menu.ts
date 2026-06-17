@@ -11,12 +11,12 @@ export class MainMenu extends ex.Scene {
         // Initiate the startButtonText and set it to an empty string
         this.startButtonText = '';
     }
-    // OnActivate scince the state of the startButtonText depends on playerData being present or not
-    onActivate(context: ex.SceneActivationContext<unknown, undefined>): void {
+    // onInitialize to create the buttons only once on starting -- fixed
+    onInitialize(engine: ex.Engine): void {
         // Once this scene activates decide if there is playerData stored in the localStorage
         const playerData = localStorage.getItem('playerData');
         // Set the startButtonText based on if there is existing playerData
-        this.startButtonText = playerData ? 'Continue' : 'Play';
+        this.startButtonText = playerData ? 'Continue' : 'Start Game';
 
         // From this point on, I am experimenting with ways to get the best dynamic results for the buttons
         // Create an array of Buttons
@@ -40,6 +40,7 @@ export class MainMenu extends ex.Scene {
             this.add(button);
         });
     }
+
 }
 
 /**
