@@ -1,9 +1,7 @@
 import { Color, DisplayMode, Engine, FadeInOut } from "excalibur";
 import { loader } from "./resources";
 import { MyLevel } from "./level";
-
-import { DialogManager } from "./ui/DialogueManager";
-import { Dialogue } from "./ui/Dialogue";
+import { DialogueUI } from "./ui/Dialogue";
 
 const game = new Engine({
   width: 800,
@@ -15,22 +13,6 @@ const game = new Engine({
   },
 });
 
-const dialogManager = new DialogManager("test-dialog", game);
-
-// voorbeeld data. deze roep je later aan in de npc zelf
-const testDialoog: Dialogue = {
-  npcId: "Vince",
-  canClosedEarly: true,
-  sections: [
-    { id: "1", text: "Welkom bij de game!", speakerName: "Vince" },
-    {
-      id: "2",
-      text: "Gebruik je pijltjestoetsen om te bewegen.",
-      speakerName: "Vince",
-    },
-  ],
-};
-
 game
   .start("start", {
     loader,
@@ -41,8 +23,8 @@ game
     }),
   })
   .then(() => {
-    // na start game wordt dialog getoond
-    dialogManager.showDialogue(testDialoog);
-  });
+    const dialogueUI = new DialogueUI(game);
+    game.currentScene.add(dialogueUI);
 
-export { dialogManager };
+    dialogueUI.showDialogue("Vince");
+  });

@@ -1,0 +1,34 @@
+[
+  {
+    "npcId": "Vince",
+    "canClosedEarly": true,
+    "sections": [
+      {
+        "id": "1",
+        "text": "Dit is onze game.",
+        "speakerName": "Vince"
+      },
+      {
+        "id": "2",
+        "text": "we hebben niet veel tijd",
+        "speakerName": "Vince"
+      },
+      {
+        "id": "3",
+        "text": "Ja even kijken of die het doet. komt dit nu buiten het schem of is dit nog zichtbaar want het is nu wel hele lange tekst",
+        "speakerName": "Vince"
+      }
+    ]
+  },
+  {
+    "npcId": "OudeMan",
+    "canClosedEarly": true,
+    "sections": [
+      {
+        "id": "1",
+        "text": "Yo ik ben een oude man",
+        "speakerName": "Oude Man"
+      }
+    ]
+  }
+]
