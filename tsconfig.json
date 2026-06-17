@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
+<<<<<<< setup/main-menu
     "module": "esnext",
+=======
+    "module": "ESNext",
+>>>>>>> development
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "bundler",
 
