@@ -1,0 +1,297 @@
+{
+  "locations": {
+    "map": {
+      "id": "map",
+      "name": "Nova City",
+      "background": "background-map",
+      "characters": [],
+      "startNode": "map_intro",
+      "nodes": {
+        "map_intro": {
+          "id": "map_intro",
+          "speaker": "narrator",
+          "text": "Nova City ligt onder je als een open zenuw: datastromen, vermiste burgers en gekraakte chips wijzen allemaal naar dezelfde onzichtbare hand.",
+          "nextNode": "map_signal"
+        },
+        "map_signal": {
+          "id": "map_signal",
+          "speaker": "narrator",
+          "text": "Vijf locaties reageren op je onderschepte signaal. Elke plek bewaart een ander deel van het patroon.",
+          "optionGroup": "map_routes"
+        },
+        "map_priority": {
+          "id": "map_priority",
+          "speaker": "narrator",
+          "text": "De Data Tower en The Docks leveren de sterkste verbinding op. De clinic, bar en woonblokken tonen de menselijke schade.",
+          "optionGroup": "map_routes"
+        },
+        "map_cover": {
+          "id": "map_cover",
+          "speaker": "narrator",
+          "text": "Je undercoveridentiteit houdt voorlopig stand. Eén verkeerde vraag kan de verdachte waarschuwen.",
+          "optionGroup": "map_routes"
+        }
+      }
+    },
+    "docks": {
+      "id": "docks",
+      "name": "The Docks",
+      "background": "background-docks",
+      "characters": ["rook"],
+      "startNode": "docks_intro",
+      "nodes": {
+        "docks_intro": {
+          "id": "docks_intro",
+          "speaker": "rook",
+          "text": "Slechte nacht om tussen de containers te wandelen. De kranen schreeuwen, het water is zwart en mensen verdwijnen hier zonder papierwerk.",
+          "optionGroup": "docks_questions"
+        },
+        "docks_shipments": {
+          "id": "docks_shipments",
+          "speaker": "rook",
+          "text": "Verborgen ladingen bestaan niet. Alleen containers die de administratie vergeet. De laatste droeg medische koelzegels en onderdelen voor chipbranders.",
+          "optionGroup": "docks_followup"
+        },
+        "docks_workers": {
+          "id": "docks_workers",
+          "speaker": "rook",
+          "text": "Drie lossers zijn weg. Ze openden magazijn negen en zagen iets wat niet voor daglicht bedoeld was. Daarna verdwenen hun identiteitschips uit het netwerk.",
+          "optionGroup": "docks_followup"
+        },
+        "docks_defensive": {
+          "id": "docks_defensive",
+          "speaker": "rook",
+          "text": "Rustig, rechercheur. Namen kosten meer dan dreigementen. Blijf duwen en ik vergeet zelfs dat ik je ooit gezien heb.",
+          "optionGroup": "docks_cautious"
+        },
+        "docks_buyer": {
+          "id": "docks_buyer",
+          "speaker": "rook",
+          "text": "De betaling kwam via een lege dochterfirma van de Data Tower. Maar de koerier droeg een clinic-badge. Dat is alles wat je van mij krijgt.",
+          "optionGroup": "docks_exit"
+        }
+      }
+    },
+    "tower": {
+      "id": "tower",
+      "name": "Data Tower",
+      "background": "background-tower",
+      "characters": ["mara-vex"],
+      "startNode": "tower_intro",
+      "nodes": {
+        "tower_intro": {
+          "id": "tower_intro",
+          "speaker": "mara-vex",
+          "text": "Welkom in de Data Tower. Hier bewaren we de herinneringen van de stad. U komt vast niet voor het uitzicht.",
+          "optionGroup": "tower_questions"
+        },
+        "tower_chip_data": {
+          "id": "tower_chip_data",
+          "speaker": "mara-vex",
+          "text": "Gekraakte chips zijn geen technisch probleem maar een vertrouwenscrisis. Iemand kopieert privéherinneringen voordat onze beveiliging alarm slaat.",
+          "optionGroup": "tower_followup"
+        },
+        "tower_hacker": {
+          "id": "tower_hacker",
+          "speaker": "mara-vex",
+          "text": "U noemt het een hacker. Ik noem het iemand met interne toegang. De aanvallen volgen oude onderhoudsroutes die officieel niet meer bestaan.",
+          "optionGroup": "tower_followup"
+        },
+        "tower_pressure": {
+          "id": "tower_pressure",
+          "speaker": "mara-vex",
+          "text": "Beschuldigingen zijn goedkoop. Uw dekmantel trouwens ook. Stel uw volgende vraag alsof u wilt dat ik haar beantwoord.",
+          "optionGroup": "tower_cautious"
+        },
+        "tower_connection": {
+          "id": "tower_connection",
+          "speaker": "mara-vex",
+          "text": "Een dochterfirma betaalde voor onderdelen in The Docks. De bestelling werd goedgekeurd met de sleutel van een medewerker die al zes maanden vermist is.",
+          "optionGroup": "tower_exit"
+        }
+      }
+    },
+    "clinic": {
+      "id": "clinic",
+      "name": "Cyber Clinic",
+      "background": "background-clinic",
+      "characters": [],
+      "startNode": "clinic_intro",
+      "nodes": {
+        "clinic_intro": {
+          "id": "clinic_intro",
+          "speaker": "narrator",
+          "text": "De clinic ruikt naar ontsmettingsmiddel en verbrand plastic. Patiënten vermijden je blik terwijl defecte implantaten achter matglas tikken.",
+          "optionGroup": "clinic_questions"
+        },
+        "clinic_implants": {
+          "id": "clinic_implants",
+          "speaker": "narrator",
+          "text": "Een open reparatielog toont identieke brandschade bij twaalf chips. Alle slachtoffers verloren precies zeven minuten aan herinneringen.",
+          "optionGroup": "clinic_followup"
+        },
+        "clinic_privacy": {
+          "id": "clinic_privacy",
+          "speaker": "narrator",
+          "text": "De medische dossiers zijn geraadpleegd met een verlopen Data Tower-certificaat. Iemand selecteerde patiënten met hoge toegangsniveaus.",
+          "optionGroup": "clinic_followup"
+        },
+        "clinic_courier": {
+          "id": "clinic_courier",
+          "speaker": "narrator",
+          "text": "Een nerveuze assistent beschrijft een koerier uit The Docks. Hij bracht gekoelde chiponderdelen naar een afgesloten operatiekamer.",
+          "optionGroup": "clinic_deeper"
+        },
+        "clinic_room": {
+          "id": "clinic_room",
+          "speaker": "narrator",
+          "text": "In de kamer ligt een afgebroken datanaald met hetzelfde serienummer als de illegale onderdelen uit magazijn negen.",
+          "optionGroup": "clinic_exit"
+        }
+      }
+    },
+    "bar": {
+      "id": "bar",
+      "name": "Neon Bar",
+      "background": "background-bar",
+      "characters": [],
+      "startNode": "bar_intro",
+      "nodes": {
+        "bar_intro": {
+          "id": "bar_intro",
+          "speaker": "narrator",
+          "text": "Bas dreunt door de Neon Bar. Gesprekken sterven zodra je binnenkomt en beginnen opnieuw wanneer men denkt dat je niet luistert.",
+          "optionGroup": "bar_questions"
+        },
+        "bar_rumours": {
+          "id": "bar_rumours",
+          "speaker": "narrator",
+          "text": "Een informant fluistert over een handelaar die herinneringen verkoopt als entertainment. De samples komen uit de Habitat Blocks.",
+          "optionGroup": "bar_followup"
+        },
+        "bar_hacker": {
+          "id": "bar_hacker",
+          "speaker": "narrator",
+          "text": "De hacker gebruikt geen naam, alleen een symbool: een gebroken oog. Hetzelfde teken staat op een privédeur achter de bar.",
+          "optionGroup": "bar_followup"
+        },
+        "bar_pressure": {
+          "id": "bar_pressure",
+          "speaker": "narrator",
+          "text": "Je harde toon maakt de ruimte stil. De informant trekt zich terug en wijst alleen nog naar de achterdeur.",
+          "optionGroup": "bar_cautious"
+        },
+        "bar_backroom": {
+          "id": "bar_backroom",
+          "speaker": "narrator",
+          "text": "Achter de deur vind je een wegwerpmodule met patiëntcodes van de clinic en een toegangstijd voor de Data Tower.",
+          "optionGroup": "bar_exit"
+        }
+      }
+    },
+    "blocks": {
+      "id": "blocks",
+      "name": "Habitat Blocks",
+      "background": "background-blocks",
+      "characters": [],
+      "startNode": "blocks_intro",
+      "nodes": {
+        "blocks_intro": {
+          "id": "blocks_intro",
+          "speaker": "narrator",
+          "text": "In de Habitat Blocks brandt achter elk raam een ander leven. Bewoners spreken zacht; de camera's boven de liften bewegen te vaak.",
+          "optionGroup": "blocks_questions"
+        },
+        "blocks_missing": {
+          "id": "blocks_missing",
+          "speaker": "narrator",
+          "text": "Een buurvrouw noemt vier vermisten. Allen bezochten dezelfde clinic nadat hun chips vreemde dromen begonnen af te spelen.",
+          "optionGroup": "blocks_followup"
+        },
+        "blocks_surveillance": {
+          "id": "blocks_surveillance",
+          "speaker": "narrator",
+          "text": "De camerabeelden missen elke nacht exact zeven minuten. De storing wordt op afstand bevestigd door een Data Tower-account.",
+          "optionGroup": "blocks_followup"
+        },
+        "blocks_fear": {
+          "id": "blocks_fear",
+          "speaker": "narrator",
+          "text": "Wanneer je je badge toont, sluiten deuren. Een kind schuift wel een opslagchip onder de drempel door.",
+          "optionGroup": "blocks_deeper"
+        },
+        "blocks_chip": {
+          "id": "blocks_chip",
+          "speaker": "narrator",
+          "text": "De opslagchip bevat een opname van een bestelwagen uit The Docks. Op de zijkant staat het gebroken oog uit de Neon Bar.",
+          "optionGroup": "blocks_exit"
+        }
+      }
+    },
+    "black-market": {
+      "id": "black-market",
+      "name": "Black Market",
+      "background": "background-bar",
+      "characters": [],
+      "startNode": "market_intro",
+      "nodes": {
+        "market_intro": {
+          "id": "market_intro",
+          "speaker": "narrator",
+          "text": "Onder de Neon Bar wisselen verboden implantaten, gestolen identiteiten en verpakte herinneringen van eigenaar.",
+          "optionGroup": "market_questions"
+        },
+        "market_chips": {
+          "id": "market_chips",
+          "speaker": "narrator",
+          "text": "Een verkoper biedt chips aan met medische serienummers. De beveiligingszegels komen uit de Cyber Clinic.",
+          "optionGroup": "market_followup"
+        },
+        "market_buyer": {
+          "id": "market_buyer",
+          "speaker": "narrator",
+          "text": "De grootste koper betaalt via een Data Tower-dochterbedrijf en laat alles ophalen bij magazijn negen.",
+          "optionGroup": "market_followup"
+        },
+        "market_pressure": {
+          "id": "market_pressure",
+          "speaker": "narrator",
+          "text": "Je vragen trekken bewakers aan. De verkoper zwijgt, maar laat tijdens zijn vlucht een toegangstoken vallen.",
+          "optionGroup": "market_deeper"
+        },
+        "market_token": {
+          "id": "market_token",
+          "speaker": "narrator",
+          "text": "Het token opent een onderhoudsroute tussen de Data Tower, de clinic en de oude tunnels onder de Habitat Blocks.",
+          "optionGroup": "market_exit"
+        }
+      }
+    }
+  },
+  "characters": {
+    "narrator": {
+      "id": "narrator",
+      "name": "Observatie",
+      "location": "map",
+      "sprite": null,
+      "position": "center",
+      "description": "The detective's observations and environmental narration."
+    },
+    "rook": {
+      "id": "rook",
+      "name": "Rook",
+      "location": "docks",
+      "sprite": "character-rook",
+      "position": "right",
+      "description": "A fast-talking container smuggler who knows the hidden routes through The Docks."
+    },
+    "mara-vex": {
+      "id": "mara-vex",
+      "name": "Mara Vex",
+      "location": "tower",
+      "sprite": "character-mara-vex",
+      "position": "left",
+      "description": "A composed Data Tower executive who treats information as leverage."
+    }
+  }
+}

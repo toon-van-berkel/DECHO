@@ -1,33 +1,27 @@
-import * as ex from 'excalibur';
-import { loader } from "./resources";
-import { MainMenu } from './scenes';
+import { Color, DisplayMode, Engine, FadeInOut } from 'excalibur';
+import { loader } from './core/resources';
+import { GAME_WIDTH, GAME_HEIGHT } from './core/config';
+import { MapScene } from './scenes/map/map-scene';
+import { LocationScene } from './scenes/location/location-scene';
 
-// Goal is to keep main.ts small and just enough to configure the engine
+const game = new Engine({
+  width: GAME_WIDTH,
+  height: GAME_HEIGHT,
+  displayMode: DisplayMode.FitScreenAndZoom,
+  // The map uses smooth text and glow effects rather than pixel-art rendering.
+  pixelArt: false,
+  antialiasing: true,
+  scenes: {
+    map: MapScene,
+    location: LocationScene,
+  },
+});
 
-export class Game extends ex.Engine {
-  constructor() {
-    super({
-      width: 800, // Logical width and height in game pixels
-      height: 600,
-      displayMode: ex.DisplayMode.FitScreenAndFill, // Display mode tells excalibur how to fill the window
-      pixelArt: true, // pixelArt will turn on the correct settings to render pixel art without jaggies or shimmering artifacts
-      scenes: {
-        mainMenu: MainMenu,
-
-      },
-      maxFps: 60,
-      suppressPlayButton: true,
-    });
-  }
-
-  // Public async start function to handle the loading of the game
-  public async start(): Promise<void> {
-    // Execute the super.start with custom loader and move to the mainMenu scene
-    await super.start(loader);
-    this.goToScene('mainMenu');
-  }
-};
-
-// Initiate the game
-const game = new Game();
-game.start();
+void game.start('map', {
+  loader,
+  inTransition: new FadeInOut({
+    duration: 1000,
+    direction: 'in',
+    color: Color.ExcaliburBlue,
+  }),
+});
