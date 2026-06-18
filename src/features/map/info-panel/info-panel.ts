@@ -16,8 +16,10 @@ export class InfoPanel extends ScreenElement {
   private readonly card = new InfoCard();
   private readonly travelButton: PanelButton;
   private readonly closeButton: PanelButton;
+  private readonly shopButton: PanelButton;
+  private showShopButton = false;
 
-  constructor() {
+  constructor(private readonly onShop?: (config: CheckpointConfig) => void) {
     super({ x: 0, y: 0, width: GAME_WIDTH, height: GAME_HEIGHT, z: 100 });
 
     const buttonY =
@@ -47,9 +49,20 @@ export class InfoPanel extends ScreenElement {
       onClick: () => this.hide(),
     });
 
+    this.shopButton = new PanelButton({
+      x: INFO_CARD_X + INFO_PANEL_LAYOUT.card.padding + INFO_PANEL_LAYOUT.travelButton.width + 16,
+      y: buttonY,
+      width: 140,
+      height: INFO_PANEL_LAYOUT.travelButton.height,
+      text: 'SHOP',
+      variant: 'primary',
+      onClick: () => this.openShop(),
+    });
+
     this.addChild(this.card);
     this.addChild(this.travelButton);
     this.addChild(this.closeButton);
+    this.addChild(this.shopButton);
   }
 
   override onInitialize(engine: Engine): void {
@@ -71,8 +84,10 @@ export class InfoPanel extends ScreenElement {
   show(config: CheckpointConfig): void {
     const accentHex = themeColorHex(config.theme);
     this.config = config;
+    this.showShopButton = config.opensShop === true && this.onShop !== undefined;
     this.card.setContent(config, accentHex);
     this.travelButton.setAccent(accentHex);
+    this.shopButton.setAccent(accentHex);
     this.setOpen(true);
   }
 
@@ -82,14 +97,17 @@ export class InfoPanel extends ScreenElement {
   }
 
   private setOpen(open: boolean): void {
+    const shopVisible = open && this.showShopButton;
     this.graphics.isVisible = open;
     this.card.graphics.isVisible = open;
     this.travelButton.graphics.isVisible = open;
     this.closeButton.graphics.isVisible = open;
+    this.shopButton.graphics.isVisible = shopVisible;
     this.pointer.useColliderShape = open;
     this.pointer.useGraphicsBounds = open;
     this.travelButton.setEnabled(open);
     this.closeButton.setEnabled(open);
+    this.shopButton.setEnabled(shopVisible);
   }
 
   private travel(): void {
@@ -110,5 +128,12 @@ export class InfoPanel extends ScreenElement {
         color: Color.Black,
       }),
     });
+  }
+
+  private openShop(): void {
+    if (!this.config || !this.onShop) return;
+    const config = this.config;
+    this.hide();
+    this.onShop(config);
   }
 }

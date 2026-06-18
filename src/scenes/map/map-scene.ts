@@ -5,14 +5,20 @@ import { CHECKPOINTS } from '../../features/map/checkpoints/checkpoints.data';
 import type { CheckpointConfig } from '../../features/map/checkpoints/checkpoint-config';
 import { Checkpoint } from '../../features/map/checkpoints/checkpoint';
 import { InfoPanel } from '../../features/map/info-panel/info-panel';
+import { ShopPanel } from '../../features/map/shop/shop-panel';
+import { themeColorHex } from '../../core/theme';
 
 export class MapScene extends Scene {
   private panel!: InfoPanel;
+  private shopPanel!: ShopPanel;
 
   override onInitialize(_engine: Engine): void {
     this.add(this.buildBackground());
 
-    this.panel = new InfoPanel();
+    this.shopPanel = new ShopPanel();
+    this.add(this.shopPanel);
+
+    this.panel = new InfoPanel((config) => this.openShop(config));
     this.add(this.panel);
 
     for (const config of CHECKPOINTS) {
@@ -23,6 +29,10 @@ export class MapScene extends Scene {
 
   private openInfo(config: CheckpointConfig): void {
     this.panel.show(config);
+  }
+
+  private openShop(config: CheckpointConfig): void {
+    this.shopPanel.show(config.title, themeColorHex(config.theme));
   }
 
   private buildBackground(): Actor {

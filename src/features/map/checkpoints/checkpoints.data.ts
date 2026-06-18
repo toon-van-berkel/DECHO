@@ -63,6 +63,7 @@ export const CHECKPOINTS: CheckpointConfig[] = [
     theme: 'red',
     targetScene: 'location',
     locationId: 'black-market',
+    opensShop: true,
   },
   {
     id: 'habitat-blocks',

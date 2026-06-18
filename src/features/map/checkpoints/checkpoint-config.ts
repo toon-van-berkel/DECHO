@@ -23,4 +23,11 @@ export interface CheckpointConfig {
   targetScene: string;
   /** Dialogue location loaded after travelling from the map. */
   locationId: LocationId;
+  
+  /**
+   * When true, the info panel shows an extra "SHOP" button that opens the shop
+   * overlay. Optional; omitted means no shop button. Travel still works as
+   * usual, so this is purely additive.
+   */
+  opensShop?: boolean;
 }
