@@ -20,12 +20,14 @@ export class Game extends ex.Engine {
     });
   }
 
-  public async start() {
-    return super.start(loader).then(() => {
-      this.goToScene('sceneStart');
-    })
+  // Public async start function to handle the loading of the game
+  public async start(): Promise<void> {
+    // Execute the super.start with custom loader and move to the mainMenu scene
+    await super.start(loader);
+    this.goToScene('mainMenu');
   }
 };
 
+// Initiate the game
 const game = new Game();
 game.start();
