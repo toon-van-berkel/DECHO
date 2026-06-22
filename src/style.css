@@ -3,3 +3,17 @@
     background-color: black;
   }
 }
+
+/* Ensure the page and canvas take full space and have no default margins
+   so the game canvas can be centered by Excalibur's screen logic. */
+html, body {
+  height: 100%;
+  margin: 0;
+  background: black;
+}
+canvas {
+  display: block;
+  margin: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
