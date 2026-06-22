@@ -3,7 +3,6 @@ import { loader } from "./resources";
 import { MainMenu } from './scenes';
 
 // Goal is to keep main.ts small and just enough to configure the engine
-
 export class Game extends ex.Engine {
   constructor() {
     super({
