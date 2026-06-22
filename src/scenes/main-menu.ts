@@ -28,7 +28,7 @@ export class MainMenu extends ex.Scene {
         // From this point on, I am experimenting with ways to get the best dynamic results for the buttons
         // Create an array of Buttons
         const sceneButtons: Button[] = [
-            { text: this.startButtonText, destination: 'testScene' },
+            { text: this.startButtonText, destination: 'mainMenu' },
             { text: 'Load Game', destination: 'mainMenu' },
             { text: 'Settings', destination: 'mainMenu' },
         ];
