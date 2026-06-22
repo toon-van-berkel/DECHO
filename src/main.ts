@@ -3,6 +3,7 @@ import { loader } from './core/resources';
 import { GAME_WIDTH, GAME_HEIGHT } from './core/config';
 import { MapScene } from './scenes/map/map-scene';
 import { LocationScene } from './scenes/location/location-scene';
+import { gameState } from './core/game-state';
 
 const game = new Engine({
   width: GAME_WIDTH,
@@ -16,6 +17,11 @@ const game = new Engine({
     location: LocationScene,
   },
 });
+
+// Expose for browser-console testing (dev only): gameState.addSkill('skill-alpha')
+if (import.meta.env.DEV) {
+  (window as any).gameState = gameState;
+}
 
 void game.start('map', {
   loader,

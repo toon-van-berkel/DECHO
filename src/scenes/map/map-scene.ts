@@ -6,6 +6,7 @@ import type { CheckpointConfig } from '../../features/map/checkpoints/checkpoint
 import { Checkpoint } from '../../features/map/checkpoints/checkpoint';
 import { InfoPanel } from '../../features/map/info-panel/info-panel';
 import { ShopPanel } from '../../features/map/shop/shop-panel';
+import { SkillHud } from '../../features/map/skill-inventory/skill-hud';
 import { themeColorHex } from '../../core/theme';
 
 export class MapScene extends Scene {
@@ -20,6 +21,8 @@ export class MapScene extends Scene {
 
     this.panel = new InfoPanel((config) => this.openShop(config));
     this.add(this.panel);
+
+    this.add(new SkillHud());
 
     for (const config of CHECKPOINTS) {
       const position = vec(config.position.x * GAME_WIDTH, config.position.y * GAME_HEIGHT);
