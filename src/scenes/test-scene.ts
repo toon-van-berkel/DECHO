@@ -46,9 +46,5 @@ export class TestScene extends ex.Scene {
 
     this.add(background);
     this.add(mira);
-    // ik zorg ervoor dat het hele scherm drukbaar is
-    engine.input.pointers.primary.on("up", () => {
-      engine.goToScene("mainMenu");
-    });
   }
 }
