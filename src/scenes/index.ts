@@ -5,3 +5,5 @@ export * from './BlackMarketScene';
 export * from './CyberClinicScene';
 export * from './SkyPlatformScene';
 export * from './FinalResultScene';
+export * from './start-screen';
+export * from './test-scene';

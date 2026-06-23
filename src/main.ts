@@ -20,6 +20,7 @@ export class Game extends ex.Engine {
       pixelArt: true, // pixelArt will turn on the correct settings to render pixel art without jaggies or shimmering artifacts
       //niet meer nodig na toevoeging van Scenes
       scenes: {
+        startScreen: StartScreen,
         mainMenu: MainMenu,
         marketSquare: MarketSquareScene,
         theDocks: DocksScene,
@@ -33,11 +34,10 @@ export class Game extends ex.Engine {
     });
   }
 
-  // Public async start function to handle the loading of the game
+
   public async start(): Promise<void> {
-    // Execute the super.start with custom loader and move to the mainMenu scene
     await super.start(loader);
-    this.goToScene('mainMenu');
+    this.goToScene('startScreen');
   }
 }
 
