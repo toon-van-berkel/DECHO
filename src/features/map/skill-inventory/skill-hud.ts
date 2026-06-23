@@ -1,16 +1,14 @@
 import { Canvas, Engine, ScreenElement } from 'excalibur';
 import { GAME_WIDTH } from '../../../core/config';
-import { THEME } from '../../../core/theme';
+import { THEME, withAlpha } from '../../../core/theme';
 import { gameState } from '../../../core/game-state';
 import { PanelButton } from '../info-panel/panel-button';
 import { SKILLS } from './skill-inventory-config';
 import { SkillIcon, ICON_SIZE } from './skill-icon';
 
 // ─── Layout ─────────────────────────────────────────────────────────────────
-// One source of truth per dimension; the panel's screen position is derived
-// solely from PANEL_X / PANEL_Y, so re-anchoring the whole HUD (corner, margin)
-// is a one-line change and never drifts between the frame, the icons and the
-// test button.
+// Everything is derived from the PANEL_X / PANEL_Y origin, so re-anchoring the
+// whole HUD is a one-line change that never drifts across frame/icons/button.
 
 const MARGIN = 16; // gap from the nearest screen corner
 const PADDING = 14; // inner panel padding
@@ -97,7 +95,7 @@ class SkillPanelFrame extends ScreenElement {
 
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'left';
-    ctx.fillStyle = blinkOn ? THEME.accent.red : 'rgba(239, 68, 68, 0.25)';
+    ctx.fillStyle = blinkOn ? THEME.accent.red : withAlpha(THEME.accent.red, 0.25);
     ctx.font = `900 11px ${THEME.font.heading}`;
     ctx.fillText('⚠', PADDING, footerCy + 1);
 
@@ -140,6 +138,7 @@ export class SkillHud extends ScreenElement {
         height: 30,
         text: '+ SKILL (TEST)',
         variant: 'secondary',
+        glow: false,
         onClick: () => this.addNextSkill(),
       });
       this.addChild(this.testButton);

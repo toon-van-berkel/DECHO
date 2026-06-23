@@ -1,5 +1,5 @@
 import { Canvas, Engine, ScreenElement } from 'excalibur';
-import { THEME, hexToRgba } from '../../../core/theme';
+import { THEME, withAlpha } from '../../../core/theme';
 import { wrapCanvasText } from './dialog-helpers';
 
 interface DialogOptionButtonOptions {
@@ -57,13 +57,13 @@ export class DialogOptionButton extends ScreenElement {
     context.clearRect(0, 0, width, height);
     context.beginPath();
     context.roundRect(1, 1, width - 2, height - 2, 6);
-    context.fillStyle = this.hovered ? hexToRgba(accent, 0.24) : 'rgba(15, 23, 42, 0.82)';
+    context.fillStyle = this.hovered ? withAlpha(accent, 0.24) : withAlpha(THEME.color.bg, 0.82);
     context.fill();
-    context.strokeStyle = this.hovered ? accent : hexToRgba(accent, 0.55);
+    context.strokeStyle = this.hovered ? accent : withAlpha(accent, 0.55);
     context.lineWidth = 1.5;
     context.stroke();
 
-    context.fillStyle = this.hovered ? THEME.color.text : '#D6E1F0';
+    context.fillStyle = this.hovered ? THEME.color.text : THEME.color.softText;
     context.font = `600 ${fontSize}px ${THEME.font.label}`;
     context.textAlign = 'center';
     context.textBaseline = 'middle';

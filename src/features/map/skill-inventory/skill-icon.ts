@@ -1,5 +1,5 @@
 import { Canvas, ScreenElement } from 'excalibur';
-import { THEME, themeColorHex } from '../../../core/theme';
+import { THEME, withAlpha } from '../../../core/theme';
 import { gameState } from '../../../core/game-state';
 import type { SkillConfig, SkillShape } from './skill-inventory-config';
 
@@ -60,11 +60,9 @@ function drawShape(
 // ─── Skill Icon ───────────────────────────────────────────────────────────────
 
 /**
- * A single skill slot. Purely visual: there is no hover or per-slot tooltip —
- * the shared classified status in the HUD footer carries that meaning for all
- * slots at once. Two states:
- *   • empty     → dashed border + `?`
- *   • classified→ ghost shape under a red overlay + `▓▓`
+ * A single skill slot — purely visual, no hover or per-slot tooltip (the shared
+ * classified status in the HUD footer covers all slots). Two states: empty
+ * (dashed `?`) and classified (ghost shape under a red overlay + `▓▓`).
  */
 export class SkillIcon extends ScreenElement {
   constructor(
@@ -100,27 +98,25 @@ export class SkillIcon extends ScreenElement {
       ctx.setLineDash([]);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = 'rgba(255,255,255,0.15)';
+      ctx.fillStyle = withAlpha(THEME.color.text, 0.15);
       ctx.font = `400 16px ${THEME.font.body}`;
       ctx.fillText('?', size / 2, size / 2);
       return;
     }
 
-    // Classified state: the skill's shape sits as a ghost behind a red overlay
-    // and a semi-transparent ▓▓ glyph, so the figure stays just barely readable.
-    // Content is nudged up a couple px so shapes read as optically centred
-    // (a base-heavy triangle otherwise looks like it sinks to the bottom).
+    // Classified state: the ghost shape shows faintly behind a red overlay + ▓▓.
+    // Lift it a couple px so shapes (esp. the triangle) read as optically centred.
     const lift = 2;
 
     ctx.save();
     ctx.globalAlpha = 0.4;
     ctx.translate(0, -lift);
-    drawShape(ctx, this.config.shape, size, themeColorHex(this.config.theme));
+    drawShape(ctx, this.config.shape, size, THEME.accent[this.config.theme]);
     ctx.restore();
 
     ctx.beginPath();
     ctx.roundRect(1, 1, size - 2, size - 2, 6);
-    ctx.fillStyle = 'rgba(239, 68, 68, 0.10)';
+    ctx.fillStyle = withAlpha(THEME.accent.red, 0.1);
     ctx.fill();
 
     ctx.beginPath();

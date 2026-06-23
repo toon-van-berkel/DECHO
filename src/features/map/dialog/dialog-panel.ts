@@ -1,5 +1,5 @@
 import { Canvas, ScreenElement } from 'excalibur';
-import { THEME } from '../../../core/theme';
+import { THEME, withAlpha } from '../../../core/theme';
 import { wrapCanvasText } from './dialog-helpers';
 import type { DialogPanelLayout } from './dialog-layout';
 
@@ -46,7 +46,7 @@ export class DialogPanel extends ScreenElement {
     context.clearRect(0, 0, width, height);
     context.beginPath();
     context.roundRect(0, 0, width, height, 10);
-    context.fillStyle = 'rgba(5, 10, 24, 0.94)';
+    context.fillStyle = withAlpha(THEME.color.bg, 0.94);
     context.fill();
     context.save();
     context.beginPath();

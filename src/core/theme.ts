@@ -1,7 +1,8 @@
 /**
- * Central design tokens for the map UI. Values are plain hex/rgba strings and
- * numbers so this module has no rendering dependency and stays the single place
- * to tweak the look.
+ * Central design tokens for the map UI. Colours are plain CSS `hsl()` strings —
+ * readable at a glance and used by the canvas as-is; tweak one by editing the
+ * string. Helpers: `withAlpha` (runtime alpha) and `parseHsl` (raw components,
+ * e.g. to build an engine `Color`). Render-agnostic — no Excalibur import.
  */
 export const THEME = {
   font: {
@@ -10,20 +11,21 @@ export const THEME = {
     body: 'JetBrains Mono',
   },
   color: {
-    bg: '#0F172A',
-    text: '#FFFFFF',
-    muted: '#94A3B8',
-    panelFill: 'rgba(15, 23, 42, 0.72)',
-    border: 'rgba(255, 255, 255, 0.10)',
-    overlay: '#000000',
+    bg: 'hsl(222, 47%, 11%)',
+    text: 'hsl(0, 0%, 100%)',
+    muted: 'hsl(215, 20%, 65%)',
+    softText: 'hsl(215, 46%, 89%)',
+    panelFill: 'hsla(222, 47%, 11%, 0.72)',
+    border: 'hsla(0, 0%, 100%, 0.1)',
+    overlay: 'hsl(0, 0%, 0%)',
   },
   accent: {
-    cyan: '#22D3EE',
-    magenta: '#F472B6',
-    green: '#22C55E',
-    amber: '#F59E0B',
-    violet: '#A855F7',
-    red: '#EF4444',
+    cyan: 'hsl(188, 86%, 53%)',
+    magenta: 'hsl(329, 86%, 70%)',
+    green: 'hsl(142, 71%, 45%)',
+    amber: 'hsl(38, 92%, 50%)',
+    violet: 'hsl(271, 91%, 65%)',
+    red: 'hsl(0, 84%, 60%)',
   },
   glow: { idleBlur: 14, hoverBlur: 28, pulseMs: 2200 },
   motion: { hoverMs: 160, panelInMs: 200, panelOutMs: 140 },
@@ -31,33 +33,14 @@ export const THEME = {
 
 export type ThemeAccentKey = keyof typeof THEME.accent;
 
-export function themeColorHex(key: ThemeAccentKey): string {
-  return THEME.accent[key];
+/** Parses the numeric `h, s, l` out of an `hsl()` / `hsla()` string. */
+export function parseHsl(css: string): [number, number, number] | null {
+  const m = css.match(/(\d+),\s*(\d+)%,\s*(\d+)%/);
+  return m ? [Number(m[1]), Number(m[2]), Number(m[3])] : null;
 }
 
-/**
- * Converts a `#RRGGBB` hex color to an `rgba(...)` string with the given alpha.
- * @param hex - A 6-digit hex color, e.g. `#22D3EE`.
- * @param alpha - Opacity from 0 (transparent) to 1 (opaque).
- */
-export function hexToRgba(hex: string, alpha: number): string {
-  const h = hex.replace('#', '');
-  const r = parseInt(h.substring(0, 2), 16);
-  const g = parseInt(h.substring(2, 4), 16);
-  const b = parseInt(h.substring(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
-/**
- * Blends two `#RRGGBB` colors. `t = 0` returns `a`, `t = 1` returns `b`.
- * @param a - Start color as a 6-digit hex.
- * @param b - End color as a 6-digit hex.
- * @param t - Blend amount from 0 to 1.
- */
-export function mixHex(a: string, b: string, t: number): string {
-  const channel = (hex: string, index: number) => parseInt(hex.replace('#', '').substring(index, index + 2), 16);
-  const r = Math.round(channel(a, 0) + (channel(b, 0) - channel(a, 0)) * t);
-  const g = Math.round(channel(a, 2) + (channel(b, 2) - channel(a, 2)) * t);
-  const blue = Math.round(channel(a, 4) + (channel(b, 4) - channel(a, 4)) * t);
-  return `rgb(${r}, ${g}, ${blue})`;
+/** Returns `css` with `alpha` applied: `hsl(...)` / `hsla(...)` → `hsla(...)`. */
+export function withAlpha(css: string, alpha: number): string {
+  const p = parseHsl(css);
+  return p ? `hsla(${p[0]}, ${p[1]}%, ${p[2]}%, ${alpha})` : css;
 }

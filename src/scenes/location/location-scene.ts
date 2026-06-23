@@ -12,7 +12,7 @@ import {
   getBackgroundResource,
   getCharacterResource,
 } from '../../core/resources';
-import { THEME, themeColorHex } from '../../core/theme';
+import { THEME } from '../../core/theme';
 import {
   applyOptionEffect,
   createDialogProgress,
@@ -64,7 +64,7 @@ export class LocationScene extends Scene {
     this.clear();
     this.optionButtons = [];
     this.progress = createDialogProgress();
-    this.accent = themeColorHex(context.data?.theme ?? 'cyan');
+    this.accent = THEME.accent[context.data?.theme ?? 'cyan'];
     this.resizeSubscription?.close();
     this.updateLayout();
 

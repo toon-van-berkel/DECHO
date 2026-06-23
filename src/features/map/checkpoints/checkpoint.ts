@@ -12,8 +12,8 @@ import {
   vec,
 } from 'excalibur';
 import type { CheckpointConfig } from './checkpoint-config';
-import { hexagonPoints, lerp, clamp } from '../geometry/geometry';
-import { THEME, themeColorHex, hexToRgba } from '../../../core/theme';
+import { hexagonPoints, lerp, approach } from '../geometry/geometry';
+import { THEME, parseHsl, withAlpha } from '../../../core/theme';
 
 // The bitmap is larger than the hit area so the glow is not clipped.
 const BITMAP = 130;
@@ -22,9 +22,15 @@ const MARKER_RADIUS = 26;
 const HOVER_RADIUS_BONUS = 4;
 const CORE_RADIUS = 4;
 
+/** Builds an engine `Color` from a theme `hsl(...)` string (for `Text`). */
+function hslToColor(css: string): Color {
+  const p = parseHsl(css);
+  return p ? Color.fromHSL(p[0] / 360, p[1] / 100, p[2] / 100) : Color.White;
+}
+
 export class Checkpoint extends Actor {
   private readonly config: CheckpointConfig;
-  private readonly accentHex: string;
+  private readonly accent: string;
   private readonly onSelect: (config: CheckpointConfig) => void;
   private hoverTarget = 0;
   private hoverT = 0;
@@ -43,7 +49,7 @@ export class Checkpoint extends Actor {
       z: 10,
     });
     this.config = config;
-    this.accentHex = themeColorHex(config.theme);
+    this.accent = THEME.accent[config.theme];
     this.onSelect = onSelect;
   }
 
@@ -51,7 +57,7 @@ export class Checkpoint extends Actor {
     const marker = new Canvas({
       width: BITMAP,
       height: BITMAP,
-      cache: false,
+      cache: false, // redrawn every frame: the marker pulses continuously
       smoothing: true,
       draw: (ctx) => this.drawMarker(ctx),
     });
@@ -78,15 +84,13 @@ export class Checkpoint extends Actor {
 
   override onPreUpdate(_engine: Engine, elapsedMs: number): void {
     this.pulseMs += elapsedMs;
-    const step = elapsedMs / THEME.motion.hoverMs;
-    const delta = this.hoverTarget - this.hoverT;
-    this.hoverT = clamp(this.hoverT + Math.sign(delta) * Math.min(Math.abs(delta), step), 0, 1);
+    this.hoverT = approach(this.hoverT, this.hoverTarget, elapsedMs, THEME.motion.hoverMs);
   }
 
   private buildLabel(
     text: string,
     family: string,
-    colorHex: string,
+    cssColor: string,
     size: number,
     bold: boolean,
     offsetY: number,
@@ -105,7 +109,7 @@ export class Checkpoint extends Actor {
           size,
           unit: FontUnit.Px,
           bold,
-          color: Color.fromHex(colorHex),
+          color: hslToColor(cssColor),
           textAlign: TextAlign.Left,
           baseAlign: BaseAlign.Middle,
         }),
@@ -129,19 +133,19 @@ export class Checkpoint extends Actor {
     points.forEach((p, i) => (i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y)));
     ctx.closePath();
 
-    ctx.shadowColor = this.accentHex;
+    ctx.shadowColor = this.accent;
     ctx.shadowBlur = glow;
-    ctx.fillStyle = hexToRgba(this.accentHex, 0.18 + 0.12 * this.hoverT);
+    ctx.fillStyle = withAlpha(this.accent, 0.18 + 0.12 * this.hoverT);
     ctx.fill();
 
     ctx.lineWidth = 2.5;
-    ctx.strokeStyle = this.accentHex;
+    ctx.strokeStyle = this.accent;
     ctx.stroke();
 
     ctx.shadowBlur = 0;
     ctx.beginPath();
     ctx.arc(0, 0, CORE_RADIUS, 0, Math.PI * 2);
-    ctx.fillStyle = this.accentHex;
+    ctx.fillStyle = this.accent;
     ctx.fill();
 
     ctx.restore();

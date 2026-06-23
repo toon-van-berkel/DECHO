@@ -1,5 +1,5 @@
 import { Canvas, Engine, ScreenElement } from 'excalibur';
-import { THEME, hexToRgba, themeColorHex } from '../../../core/theme';
+import { THEME, withAlpha } from '../../../core/theme';
 import { gameState } from '../../../core/game-state';
 import { SHOP_LAYOUT } from './shop-layout';
 import type { ShopItemConfig } from './shop-items.data';
@@ -13,7 +13,7 @@ import type { ShopItemConfig } from './shop-items.data';
 export class ShopItemCard extends ScreenElement {
   private hovered = false;
   private interactive = false;
-  private readonly accentHex: string;
+  private readonly accent: string;
 
   constructor(
     private readonly item: ShopItemConfig,
@@ -27,7 +27,7 @@ export class ShopItemCard extends ScreenElement {
       height: SHOP_LAYOUT.item.height,
       z: 102,
     });
-    this.accentHex = themeColorHex(item.theme);
+    this.accent = THEME.accent[item.theme];
     this.graphics.use(
       new Canvas({
         width: SHOP_LAYOUT.item.width,
@@ -79,14 +79,14 @@ export class ShopItemCard extends ScreenElement {
 
     ctx.beginPath();
     ctx.roundRect(1, 1, width - 2, height - 2, 10);
-    ctx.fillStyle = hexToRgba(this.accentHex, dimmed ? 0.05 : 0.12 + (this.hovered ? 0.08 : 0));
+    ctx.fillStyle = withAlpha(this.accent, dimmed ? 0.05 : 0.12 + (this.hovered ? 0.08 : 0));
     ctx.fill();
     if (this.hovered && this.isBuyable()) {
-      ctx.shadowColor = this.accentHex;
+      ctx.shadowColor = this.accent;
       ctx.shadowBlur = 18;
     }
     ctx.lineWidth = 1.5;
-    ctx.strokeStyle = dimmed ? THEME.color.border : this.accentHex;
+    ctx.strokeStyle = dimmed ? THEME.color.border : this.accent;
     ctx.stroke();
     ctx.shadowBlur = 0;
 
@@ -96,14 +96,14 @@ export class ShopItemCard extends ScreenElement {
     ctx.font = `700 18px ${THEME.font.heading}`;
     ctx.fillText(this.item.name, 16, 34);
 
-    ctx.fillStyle = owned ? THEME.color.muted : this.accentHex;
+    ctx.fillStyle = owned ? THEME.color.muted : this.accent;
     ctx.font = `700 13px ${THEME.font.label}`;
     ctx.fillText(`${this.item.price} TOKENS`, 16, 58);
 
     const label = owned ? 'GEKOCHT' : affordable ? 'KOOP' : 'TE DUUR';
     ctx.textAlign = 'right';
     ctx.font = `900 13px ${THEME.font.heading}`;
-    ctx.fillStyle = owned ? THEME.accent.green : affordable ? this.accentHex : THEME.color.muted;
+    ctx.fillStyle = owned ? THEME.accent.green : affordable ? this.accent : THEME.color.muted;
     ctx.fillText(label, width - 16, height - 16);
   }
 }

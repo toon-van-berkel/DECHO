@@ -1,6 +1,6 @@
 import { Color, Engine, FadeInOut, Rectangle, ScreenElement } from 'excalibur';
 import { GAME_HEIGHT, GAME_WIDTH } from '../../../core/config';
-import { themeColorHex } from '../../../core/theme';
+import { THEME } from '../../../core/theme';
 import type { CheckpointConfig } from '../checkpoints/checkpoint-config';
 import { InfoCard } from './info-card';
 import { INFO_CARD_X, INFO_CARD_Y, INFO_PANEL_LAYOUT } from './info-panel-layouts';
@@ -82,7 +82,7 @@ export class InfoPanel extends ScreenElement {
   }
 
   show(config: CheckpointConfig): void {
-    const accentHex = themeColorHex(config.theme);
+    const accentHex = THEME.accent[config.theme];
     this.config = config;
     this.showShopButton = config.opensShop === true && this.onShop !== undefined;
     this.card.setContent(config, accentHex);

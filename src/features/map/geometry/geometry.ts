@@ -49,3 +49,13 @@ export function lerp(a: number, b: number, t: number): number {
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
+
+/**
+ * Eases `current` toward `target` (0–1) by one frame's progress — for smooth
+ * hover/transition values. Pass the frame delta and the transition duration (ms).
+ */
+export function approach(current: number, target: number, deltaMs: number, durationMs: number): number {
+  const step = deltaMs / durationMs;
+  const delta = target - current;
+  return clamp(current + Math.sign(delta) * Math.min(Math.abs(delta), step), 0, 1);
+}

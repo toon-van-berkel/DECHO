@@ -64,6 +64,7 @@ export class ShopPanel extends ScreenElement {
       height: SHOP_LAYOUT.button.height,
       text: '+10 TOKENS (TEST)',
       variant: 'secondary',
+      glow: false,
       onClick: () => gameState.addTokens(10),
     });
     this.closeButton = new PanelButton({

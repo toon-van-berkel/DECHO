@@ -7,7 +7,7 @@ import { Checkpoint } from '../../features/map/checkpoints/checkpoint';
 import { InfoPanel } from '../../features/map/info-panel/info-panel';
 import { ShopPanel } from '../../features/map/shop/shop-panel';
 import { SkillHud } from '../../features/map/skill-inventory/skill-hud';
-import { themeColorHex } from '../../core/theme';
+import { THEME } from '../../core/theme';
 
 export class MapScene extends Scene {
   private panel!: InfoPanel;
@@ -35,7 +35,7 @@ export class MapScene extends Scene {
   }
 
   private openShop(config: CheckpointConfig): void {
-    this.shopPanel.show(config.title, themeColorHex(config.theme));
+    this.shopPanel.show(config.title, THEME.accent[config.theme]);
   }
 
   private buildBackground(): Actor {
