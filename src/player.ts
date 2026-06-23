@@ -13,7 +13,6 @@
 // // actor.actions
 // // actor.pointer
 
-
 // export class Player extends Actor {
 //   constructor() {
 //     super({
@@ -28,7 +27,7 @@
 //       // anchor: vec(0, 0), // Actors default center colliders and graphics with anchor (0.5, 0.5)
 //       // collisionType: CollisionType.Active, // Collision Type Active means this participates in collisions read more https://excaliburjs.com/docs/collisiontypes
 //     });
-    
+
 //   }
 
 //   override onInitialize() {
@@ -36,10 +35,10 @@
 //     // This runs before the first update
 //     // Useful when
 //     // 1. You need things to be loaded like Images for graphics
-//     // 2. You need excalibur to be initialized & started 
+//     // 2. You need excalibur to be initialized & started
 //     // 3. Deferring logic to run time instead of constructor time
 //     // 4. Lazy instantiation
-//     this.graphics.add(Resources.Sword.toSprite());
+//     // this.graphics.add(Resources.Sword.toSprite());
 
 //     // Actions are useful for scripting common behavior, for example patrolling enemies
 //     this.actions.delay(2000);

@@ -9,3 +9,4 @@ test/images/diff-*.png
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+.prettierrc
