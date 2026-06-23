@@ -98,12 +98,19 @@ export class QteUI extends ex.ScreenElement {
   // stap voor stap visueel updaten
   private updateDisplay() {
     this.sequenceLabel.text = this.currentSequence
-      .map((item, i) =>
-        i < this.index
-          ? ' - '
-          : i === this.index
-            ? `[${item.symbol}]`
-            : ` ${item.symbol} `,
+      .map(
+        (item, i) =>
+          i < this.index
+            ? //wanneer deze key al is geweest toon -
+              ' - '
+            : i === this.index
+              ? //huidige key die ingedrukt moet worden
+                `[${item.symbol}]`
+              : //key die nog ingedrukt moet worden
+                ` ${item.symbol} `,
+
+        // [↑] ↓ ← →
+        //  - [↑] ← →
       )
       .join('');
   }
