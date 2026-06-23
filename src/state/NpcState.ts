@@ -53,7 +53,6 @@ export const NpcState = {
     // Faal-conditie als QTE  'failed' is
     else if (npc.qteResult === 'failed') {
       npc.supportStatus = 'lost';
-      console.log(`[NpcState] NPC ${npcId} verloren.`);
     }
   },
 };

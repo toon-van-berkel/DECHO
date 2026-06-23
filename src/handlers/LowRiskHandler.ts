@@ -14,6 +14,4 @@ export const handleLowRisk = (npcData: NpcData, consequence: Consequence) => {
     },
     echoChange,
   );
-
-  console.log(`[LowRisk] ${npcData.npcId} geüpdatet. dataEcho +${echoChange}`);
 };

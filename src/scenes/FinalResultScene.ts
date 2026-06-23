@@ -44,6 +44,5 @@ export class FinalResultScene extends ex.Scene {
       }),
     });
     this.add(label);
-    console.log('HUIDIGE GAMESTATE BIJ FINISH:', JSON.stringify(GameState));
   }
 }
