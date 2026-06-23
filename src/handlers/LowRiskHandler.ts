@@ -11,8 +11,6 @@ export const handleLowRisk = (npcData: NpcData, consequence: Consequence) => {
     npcData.requiredSkill,
     {
       npcRisk: npcRisk,
-      // geen qte nodig is gelijk veilig
-      supportStatus: 'secured',
     },
     echoChange,
   );
