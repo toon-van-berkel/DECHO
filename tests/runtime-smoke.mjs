@@ -124,16 +124,27 @@ async function runSmokeTest() {
     await page.goto(gameUrl);
     await page.locator('canvas').waitFor({ state: 'visible' });
 
-    await page.mouse.click(640, 305);
+    // Main menu (fresh, no save): New Game -> slot panel -> pick empty slot 1.
+    await page.mouse.click(640, 327);
+    await page.waitForTimeout(400);
+    await page.mouse.click(640, 285);
     await waitForRenderedCanvas(page);
 
+    // Map: select a checkpoint, then Travel into the location scene.
     await page.mouse.click(640, 216);
     await page.waitForTimeout(500);
     await page.mouse.click(170, 230);
     await page.waitForTimeout(800);
 
-    await page.mouse.click(640, 638);
-    await page.waitForTimeout(800);
+    // Escape pause -> Back to Menu (autosaves and fades to the main menu).
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(300);
+    await page.mouse.click(640, 459);
+    await page.waitForTimeout(900);
+
+    // Main menu now has a save: Continue reloads it and fades back to the map.
+    await page.mouse.click(640, 294);
+    await waitForRenderedCanvas(page);
 
     assertNoBlockedMessages(browserMessagesArray);
     console.log('Runtime smoke passed.');
