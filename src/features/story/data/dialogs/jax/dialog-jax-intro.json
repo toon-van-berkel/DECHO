@@ -1,0 +1,9 @@
+{
+  "id": "jax_intro",
+  "text": "Information moves fast in this bar. Faster than the drinks.",
+  "options": [
+    {
+      "label": "End conversation."
+    }
+  ]
+}

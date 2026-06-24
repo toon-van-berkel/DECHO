@@ -1,0 +1,9 @@
+{
+  "id": "mira_intro",
+  "text": "You should not be this high in the tower without clearance.",
+  "options": [
+    {
+      "label": "End conversation."
+    }
+  ]
+}

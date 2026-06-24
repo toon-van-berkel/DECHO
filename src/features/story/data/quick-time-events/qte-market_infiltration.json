@@ -1,0 +1,27 @@
+{
+  "id": "market_infiltration",
+  "type": "infiltration",
+  "title": "Market Infiltration",
+  "description": "You try to sneak past the guards near the black market entrance.",
+  "successText": "You slip past unnoticed.",
+  "failText": "A guard spots you and warns the market.",
+  "successEffects": [
+    {
+      "type": "setFlag",
+      "key": "entered_black_market_silent",
+      "value": true
+    }
+  ],
+  "failEffects": [
+    {
+      "type": "setFlag",
+      "key": "black_market_alerted",
+      "value": true
+    },
+    {
+      "type": "changeTrust",
+      "npcId": "kael",
+      "amount": -10
+    }
+  ]
+}

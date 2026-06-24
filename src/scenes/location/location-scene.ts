@@ -1,75 +1,42 @@
-import {
-  Actor,
-  Color,
-  Engine,
-  FadeInOut,
-  Scene,
-  ScreenElement,
-  vec,
-} from 'excalibur';
-import type { SceneActivationContext, Subscription } from 'excalibur';
-import {
-  getBackgroundResource,
-  getCharacterResource,
-} from '../../core/resources';
-import { THEME, themeColorHex } from '../../core/theme';
-import {
-  applyOptionEffect,
-  createDialogProgress,
-} from '../../features/map/dialog/dialog-helpers';
-import {
-  getCharacter,
-  getDialogNode,
-  getLocation,
-  getOptionGroup,
-} from '../../features/map/dialog/dialog-loader';
-import { DialogOptionButton } from '../../features/map/dialog/dialog-option-button';
-import {
-  DialogPanel,
-} from '../../features/map/dialog/dialog-panel';
-import {
-  getCharacterLayout,
-  getCoverScale,
-  getOptionButtonLayout,
-  getVisualNovelLayout,
-} from '../../features/map/dialog/dialog-layout';
-import type {
-  LayoutBounds,
-  VisualNovelLayout,
-} from '../../features/map/dialog/dialog-layout';
-import type {
-  CharacterDialogData,
-  DialogNode,
-  LocationDialogData,
-  LocationSceneActivationData,
-  PlayerOption,
-} from '../../features/map/dialog/dialog-types';
+import * as excalibur from 'excalibur';
+import * as resources from '../../core/resources';
+import * as dialogHelpers from '../../features/map/dialog/dialog-helpers';
+import * as dialogLoader from '../../features/map/dialog/dialog-loader';
+import * as dialogLayout from '../../features/map/dialog/dialog-layout';
+import * as theme from '../../core/theme';
 
-export class LocationScene extends Scene {
-  private gameEngine!: Engine;
-  private location: LocationDialogData | null = null;
+import type * as typeexcalibur from 'excalibur';
+import type * as typeDialog from '../../features/map/dialog/dialog-types';
+import type * as typeDialogLayout from '../../features/map/dialog/dialog-layout';
+
+import { DialogOptionButton } from '../../features/map/dialog/dialog-option-button';
+import { DialogPanel } from '../../features/map/dialog/dialog-panel';
+
+export class LocationScene extends excalibur.Scene {
+  private gameEngine!: excalibur.Engine;
+  private location: typeDialog.LocationDialogData | null = null;
   private panel!: DialogPanel;
   private optionButtons: DialogOptionButton[] = [];
-  private accent: string = THEME.accent.cyan;
-  private progress = createDialogProgress();
+  private accent: string = theme.THEME.accent.cyan;
+  private progress = dialogHelpers.createDialogProgress();
   private currentNodeId = '';
-  private layout!: VisualNovelLayout;
-  private resizeSubscription?: Subscription;
+  private layout!: typeDialogLayout.VisualNovelLayout;
+  private resizeSubscription?: typeexcalibur.Subscription;
 
   override onActivate(
-    context: SceneActivationContext<LocationSceneActivationData>,
+    context: typeexcalibur.SceneActivationContext<typeDialog.LocationSceneActivationData>,
   ): void {
     this.gameEngine = context.engine;
     this.gameEngine.canvas.style.cursor = 'default';
     this.clear();
     this.optionButtons = [];
-    this.progress = createDialogProgress();
-    this.accent = themeColorHex(context.data?.theme ?? 'cyan');
+    this.progress = dialogHelpers.createDialogProgress();
+    this.accent = theme.themeColorHex(context.data?.theme ?? 'cyan');
     this.resizeSubscription?.close();
     this.updateLayout();
 
     const locationId = context.data?.locationId ?? 'map';
-    this.location = getLocation(locationId) ?? null;
+    this.location = dialogLoader.getLocation(locationId) ?? null;
     this.currentNodeId = this.location?.startNode ?? '';
     this.renderLocation(locationId);
     this.resizeSubscription = this.gameEngine.screen.events.on('resize', () => {
@@ -86,13 +53,13 @@ export class LocationScene extends Scene {
   private updateLayout(): void {
     const resolution = this.gameEngine.screen.resolution;
     const contentArea = this.gameEngine.screen.contentArea;
-    const safeArea: LayoutBounds = {
+    const safeArea: typeDialogLayout.LayoutBounds = {
       x: contentArea.left,
       y: contentArea.top,
       width: contentArea.width,
       height: contentArea.height,
     };
-    this.layout = getVisualNovelLayout(
+    this.layout = dialogLayout.getVisualNovelLayout(
       resolution.width,
       resolution.height,
       {
@@ -118,11 +85,11 @@ export class LocationScene extends Scene {
 
     this.add(this.buildBackground(this.location.background));
     for (const characterId of this.location.characters) {
-      const character = getCharacter(characterId);
+      const character = dialogLoader.getCharacter(characterId);
       if (character?.sprite) {
-        const actor = this.buildCharacter(character);
-        if (actor) {
-          this.add(actor);
+        const Actor = this.buildCharacter(character);
+        if (Actor) {
+          this.add(Actor);
         }
       }
     }
@@ -138,18 +105,18 @@ export class LocationScene extends Scene {
       return;
     }
 
-    const node = getDialogNode(this.location, nodeId);
+    const node = dialogLoader.getDialogNode(this.location, nodeId);
     if (!node) {
       this.showFallback(`Dialoogknooppunt "${nodeId}" ontbreekt.`);
       return;
     }
 
     this.currentNodeId = nodeId;
-    const speaker = getCharacter(node.speaker)?.name ?? 'Systeem';
+    const speaker = dialogLoader.getCharacter(node.speaker)?.name ?? 'Systeem';
     this.panel.setContent(speaker, node.text, this.accent);
 
     if (node.optionGroup) {
-      const options = getOptionGroup(node.optionGroup);
+      const options = dialogLoader.getOptionGroup(node.optionGroup);
       if (!options) {
         this.showFallback(`Optiegroep "${node.optionGroup}" ontbreekt.`);
         return;
@@ -161,7 +128,7 @@ export class LocationScene extends Scene {
     this.setOptions([this.createProgressOption(node)]);
   }
 
-  private createProgressOption(node: DialogNode): PlayerOption {
+  private createProgressOption(node: typeDialog.DialogNode): typeDialog.PlayerOption {
     if (node.action === 'returnToMap' || !node.nextNode) {
       return {
         id: `${node.id}-return`,
@@ -178,11 +145,11 @@ export class LocationScene extends Scene {
     };
   }
 
-  private setOptions(options: PlayerOption[]): void {
+  private setOptions(options: typeDialog.PlayerOption[]): void {
     for (const button of this.optionButtons) {
       this.remove(button);
     }
-    const buttonLayout = getOptionButtonLayout(this.layout, options.length);
+    const buttonLayout = dialogLayout.getOptionButtonLayout(this.layout, options.length);
     this.optionButtons = options.map((option, index) => {
       const button = new DialogOptionButton({
         x: buttonLayout.x,
@@ -199,8 +166,8 @@ export class LocationScene extends Scene {
     });
   }
 
-  private selectOption(option: PlayerOption): void {
-    applyOptionEffect(this.progress, option.effects);
+  private selectOption(option: typeDialog.PlayerOption): void {
+    dialogHelpers.applyOptionEffect(this.progress, option.effects);
 
     if (option.action === 'returnToMap') {
       this.returnToMap();
@@ -216,8 +183,8 @@ export class LocationScene extends Scene {
   }
 
   private showFallback(message: string): void {
-    this.panel.setContent('Systeem', message, THEME.accent.red);
-    this.accent = THEME.accent.red;
+    this.panel.setContent('Systeem', message, theme.THEME.accent.red);
+    this.accent = theme.THEME.accent.red;
     this.setOptions([
       {
         id: 'fallback-return',
@@ -228,12 +195,12 @@ export class LocationScene extends Scene {
     ]);
   }
 
-  private buildBackground(resourceKey: string): Actor {
+  private buildBackground(resourceKey: string): excalibur.Actor {
     const image =
-      getBackgroundResource(resourceKey) ??
-      getBackgroundResource('background-map');
+      resources.getBackgroundResource(resourceKey) ??
+      resources.getBackgroundResource('background-map');
     if (!image) {
-      const fallback = new ScreenElement({
+      const fallback = new excalibur.ScreenElement({
         x: 0,
         y: 0,
         width: this.layout.screen.width,
@@ -244,57 +211,57 @@ export class LocationScene extends Scene {
       return fallback;
     }
 
-    const scale = getCoverScale(
+    const scale = dialogLayout.getCoverScale(
       image.width,
       image.height,
       this.layout.screen.width,
       this.layout.screen.height,
     );
-    const background = new Actor({
-      pos: vec(
+    const background = new excalibur.Actor({
+      pos: excalibur.vec(
         this.layout.screen.width / 2,
         this.layout.screen.height / 2,
       ),
-      anchor: vec(0.5, 0.5),
+      anchor: excalibur.vec(0.5, 0.5),
       z: 0,
     });
     background.graphics.use(image.toSprite());
-    background.scale = vec(scale, scale);
+    background.scale = excalibur.vec(scale, scale);
     return background;
   }
 
-  private buildCharacter(character: CharacterDialogData): Actor | null {
+  private buildCharacter(character: typeDialog.CharacterDialogData): excalibur.Actor | null {
     if (!character.sprite) {
       return null;
     }
-    const image = getCharacterResource(character.sprite);
+    const image = resources.getCharacterResource(character.sprite);
     if (!image) {
       return null;
     }
 
-    const characterLayout = getCharacterLayout(character.position, this.layout);
+    const characterLayout = dialogLayout.getCharacterLayout(character.position, this.layout);
     const scale = characterLayout.targetHeight / image.height;
-    const actor = new Actor({
-      pos: vec(characterLayout.x, characterLayout.feetY),
-      anchor: vec(0.5, 1),
+    const Actor = new excalibur.Actor({
+      pos: excalibur.vec(characterLayout.x, characterLayout.feetY),
+      anchor: excalibur.vec(0.5, 1),
       z: 10,
     });
-    actor.graphics.use(image.toSprite());
-    actor.scale = vec(scale, scale);
-    return actor;
+    Actor.graphics.use(image.toSprite());
+    Actor.scale = excalibur.vec(scale, scale);
+    return Actor;
   }
 
   private returnToMap(): void {
     void this.gameEngine.goToScene('map', {
-      destinationIn: new FadeInOut({
+      destinationIn: new excalibur.FadeInOut({
         duration: 400,
         direction: 'in',
-        color: Color.Black,
+        color: excalibur.Color.Black,
       }),
-      sourceOut: new FadeInOut({
+      sourceOut: new excalibur.FadeInOut({
         duration: 300,
         direction: 'out',
-        color: Color.Black,
+        color: excalibur.Color.Black,
       }),
     });
   }
