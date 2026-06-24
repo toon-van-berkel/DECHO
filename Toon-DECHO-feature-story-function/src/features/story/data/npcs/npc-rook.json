@@ -1,0 +1,5 @@
+{
+  "id": "rook",
+  "name": "Rook",
+  "defaultDialogId": "rook_intro"
+}

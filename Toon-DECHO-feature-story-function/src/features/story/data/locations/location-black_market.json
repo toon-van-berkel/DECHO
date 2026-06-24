@@ -1,0 +1,8 @@
+{
+  "id": "black_market",
+  "name": "Black Market",
+  "description": "A secret market full of illegal tech, fake IDs and stolen memories.",
+  "npcIds": ["kael"],
+  "eventIds": ["market_infiltration"],
+  "connections": ["the_docks", "neon_bar"]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "dock_ambush",
+  "type": "combat",
+  "title": "Dock Ambush",
+  "description": "A man jumps towards you with a weapon in hand.",
+  "successText": "You dodge the attack and push him away.",
+  "failText": "The attacker hits you before disappearing between the containers.",
+  "successEffects": [
+    {
+      "type": "setFlag",
+      "key": "survived_dock_ambush",
+      "value": true
+    }
+  ],
+  "failEffects": [
+    {
+      "type": "setFlag",
+      "key": "failed_dock_ambush",
+      "value": true
+    },
+    {
+      "type": "changeTrust",
+      "npcId": "rook",
+      "amount": -5
+    }
+  ]
+}

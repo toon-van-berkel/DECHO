@@ -1,0 +1,9 @@
+{
+  "id": "dr_vex_intro",
+  "text": "If your chip is damaged, I can help. If your memories are damaged, that is more expensive.",
+  "options": [
+    {
+      "label": "End conversation."
+    }
+  ]
+}

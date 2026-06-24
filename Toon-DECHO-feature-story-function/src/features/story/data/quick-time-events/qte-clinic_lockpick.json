@@ -1,0 +1,22 @@
+{
+  "id": "clinic_lockpick",
+  "type": "lockpick",
+  "title": "Clinic Lock",
+  "description": "The back door of the cyber clinic is locked with an old electronic lock.",
+  "successText": "The lock clicks open.",
+  "failText": "The lock sparks and triggers a silent alarm.",
+  "successEffects": [
+    {
+      "type": "setFlag",
+      "key": "unlocked_clinic_backdoor",
+      "value": true
+    }
+  ],
+  "failEffects": [
+    {
+      "type": "setFlag",
+      "key": "clinic_alarm_triggered",
+      "value": true
+    }
+  ]
+}

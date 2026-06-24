@@ -1,0 +1,9 @@
+{
+  "id": "elias_intro",
+  "text": "People disappear from these blocks. The city pretends not to notice.",
+  "options": [
+    {
+      "label": "End conversation."
+    }
+  ]
+}

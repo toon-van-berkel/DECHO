@@ -1,0 +1,9 @@
+{
+  "id": "rook_threatened",
+  "text": "Wrong move.",
+  "options": [
+    {
+      "label": "End conversation."
+    }
+  ]
+}

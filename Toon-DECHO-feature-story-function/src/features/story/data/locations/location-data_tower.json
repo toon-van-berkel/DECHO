@@ -1,0 +1,8 @@
+{
+  "id": "data_tower",
+  "name": "Data Tower",
+  "description": "A massive corporate tower filled with servers, cameras and locked security doors.",
+  "npcIds": ["mira"],
+  "eventIds": ["data_tower_alarm"],
+  "connections": ["neon_bar", "cyber_clinic"]
+}

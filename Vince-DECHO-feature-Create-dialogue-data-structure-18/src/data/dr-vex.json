@@ -1,0 +1,49 @@
+{
+  "npcId": "Dr. Vex",
+  "location": "Cyber Clinic",
+  "survivalStatus": "alive",
+  "dataImpactScore": 0,
+  "requiredSkill": "Data-Defragmentatie",
+  "dialogueFlow": [
+    {
+      "id": "1",
+      "speakerName": "Dr. Vex",
+      "text": "Stilzitten. Je neurale interface is een ramp. Kael heeft je behoorlijk wat 'data-residue' meegegeven met die hardware-hack van hem. Je bent een wandelende systeemfout.",
+      "type": "message"
+    },
+    {
+      "id": "2",
+      "speakerName": "Dr. Vex",
+      "text": "Ik kan die fragmentatie ongedaan maken, maar mijn kliniek is geen liefdadigheidsinstelling. Een diepe scan vereist volledige toegang tot je stream. Als ik dat doe, zie ik alles wat je onderweg hebt meegemaakt. Doe je dat, of vertrouw je liever op je eigen fragiele firewall?",
+      "type": "decision",
+      "options": [
+        {
+          "buttonText": "Ja, geef volledige toegang (DataEcho +20)",
+          "consequence": {
+            "action": "low_risk",
+            "statChange": {
+              "dataEcho": 20
+            },
+            "npcRisk": "high"
+          }
+        },
+        {
+          "buttonText": "Nee, weiger de scan (QTE risico)",
+          "consequence": {
+            "action": "high_risk",
+            "statChange": {
+              "dataEcho": 10
+            },
+            "npcRisk": "low"
+          }
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "speakerName": "Dr. Vex",
+      "text": "Daar... je bent stabiel. Voor nu. Je bent klaar voor het Sky-Platform. Elias wacht daar bij de ingang van de Toren. Hij is de enige die de laatste firewall-bypasses beheert. Probeer hem niet te irriteren; hij heeft een hekel aan incomplete data.",
+      "type": "message"
+    }
+  ]
+}
