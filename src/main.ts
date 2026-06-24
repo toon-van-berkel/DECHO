@@ -8,6 +8,7 @@ import {
   CyberClinicScene,
   SkyPlatformScene,
   FinalResultScene,
+  StartScreen
 } from './scenes';
 
 // Goal is to keep main.ts small and just enough to configure the engine

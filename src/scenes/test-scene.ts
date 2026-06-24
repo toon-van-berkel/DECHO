@@ -8,7 +8,7 @@ export class TestScene extends ex.Scene {
     const width = engine.drawWidth;
     const height = engine.drawHeight;
 
-    // ik maak een background actor
+
     const background = new ex.Actor({
       pos: ex.vec(width / 3.3, height / 2),
       anchor: ex.vec(0.5, 0.5),

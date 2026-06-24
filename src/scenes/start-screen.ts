@@ -8,7 +8,7 @@ export class StartScreen extends ex.Scene {
     const width = engine.drawWidth;
     const height = engine.drawHeight;
 
-    // ik maak een background actor 
+
     const background = new ex.Actor({
       pos: ex.vec(width / 3.3, height / 2),
       anchor: ex.vec(0.5, 0.5),
@@ -29,7 +29,7 @@ export class StartScreen extends ex.Scene {
 
     this.add(background);
 
-    // ik maak de text aan voor het startscherm
+
     const startText = new ex.Label({
       text: "Klik om te starten",
       pos: ex.vec(width / 3.3, height - 220),
@@ -43,11 +43,11 @@ export class StartScreen extends ex.Scene {
       }),
     });
 
-    // ik voeg de text toe
+
     this.add(startText);
 
-    // ik zorg ervoor dat het hele scherm drukbaar is
-    engine.input.pointers.primary.on("up", () => {
+
+    engine.input.pointers.primary.once("up", () => {
       engine.goToScene("mainMenu");
     });
   }
