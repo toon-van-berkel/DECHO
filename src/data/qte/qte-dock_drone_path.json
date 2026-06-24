@@ -1,0 +1,9 @@
+{
+  "id": "qte-dock_drone_path",
+  "title": "Drone Path",
+  "prompt": "Move between the scanner sweeps.",
+  "successText": "The drones miss you.",
+  "failText": "A drone locks onto your route.",
+  "sequenceLength": 5,
+  "timeLimitMs": 4500
+}

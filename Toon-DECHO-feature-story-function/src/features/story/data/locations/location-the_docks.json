@@ -1,8 +1,0 @@
-{
-  "id": "the_docks",
-  "name": "The Docks",
-  "description": "Dark container platforms, smuggling routes and hidden chip shipments.",
-  "npcIds": ["rook"],
-  "eventIds": ["dock_ambush"],
-  "connections": ["black_market", "habitat_blocks"]
-}

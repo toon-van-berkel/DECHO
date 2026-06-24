@@ -1,7 +1,0 @@
-{
-  "id": "neon_bar",
-  "name": "Neon Bar",
-  "description": "A crowded bar where information is sold louder than drinks.",
-  "npcIds": ["jax"],
-  "connections": ["data_tower", "black_market"]
-}

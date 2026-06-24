@@ -1,0 +1,125 @@
+[
+  {
+    "id": "jax_intro",
+    "npcId": "jax",
+    "speakerName": "Jax",
+    "text": "Je loopt hier rond alsof niemand je volgt. De route naar de toren is niet moeilijk, maar wel scherp bewaakt. Ik kan je langs de eerste patrouilles krijgen.",
+    "choicesArray": [
+      {
+        "id": "jax_cooperate",
+        "label": "Laat Jax de route markeren.",
+        "action": "cooperate",
+        "nextDialogueId": "mira_intro",
+        "nextLocationId": "the_docks",
+        "dataEchoChange": 12,
+        "securedSkill": "patrol_prediction"
+      },
+      {
+        "id": "jax_force",
+        "label": "Neem de route zonder markering.",
+        "action": "force",
+        "nextDialogueId": "mira_intro",
+        "nextLocationId": "the_docks",
+        "qteId": "qte-market_square_route"
+      }
+    ]
+  },
+  {
+    "id": "mira_intro",
+    "npcId": "mira",
+    "speakerName": "Mira",
+    "text": "Jax stuurt niet zomaar iemand door. De schachten naar de markt bewegen elke paar minuten. Ik kan je timing geven, of je probeert zelf de drones te lezen.",
+    "choicesArray": [
+      {
+        "id": "mira_cooperate",
+        "label": "Volg Mira's timing.",
+        "action": "cooperate",
+        "nextDialogueId": "kael_intro",
+        "nextLocationId": "black_market",
+        "dataEchoChange": 10,
+        "securedSkill": "route_navigation"
+      },
+      {
+        "id": "mira_force",
+        "label": "Glip zelf tussen de drones door.",
+        "action": "force",
+        "nextDialogueId": "kael_intro",
+        "nextLocationId": "black_market",
+        "qteId": "qte-dock_drone_path"
+      }
+    ]
+  },
+  {
+    "id": "kael_intro",
+    "npcId": "kael",
+    "speakerName": "Kael",
+    "text": "Je zoekt iets dat niet in winkels ligt. Ik heb een sleutel die de torenhardware begrijpt. De vraag is alleen hoeveel sporen je achterlaat om hem te krijgen.",
+    "choicesArray": [
+      {
+        "id": "kael_trade",
+        "label": "Ruil onderdelen voor de sleutel.",
+        "action": "trade",
+        "nextDialogueId": "dr_vex_intro",
+        "nextLocationId": "cyber_clinic",
+        "dataEchoChange": 8,
+        "securedSkill": "hardware_hacking"
+      },
+      {
+        "id": "kael_force",
+        "label": "Patch de sleutel zelf.",
+        "action": "force",
+        "nextDialogueId": "dr_vex_intro",
+        "nextLocationId": "cyber_clinic",
+        "qteId": "qte-black_market_patch"
+      }
+    ]
+  },
+  {
+    "id": "dr_vex_intro",
+    "npcId": "dr_vex",
+    "speakerName": "Dr. Vex",
+    "text": "Je interface kraakt onder oude signalen. Ik kan het schoonmaken, maar alleen als je stil blijft zitten. Anders doe je het met trillende handen.",
+    "choicesArray": [
+      {
+        "id": "dr_vex_cooperate",
+        "label": "Laat Vex de interface stabiliseren.",
+        "action": "cooperate",
+        "nextDialogueId": "elias_intro",
+        "nextLocationId": "sky_platform",
+        "dataEchoChange": 10,
+        "securedSkill": "data_defragmentation"
+      },
+      {
+        "id": "dr_vex_force",
+        "label": "Stabiliseer de interface zelf.",
+        "action": "force",
+        "nextDialogueId": "elias_intro",
+        "nextLocationId": "sky_platform",
+        "qteId": "qte-clinic_stabilize"
+      }
+    ]
+  },
+  {
+    "id": "elias_intro",
+    "npcId": "elias",
+    "speakerName": "Elias",
+    "text": "Daar is de poort. Iedereen die je onderweg hielp, hangt nu aan jouw keuzes. Ik kan de laatste laag openen, of jij breekt hem open.",
+    "choicesArray": [
+      {
+        "id": "elias_cooperate",
+        "label": "Laat Elias de poort openen.",
+        "action": "cooperate",
+        "nextDialogueId": null,
+        "dataEchoChange": 14,
+        "securedSkill": "firewall_bypass"
+      },
+      {
+        "id": "elias_force",
+        "label": "Forceer de laatste laag.",
+        "action": "force",
+        "nextDialogueId": null,
+        "qteId": "qte-sky_platform_firewall"
+      }
+    ]
+  }
+]

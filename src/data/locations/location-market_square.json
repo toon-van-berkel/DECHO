@@ -1,0 +1,9 @@
+{
+  "id": "market_square",
+  "name": "Market Square",
+  "backgroundResourceKey": "background-map",
+  "characterResourceKeysArray": [],
+  "npcIdsArray": ["jax"],
+  "nextLocationId": "the_docks",
+  "mapTheme": "cyan"
+}

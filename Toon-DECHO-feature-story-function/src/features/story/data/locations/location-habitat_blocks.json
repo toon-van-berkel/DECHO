@@ -1,8 +1,0 @@
-{
-  "id": "habitat_blocks",
-  "name": "Habitat Blocks",
-  "description": "Overcrowded living blocks where people hide from the city's surveillance.",
-  "npcIds": ["elias"],
-  "eventIds": ["block_chase"],
-  "connections": ["the_docks", "cyber_clinic"]
-}

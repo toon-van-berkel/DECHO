@@ -1,0 +1,19 @@
+[0624/120618.647:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/121009.990:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/121529.602:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/121532.390:ERROR:gpu\command_buffer\service\shared_image\shared_image_manager.cc:253] SharedImageManager::ProduceSkia: Trying to Produce a Skia representation from a non-existent mailbox.
+[0624/121907.343:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/122206.753:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/122552.485:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/122622.024:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/122738.608:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/122836.593:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/123057.105:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/123330.879:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/123506.019:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/125948.466:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/130022.810:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/130915.619:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/130951.848:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/131111.357:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.
+[0624/131149.361:WARNING:ui\gl\angle_platform_impl.cc:52] DisplayWGL.cpp:303 (rx::DisplayWGL::initializeImpl): WGL_ARB_create_context_robustness exists but unable to create a context with robustness.

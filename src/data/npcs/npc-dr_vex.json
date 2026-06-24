@@ -1,0 +1,7 @@
+{
+  "id": "dr_vex",
+  "name": "Dr. Vex",
+  "locationId": "cyber_clinic",
+  "requiredSkill": "data_defragmentation",
+  "defaultDialogueId": "dr_vex_intro"
+}

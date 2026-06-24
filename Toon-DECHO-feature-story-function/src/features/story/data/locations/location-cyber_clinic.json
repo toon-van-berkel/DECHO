@@ -1,8 +1,0 @@
-{
-  "id": "cyber_clinic",
-  "name": "Cyber Clinic",
-  "description": "A hidden clinic where illegal chip repairs and memory extractions happen.",
-  "npcIds": ["dr_vex"],
-  "eventIds": ["clinic_lockpick"],
-  "connections": ["data_tower", "habitat_blocks"]
-}

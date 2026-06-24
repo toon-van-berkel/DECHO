@@ -1,0 +1,9 @@
+{
+  "id": "qte-market_square_route",
+  "title": "Market Route",
+  "prompt": "Slip past the patrol path.",
+  "successText": "You pass without drawing attention.",
+  "failText": "The patrol catches your movement.",
+  "sequenceLength": 4,
+  "timeLimitMs": 4000
+}

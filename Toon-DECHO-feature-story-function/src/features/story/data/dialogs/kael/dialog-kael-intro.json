@@ -1,9 +1,0 @@
-{
-  "id": "kael_intro",
-  "text": "Everything has a price here. Even silence.",
-  "options": [
-    {
-      "label": "End conversation."
-    }
-  ]
-}
