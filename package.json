@@ -8,8 +8,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "test": "npm run build && npx playwright test",
-    "test:integration-update": "npx playwright test --update-snapshots"
+    "test": "npm run build && node tests/runtime-smoke.mjs"
   },
   "repository": {},
   "keywords": [

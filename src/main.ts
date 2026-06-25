@@ -1,33 +1,40 @@
-import * as ex from 'excalibur';
-import { loader } from "./resources";
-import { MainMenu } from './scenes';
+/**
+ * Main entry point for DECHO.
+ *
+ * Main responsibility:
+ * - Starts the Excalibur engine with the merged scene shell.
+ *
+ * Made by: Richie
+ */
 
-// Goal is to keep main.ts small and just enough to configure the engine
+import * as excalibur from 'excalibur';
+import * as engineConfig from './core/engine/engine-config';
+import * as resourceLoader from './core/resources/resource-loader';
+import { LocationScene } from './scenes/location/location-scene';
+import { MainMenuScene } from './scenes/main-menu/main-menu-scene';
+import { MapScene } from './scenes/map/map-scene';
+import { QteScene } from './scenes/qte/qte-scene';
 
-export class Game extends ex.Engine {
-  constructor() {
-    super({
-      width: 800, // Logical width and height in game pixels
-      height: 600,
-      displayMode: ex.DisplayMode.FitScreenAndFill, // Display mode tells excalibur how to fill the window
-      pixelArt: true, // pixelArt will turn on the correct settings to render pixel art without jaggies or shimmering artifacts
-      scenes: {
-        mainMenu: MainMenu,
+const gameEngine = new excalibur.Engine({
+  width: engineConfig.mapRenderSize.width,
+  height: engineConfig.mapRenderSize.height,
+  displayMode: engineConfig.engineDisplayMode,
+  pixelArt: false,
+  antialiasing: true,
+  suppressPlayButton: true,
+  scenes: {
+    mainMenu: MainMenuScene,
+    map: MapScene,
+    location: LocationScene,
+    qte: QteScene,
+  },
+});
 
-      },
-      maxFps: 60,
-      suppressPlayButton: true,
-    });
-  }
+async function startGame(): Promise<void> {
+  // Excalibur 0.32 starts the clock before director initialization.
+  gameEngine.director.configureStart('mainMenu');
+  await gameEngine.director.onInitialize();
+  await gameEngine.start(resourceLoader.resourceLoader);
+}
 
-  // Public async start function to handle the loading of the game
-  public async start(): Promise<void> {
-    // Execute the super.start with custom loader and move to the mainMenu scene
-    await super.start(loader);
-    this.goToScene('mainMenu');
-  }
-};
-
-// Initiate the game
-const game = new Game();
-game.start();
+void startGame();
