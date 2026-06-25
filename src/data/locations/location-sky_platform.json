@@ -1,8 +1,8 @@
 {
   "id": "sky_platform",
   "name": "Sky Platform",
-  "backgroundResourceKey": "background-tower",
-  "characterResourceKeysArray": ["character-mara-vex"],
+  "backgroundResourceKey": "background-balconyclean",
+  "characterResourceKeysArray": ["character-elias"],
   "npcIdsArray": ["elias"],
   "nextLocationId": null,
   "mapTheme": "violet"

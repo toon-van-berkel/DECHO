@@ -75,10 +75,20 @@ export function chooseDialogueOption(
     selectedChoice.nextLocationId ?? currentDialogueView.location.id;
   const nextDialogueId = selectedChoice.nextDialogueId;
 
+  if (selectedChoice.returnToMap) {
+    saveService.autosave();
+    return storyHelpers.createStoryResponse(true, 'Returning to map.', {
+      nextScene: 'map',
+      locationId: nextLocationId,
+      dialogueId: currentDialogueView.dialogue.id,
+      qteId: selectedChoice.qteId,
+    });
+  }
+
   if (!nextDialogueId) {
     saveService.autosave();
     return storyHelpers.createStoryResponse(true, 'Story branch completed.', {
-      nextScene: selectedChoice.qteId ? 'qte' : 'map',
+      nextScene: selectedChoice.qteId ? 'qte' : 'ending',
       locationId: nextLocationId,
       dialogueId: currentDialogueView.dialogue.id,
       qteId: selectedChoice.qteId,

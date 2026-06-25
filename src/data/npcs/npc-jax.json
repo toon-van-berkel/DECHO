@@ -3,5 +3,5 @@
   "name": "Jax",
   "locationId": "market_square",
   "requiredSkill": "patrol_prediction",
-  "defaultDialogueId": "jax_intro"
+  "defaultDialogueId": "jax_1"
 }

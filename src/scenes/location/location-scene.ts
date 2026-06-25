@@ -105,6 +105,11 @@ export class LocationScene extends excalibur.Scene {
       return;
     }
 
+    if (choiceResponse.data.nextScene === 'ending') {
+      void this.engine.goToScene('ending');
+      return;
+    }
+
     this.renderCurrentDialogue();
   }
 

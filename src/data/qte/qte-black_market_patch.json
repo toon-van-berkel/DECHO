@@ -1,9 +1,9 @@
 {
   "id": "qte-black_market_patch",
-  "title": "Hardware Patch",
-  "prompt": "Patch the key before it burns out.",
-  "successText": "The key stabilizes.",
-  "failText": "The key sparks and leaves a trace.",
+  "title": "Onstabiele sleutel",
+  "prompt": "Kaels hardware begint te pulseren. Je moet de pinnen opnieuw koppelen voordat de chip zichzelf wist.",
+  "successText": "De sleutel koelt af en blijft net lang genoeg gehoorzaam.",
+  "failText": "De chip brandt een vlek in je signaal voordat hij stabiliseert.",
   "sequenceLength": 5,
   "timeLimitMs": 4500
 }
