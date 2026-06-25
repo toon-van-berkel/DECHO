@@ -10,12 +10,15 @@
 import * as excalibur from 'excalibur';
 import { drawDivider } from '../../components/ui/hud-drawing';
 import { mapRenderSize } from '../../core/engine/engine-config';
+import { fadeToScene } from '../../core/navigation/navigate';
 import { getBackgroundResource } from '../../core/resources/resource-loader';
 import { THEME, withAlpha } from '../../core/theme/theme-index';
 import { Checkpoint } from '../../features/map/checkpoint';
 import { InfoPanel } from '../../features/map/info-panel';
 import { mapCheckpointsArray } from '../../features/map/map-data';
 import type * as mapTypes from '../../features/map/map-types';
+import { PauseOverlay } from '../../features/menu/pause-overlay';
+import * as saveService from '../../features/save/save-service';
 import { ShopPanel } from '../../features/shop/shop-panel';
 import { SkillHud } from '../../features/skills/skill-hud';
 import * as storyService from '../../features/story/story-service';
@@ -23,6 +26,8 @@ import * as storyService from '../../features/story/story-service';
 export class MapScene extends excalibur.Scene {
   private infoPanel?: InfoPanel;
   private shopPanel?: ShopPanel;
+  private pauseOverlay?: PauseOverlay;
+  private isLeaving = false;
   private readonly checkpointsArray: Checkpoint[] = [];
   private selectedLocationId: string | null = null;
 
@@ -49,6 +54,28 @@ export class MapScene extends excalibur.Scene {
       this.checkpointsArray.push(checkpoint);
       this.add(checkpoint);
     });
+
+    this.pauseOverlay = new PauseOverlay(() => {
+      this.isLeaving = true;
+      saveService.autosave();
+      fadeToScene(engine, 'mainMenu');
+    });
+    this.add(this.pauseOverlay);
+  }
+
+  override onActivate(): void {
+    this.isLeaving = false;
+    this.pauseOverlay?.hide();
+  }
+
+  override onPreUpdate(engine: excalibur.Engine): void {
+    if (this.isLeaving) {
+      return;
+    }
+
+    if (engine.input.keyboard.wasPressed(excalibur.Keys.Escape)) {
+      this.pauseOverlay?.toggle();
+    }
   }
 
   private selectCheckpoint(

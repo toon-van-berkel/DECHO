@@ -2,7 +2,7 @@
  * Main menu scene for DECHO.
  *
  * Main responsibility:
- * - Shows the start, load, and settings buttons.
+ * - Shows Continue / New Game / Load Game / Settings and routes them.
  *
  * Made by: Casper
  */
@@ -11,75 +11,172 @@ import * as excalibur from 'excalibur';
 import { UiButton } from '../../components/ui/button';
 import { drawDivider } from '../../components/ui/hud-drawing';
 import { mapRenderSize } from '../../core/engine/engine-config';
+import { fadeToScene } from '../../core/navigation/navigate';
 import { THEME, withAlpha } from '../../core/theme/theme-index';
-import * as storyService from '../../features/story/story-service';
+import { SaveSlotPanel } from '../../features/menu/save-slot-panel';
+import type { SaveSlotPanelMode } from '../../features/menu/save-slot-panel';
+import { SettingsPanel } from '../../features/menu/settings-panel';
+import * as saveService from '../../features/save/save-service';
+
+const MENU_PANEL = { x: 430, y: 104, width: 420, height: 440 };
+
+const BUTTON_WIDTH = 300;
+const BUTTON_X = (mapRenderSize.width - BUTTON_WIDTH) / 2;
+const BUTTON_HEIGHT = 50;
+const BUTTON_GAP = 16;
+const BUTTON_AREA_TOP = 262;
+const BUTTON_AREA_HEIGHT = 262;
+
+type MenuButtonConfig = {
+  text: string;
+  accent: string;
+  onClick: () => void;
+};
 
 export class MainMenuScene extends excalibur.Scene {
-  override onInitialize(engine: excalibur.Engine): void {
+  private slotPanel?: SaveSlotPanel;
+  private settingsPanel?: SettingsPanel;
+  private menuButtonsArray: UiButton[] = [];
+
+  override onInitialize(): void {
     this.add(this.createMenuBackdrop());
+    this.add(this.createHeader());
 
-    const titleLabel = new excalibur.Label({
-      text: 'DECHO',
-      pos: excalibur.vec(640, 150),
-      font: new excalibur.Font({
-        family: THEME.font.heading,
-        size: 76,
-        color: excalibur.Color.White,
-        textAlign: excalibur.TextAlign.Center,
-      }),
+    this.slotPanel = new SaveSlotPanel(
+      () => this.enterGame(),
+      () => this.closePanels(),
+    );
+    this.settingsPanel = new SettingsPanel(() => this.closePanels());
+    this.add(this.slotPanel);
+    this.add(this.settingsPanel);
+  }
+
+  override onActivate(): void {
+    this.rebuildMenuButtons();
+    this.slotPanel?.close();
+    this.settingsPanel?.close();
+  }
+
+  private rebuildMenuButtons(): void {
+    this.menuButtonsArray.forEach((button) => this.remove(button));
+    this.menuButtonsArray = [];
+
+    const buttonConfigsArray = this.createButtonConfigs();
+    const buttonCount = buttonConfigsArray.length;
+    const totalHeight =
+      buttonCount * BUTTON_HEIGHT + (buttonCount - 1) * BUTTON_GAP;
+    const startY = BUTTON_AREA_TOP + (BUTTON_AREA_HEIGHT - totalHeight) / 2;
+    const stepY = BUTTON_HEIGHT + BUTTON_GAP;
+
+    buttonConfigsArray.forEach((buttonConfig, buttonIndex) => {
+      const button = new UiButton({
+        text: buttonConfig.text,
+        x: BUTTON_X,
+        y: startY + buttonIndex * stepY,
+        width: BUTTON_WIDTH,
+        height: BUTTON_HEIGHT,
+        accent: buttonConfig.accent,
+        onClick: buttonConfig.onClick,
+      });
+      this.menuButtonsArray.push(button);
+      this.add(button);
+    });
+  }
+
+  private createButtonConfigs(): MenuButtonConfig[] {
+    const buttonConfigsArray: MenuButtonConfig[] = [];
+
+    if (saveService.hasAnySave()) {
+      buttonConfigsArray.push({
+        text: 'Continue',
+        accent: THEME.accent.cyan,
+        onClick: () => {
+          if (saveService.continueActiveSlot()) {
+            this.enterGame();
+          }
+        },
+      });
+    }
+
+    buttonConfigsArray.push({
+      text: 'New Game',
+      accent: THEME.accent.violet,
+      onClick: () => this.openSlotPanel('new'),
+    });
+    buttonConfigsArray.push({
+      text: 'Load Game',
+      accent: THEME.accent.green,
+      onClick: () => this.openSlotPanel('load'),
+    });
+    buttonConfigsArray.push({
+      text: 'Settings',
+      accent: THEME.accent.amber,
+      onClick: () => this.openSettings(),
+    });
+
+    return buttonConfigsArray;
+  }
+
+  private openSlotPanel(mode: SaveSlotPanelMode): void {
+    this.setMenuButtonsEnabled(false);
+    this.settingsPanel?.close();
+    this.slotPanel?.open(mode);
+  }
+
+  private openSettings(): void {
+    this.setMenuButtonsEnabled(false);
+    this.slotPanel?.close();
+    this.settingsPanel?.open();
+  }
+
+  private closePanels(): void {
+    this.slotPanel?.close();
+    this.settingsPanel?.close();
+    // Rebuild so Continue reflects the current save state (e.g. after the
+    // player deleted the last save in the Load Game panel).
+    this.rebuildMenuButtons();
+  }
+
+  private setMenuButtonsEnabled(isEnabled: boolean): void {
+    this.menuButtonsArray.forEach((button) => button.setEnabled(isEnabled));
+  }
+
+  private enterGame(): void {
+    fadeToScene(this.engine, 'map');
+  }
+
+  private createHeader(): excalibur.ScreenElement {
+    const headerElement = new excalibur.ScreenElement({
+      x: 0,
+      y: 0,
+      width: mapRenderSize.width,
+      height: mapRenderSize.height,
       z: 10,
     });
 
-    const subtitleLabel = new excalibur.Label({
-      text: 'SIGNAL ROUTING INTERFACE',
-      pos: excalibur.vec(640, 208),
-      font: new excalibur.Font({
-        family: THEME.font.label,
-        size: 18,
-        color: excalibur.Color.White,
-        textAlign: excalibur.TextAlign.Center,
+    headerElement.graphics.use(
+      new excalibur.Canvas({
+        width: mapRenderSize.width,
+        height: mapRenderSize.height,
+        cache: false,
+        smoothing: true,
+        draw: (context) => {
+          context.clearRect(0, 0, mapRenderSize.width, mapRenderSize.height);
+
+          context.textAlign = 'center';
+          context.textBaseline = 'alphabetic';
+          context.fillStyle = THEME.color.text;
+          context.font = `900 76px ${THEME.font.heading}`;
+          context.fillText('DECHO', 640, 188);
+
+          context.fillStyle = withAlpha(THEME.accent.cyan, 0.92);
+          context.font = `700 18px ${THEME.font.label}`;
+          context.fillText('SIGNAL ROUTING INTERFACE', 640, 218);
+        },
       }),
-      z: 10,
-    });
+    );
 
-    const sceneButtonsArray = [
-      {
-        text: 'Start Game',
-        destination: 'map',
-      },
-      {
-        text: 'Load Game',
-        destination: 'map',
-      },
-      {
-        text: 'Settings',
-        destination: 'mainMenu',
-      },
-    ];
-
-    this.add(titleLabel);
-    this.add(subtitleLabel);
-    sceneButtonsArray.forEach((buttonConfig, buttonIndex) => {
-      this.add(
-        new UiButton({
-          text: buttonConfig.text,
-          x: 500,
-          y: 278 + buttonIndex * 72,
-          width: 280,
-          height: 54,
-          accent:
-            buttonIndex === 0
-              ? THEME.accent.cyan
-              : buttonIndex === 1
-                ? THEME.accent.violet
-                : THEME.accent.green,
-          onClick: () => {
-            storyService.startStory();
-            void engine.goToScene(buttonConfig.destination);
-          },
-        }),
-      );
-    });
+    return headerElement;
   }
 
   private createMenuBackdrop(): excalibur.ScreenElement {
@@ -103,10 +200,10 @@ export class MainMenuScene extends excalibur.Scene {
 
           const gradient = context.createRadialGradient(
             640,
-            250,
+            240,
             80,
             640,
-            250,
+            240,
             520,
           );
           gradient.addColorStop(0, withAlpha(THEME.accent.cyan, 0.2));
@@ -132,12 +229,18 @@ export class MainMenuScene extends excalibur.Scene {
 
           context.fillStyle = withAlpha(THEME.color.panelFill, 0.62);
           context.beginPath();
-          context.roundRect(430, 116, 420, 382, THEME.shape.panelRadius);
+          context.roundRect(
+            MENU_PANEL.x,
+            MENU_PANEL.y,
+            MENU_PANEL.width,
+            MENU_PANEL.height,
+            THEME.shape.panelRadius,
+          );
           context.fill();
           context.strokeStyle = withAlpha(THEME.accent.cyan, 0.5);
           context.lineWidth = 1.5;
           context.stroke();
-          drawDivider(context, 480, 234, 320);
+          drawDivider(context, 470, 232, 340);
         },
       }),
     );
