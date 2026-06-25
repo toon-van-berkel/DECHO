@@ -1,5 +1,5 @@
 {
-  "name": "echo-shards",
+  "name": "DECHO",
   "version": "0.0.0",
   "description": "",
   "main": "src/main.ts",
@@ -8,8 +8,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "test": "npm run build && npx playwright test",
-    "test:integration-update": "npx playwright test --update-snapshots"
+    "test": "npm run build && node tests/runtime-smoke.mjs"
   },
   "repository": {},
   "keywords": [
@@ -30,5 +29,9 @@
     "@types/node": "^25.9.3",
     "typescript": "6.0.3",
     "vite": "8.0.16"
+  },
+  "volta": {
+    "node": "25.9.0",
+    "npm": "11.17.0"
   }
 }

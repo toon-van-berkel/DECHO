@@ -1,0 +1,9 @@
+{
+  "id": "qte-clinic_stabilize",
+  "title": "Interface Stabilize",
+  "prompt": "Match the rhythm before the signal breaks.",
+  "successText": "Your interface settles.",
+  "failText": "The interface keeps flickering.",
+  "sequenceLength": 5,
+  "timeLimitMs": 4500
+}

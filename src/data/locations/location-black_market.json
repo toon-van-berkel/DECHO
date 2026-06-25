@@ -1,0 +1,9 @@
+{
+  "id": "black_market",
+  "name": "Black Market",
+  "backgroundResourceKey": "background-bar",
+  "characterResourceKeysArray": ["character-rook"],
+  "npcIdsArray": ["kael"],
+  "nextLocationId": "cyber_clinic",
+  "mapTheme": "red"
+}

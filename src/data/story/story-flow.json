@@ -1,0 +1,18 @@
+{
+  "startLocationId": "market_square",
+  "startDialogueId": "jax_intro",
+  "requiredSkillsArray": [
+    "patrol_prediction",
+    "route_navigation",
+    "hardware_hacking",
+    "data_defragmentation",
+    "firewall_bypass"
+  ],
+  "locationOrderArray": [
+    "market_square",
+    "the_docks",
+    "black_market",
+    "cyber_clinic",
+    "sky_platform"
+  ]
+}

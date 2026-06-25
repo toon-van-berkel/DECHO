@@ -1,0 +1,7 @@
+{
+  "id": "elias",
+  "name": "Elias",
+  "locationId": "sky_platform",
+  "requiredSkill": "firewall_bypass",
+  "defaultDialogueId": "elias_intro"
+}

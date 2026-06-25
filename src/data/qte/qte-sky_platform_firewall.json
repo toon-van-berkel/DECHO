@@ -1,0 +1,9 @@
+{
+  "id": "qte-sky_platform_firewall",
+  "title": "Final Firewall",
+  "prompt": "Break the last layer before it closes.",
+  "successText": "The last layer opens.",
+  "failText": "The layer pushes back.",
+  "sequenceLength": 6,
+  "timeLimitMs": 5000
+}

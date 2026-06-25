@@ -1,0 +1,7 @@
+{
+  "id": "kael",
+  "name": "Kael",
+  "locationId": "black_market",
+  "requiredSkill": "hardware_hacking",
+  "defaultDialogueId": "kael_intro"
+}
