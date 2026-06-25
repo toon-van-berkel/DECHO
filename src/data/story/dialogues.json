@@ -1,124 +1,874 @@
 [
   {
-    "id": "jax_intro",
+    "id": "jax_1",
     "npcId": "jax",
     "speakerName": "Jax",
-    "text": "Je loopt hier rond alsof niemand je volgt. De route naar de toren is niet moeilijk, maar wel scherp bewaakt. Ik kan je langs de eerste patrouilles krijgen.",
+    "text": "Niet omkijken. De camera boven de noedelkraam heeft net twee keer geknipperd. Dat doet hij alleen als iemand in de menigte niet in het patroon past.",
     "choicesArray": [
       {
-        "id": "jax_cooperate",
-        "label": "Laat Jax de route markeren.",
-        "action": "cooperate",
-        "nextDialogueId": "mira_intro",
-        "nextLocationId": "the_docks",
-        "dataEchoChange": 12,
-        "securedSkill": "patrol_prediction"
-      },
-      {
-        "id": "jax_force",
-        "label": "Neem de route zonder markering.",
-        "action": "force",
-        "nextDialogueId": "mira_intro",
-        "nextLocationId": "the_docks",
-        "qteId": "qte-market_square_route"
+        "id": "jax_1_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "jax_2"
       }
     ]
   },
   {
-    "id": "mira_intro",
+    "id": "jax_2",
+    "npcId": "jax",
+    "speakerName": "You",
+    "text": "Je blijft staan tussen de warme damp van de noedelkraam en de koude blik van de lens. Niemand om je heen lijkt iets te merken.",
+    "choicesArray": [
+      {
+        "id": "jax_2_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "jax_3"
+      }
+    ]
+  },
+  {
+    "id": "jax_3",
+    "npcId": "jax",
+    "speakerName": "Jax",
+    "text": "Goed. Niet reageren is soms het enige bewijs dat je nog zelf nadenkt.",
+    "choicesArray": [
+      {
+        "id": "jax_3_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "jax_4"
+      }
+    ]
+  },
+  {
+    "id": "jax_4",
+    "npcId": "jax",
+    "speakerName": "You",
+    "text": "Je kijkt naar de weerspiegeling in een kraamruit. De camera zoekt niet de menigte. Hij zoekt jou.",
+    "choicesArray": [
+      {
+        "id": "jax_4_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "jax_5"
+      }
+    ]
+  },
+  {
+    "id": "jax_5",
+    "npcId": "jax",
+    "speakerName": "Jax",
+    "text": "Je draagt geen marktkleur, geen werkbadge en geen valse glimlach. In Market Square is dat bijna een bekentenis.",
+    "choicesArray": [
+      {
+        "id": "jax_5_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "jax_6"
+      }
+    ]
+  },
+  {
+    "id": "jax_6",
+    "npcId": "jax",
+    "speakerName": "You",
+    "text": "Je vraagt zacht hoe hij dat kan zien zonder zelf naar je te kijken.",
+    "choicesArray": [
+      {
+        "id": "jax_6_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "jax_7"
+      }
+    ]
+  },
+  {
+    "id": "jax_7",
+    "npcId": "jax",
+    "speakerName": "Jax",
+    "text": "Ik zie het niet. De stad ziet het. Ik luister alleen naar waar de stad haar adem inhoudt. Je zoekt de Toren, anders was je allang omgedraaid.",
+    "choicesArray": [
+      {
+        "id": "jax_7_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "jax_8"
+      }
+    ]
+  },
+  {
+    "id": "jax_8",
+    "npcId": "jax",
+    "speakerName": "You",
+    "text": "Je zegt de naam van de Toren niet hardop. In plaats daarvan volg je de kabels boven de markt tot ze verdwijnen in de mist.",
+    "choicesArray": [
+      {
+        "id": "jax_8_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "jax_9"
+      }
+    ]
+  },
+  {
+    "id": "jax_9",
+    "npcId": "jax",
+    "speakerName": "Jax",
+    "text": "Er zijn twee manieren naar de Docks. Ik kan je route in de marktstroom vouwen. Of je neemt de dode hoeken en vertrouwt op je eigen timing.",
+    "choicesArray": [
+      {
+        "id": "jax_blind_route",
+        "label": "Neem de dode hoeken zonder markering",
+        "action": "force",
+        "nextDialogueId": "jax_11",
+        "qteId": "qte-market_square_route"
+      },
+      {
+        "id": "jax_assisted_route",
+        "label": "Laat Jax je route in de marktstroom zetten",
+        "action": "cooperate",
+        "nextDialogueId": "jax_10",
+        "dataEchoChange": 20,
+        "securedSkill": "patrol_prediction"
+      }
+    ]
+  },
+  {
+    "id": "jax_10",
+    "npcId": "jax",
+    "speakerName": "You",
+    "text": "Je volgt Jax' knikjes door de massa. Elke stap voelt geleend, alsof je tijdelijk iemands oude misdaad draagt.",
+    "choicesArray": [
+      {
+        "id": "jax_10_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "jax_12"
+      }
+    ]
+  },
+  {
+    "id": "jax_11",
+    "npcId": "jax",
+    "speakerName": "You",
+    "text": "Je duikt tussen de lichtbanen door en voelt de markt heel even achter je dichtklappen.",
+    "choicesArray": [
+      {
+        "id": "jax_11_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "jax_12"
+      }
+    ]
+  },
+  {
+    "id": "jax_12",
+    "npcId": "jax",
+    "speakerName": "Jax",
+    "text": "Zoek Mira bij de containerkades. Zeg haar dat de klok onder de markt nog steeds achterloopt. Als ze je bedreigt, luistert ze.",
+    "choicesArray": [
+      {
+        "id": "jax_12_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": null,
+        "nextLocationId": "the_docks",
+        "returnToMap": true
+      }
+    ]
+  },
+  {
+    "id": "mira_1",
     "npcId": "mira",
     "speakerName": "Mira",
-    "text": "Jax stuurt niet zomaar iemand door. De schachten naar de markt bewegen elke paar minuten. Ik kan je timing geven, of je probeert zelf de drones te lezen.",
+    "text": "Handen uit je zakken. Langzaam. De drones hierboven schieten niet omdat ze boos zijn; ze schieten omdat iemand ze ooit goedkeurde.",
     "choicesArray": [
       {
-        "id": "mira_cooperate",
-        "label": "Volg Mira's timing.",
-        "action": "cooperate",
-        "nextDialogueId": "kael_intro",
-        "nextLocationId": "black_market",
-        "dataEchoChange": 10,
-        "securedSkill": "route_navigation"
-      },
-      {
-        "id": "mira_force",
-        "label": "Glip zelf tussen de drones door.",
-        "action": "force",
-        "nextDialogueId": "kael_intro",
-        "nextLocationId": "black_market",
-        "qteId": "qte-dock_drone_path"
+        "id": "mira_1_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "mira_2"
       }
     ]
   },
   {
-    "id": "kael_intro",
-    "npcId": "kael",
-    "speakerName": "Kael",
-    "text": "Je zoekt iets dat niet in winkels ligt. Ik heb een sleutel die de torenhardware begrijpt. De vraag is alleen hoeveel sporen je achterlaat om hem te krijgen.",
+    "id": "mira_2",
+    "npcId": "mira",
+    "speakerName": "You",
+    "text": "Je haalt je handen uit je zakken en kijkt naar de drones boven het zwarte water. Hun zoeklichten kruisen elkaar als messen.",
     "choicesArray": [
       {
-        "id": "kael_trade",
-        "label": "Ruil onderdelen voor de sleutel.",
-        "action": "trade",
-        "nextDialogueId": "dr_vex_intro",
-        "nextLocationId": "cyber_clinic",
-        "dataEchoChange": 8,
+        "id": "mira_2_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "mira_3"
+      }
+    ]
+  },
+  {
+    "id": "mira_3",
+    "npcId": "mira",
+    "speakerName": "Mira",
+    "text": "Jax stuurde je. Dat maakt je niet veilig. Het betekent alleen dat je gevaar interessant genoeg is om door te sturen.",
+    "choicesArray": [
+      {
+        "id": "mira_3_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "mira_4"
+      }
+    ]
+  },
+  {
+    "id": "mira_4",
+    "npcId": "mira",
+    "speakerName": "You",
+    "text": "Je noemt de achterlopende klok. Mira's blik verschuift niet naar jou, maar naar de reflectie achter je.",
+    "choicesArray": [
+      {
+        "id": "mira_4_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "mira_5"
+      }
+    ]
+  },
+  {
+    "id": "mira_5",
+    "npcId": "mira",
+    "speakerName": "Mira",
+    "text": "Hij gebruikt die zin nog steeds? Natuurlijk. De klok liep nooit achter; hij gaf mensen een reden om te kijken waar ze niet moesten kijken.",
+    "choicesArray": [
+      {
+        "id": "mira_5_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "mira_6"
+      }
+    ]
+  },
+  {
+    "id": "mira_6",
+    "npcId": "mira",
+    "speakerName": "You",
+    "text": "Tussen de containers zie je drie blauwe nummers stilstaan terwijl de rest verspringt. Iemand houdt een route open.",
+    "choicesArray": [
+      {
+        "id": "mira_6_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "mira_7"
+      }
+    ]
+  },
+  {
+    "id": "mira_7",
+    "npcId": "mira",
+    "speakerName": "Mira",
+    "text": "De Black Market ligt achter een maze die zichzelf herschikt op scannerdruk. Ik kan je logs lezen en je schaduw op vrachtverkeer laten lijken. Of je houdt je logs dicht en loopt wanneer ik wijs.",
+    "choicesArray": [
+      {
+        "id": "mira_keep_logs",
+        "label": "Hou je logs offline",
+        "action": "force",
+        "nextDialogueId": "mira_9",
+        "nextLocationId": "the_docks",
+        "qteId": "qte-dock_drone_path",
+        "dataEchoChange": 10
+      },
+      {
+        "id": "mira_share_logs",
+        "label": "Schuif je logboek naar Mira",
+        "action": "cooperate",
+        "nextDialogueId": "mira_8",
+        "dataEchoChange": 20,
+        "securedSkill": "route_navigation"
+      }
+    ]
+  },
+  {
+    "id": "mira_8",
+    "npcId": "mira",
+    "speakerName": "You",
+    "text": "Je schuift het logboek over een natte krat. Mira leest zonder haar lippen te bewegen, en jij voelt wat ze overslaat.",
+    "choicesArray": [
+      {
+        "id": "mira_8_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "mira_10"
+      }
+    ]
+  },
+  {
+    "id": "mira_9",
+    "npcId": "mira",
+    "speakerName": "You",
+    "text": "Je houdt je logs offline en rent wanneer Mira twee vingers heft. Containers schuiven achter je dicht als zware kaken.",
+    "choicesArray": [
+      {
+        "id": "mira_9_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "mira_10"
+      }
+    ]
+  },
+  {
+    "id": "mira_10",
+    "npcId": "mira",
+    "speakerName": "Mira",
+    "text": "Je bent erdoor. Niet schoon, maar niemand hier is schoon. Kael zit achter de gevel met de defecte loterijreclame.",
+    "choicesArray": [
+      {
+        "id": "mira_10_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "mira_11"
+      }
+    ]
+  },
+  {
+    "id": "mira_11",
+    "npcId": "mira",
+    "speakerName": "You",
+    "text": "Je ziet de reclame al flikkeren in de verte: elke jackpot eindigt op nul, alsof de markt niet meer in geluk gelooft.",
+    "choicesArray": [
+      {
+        "id": "mira_11_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "mira_12"
+      }
+    ]
+  },
+  {
+    "id": "mira_12",
+    "npcId": "mira",
+    "speakerName": "Mira",
+    "text": "Hij verkoopt geen antwoorden, alleen voorwerpen die vragen erger maken. Dat is soms precies wat je nodig hebt.",
+    "choicesArray": [
+      {
+        "id": "mira_12_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": null,
+        "nextLocationId": "black_market",
+        "returnToMap": true
+      }
+    ]
+  },
+  {
+    "id": "kael_1",
+    "npcId": "kael",
+    "speakerName": "Kael",
+    "text": "Je bent laat. Of vroeg. Mijn klanten kiezen meestal het woord dat hun schuld het kleinst maakt.",
+    "choicesArray": [
+      {
+        "id": "kael_1_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "kael_2"
+      }
+    ]
+  },
+  {
+    "id": "kael_2",
+    "npcId": "kael",
+    "speakerName": "You",
+    "text": "Je laat je blik langs de vitrines gaan: polsbrekers, geheugennaalden, kerkklokken voor beveiligde netwerken.",
+    "choicesArray": [
+      {
+        "id": "kael_2_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "kael_3"
+      }
+    ]
+  },
+  {
+    "id": "kael_3",
+    "npcId": "kael",
+    "speakerName": "Kael",
+    "text": "Mooi spul, he? Niets daarvan opent de Toren. Voor de Master Firewall heb je geen truc nodig. Je hebt een fysieke leugen nodig.",
+    "choicesArray": [
+      {
+        "id": "kael_3_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "kael_4"
+      }
+    ]
+  },
+  {
+    "id": "kael_4",
+    "npcId": "kael",
+    "speakerName": "You",
+    "text": "Je vraagt waarom hij al weet wat je zoekt. Kael glimlacht alsof die vraag hem rente oplevert.",
+    "choicesArray": [
+      {
+        "id": "kael_4_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "kael_5"
+      }
+    ]
+  },
+  {
+    "id": "kael_5",
+    "npcId": "kael",
+    "speakerName": "Kael",
+    "text": "Mira stuurt nooit iemand zonder eerst te vloeken in drie kanalen. De kade ruikt nog naar haar wantrouwen. En jij ruikt naar haast.",
+    "choicesArray": [
+      {
+        "id": "kael_5_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "kael_6"
+      }
+    ]
+  },
+  {
+    "id": "kael_6",
+    "npcId": "kael",
+    "speakerName": "You",
+    "text": "Je pakt de chip niet aan. Je telt eerst de pinnen, de oude brandplek, de kras die opzettelijk over een serienummer loopt.",
+    "choicesArray": [
+      {
+        "id": "kael_6_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "kael_7"
+      }
+    ]
+  },
+  {
+    "id": "kael_7",
+    "npcId": "kael",
+    "speakerName": "Kael",
+    "text": "Deze chip zat ooit in een onderhoudsmonteur die officieel nooit heeft bestaan. Hij kende elke dienstdeur van de Toren.",
+    "choicesArray": [
+      {
+        "id": "kael_7_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "kael_8"
+      }
+    ]
+  },
+  {
+    "id": "kael_8",
+    "npcId": "kael",
+    "speakerName": "You",
+    "text": "Je vraagt wat er met hem gebeurde. Kael draait de chip tussen twee vingers en laat het antwoord te lang duren.",
+    "choicesArray": [
+      {
+        "id": "kael_8_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "kael_9"
+      }
+    ]
+  },
+  {
+    "id": "kael_9",
+    "npcId": "kael",
+    "speakerName": "Kael",
+    "text": "De stad vergat hem zo grondig dat zelfs zijn schulden verdwenen. Ik kan de sleutel aan jouw signaal binden, of jij patcht hem koud terwijl hij probeert te sterven.",
+    "choicesArray": [
+      {
+        "id": "kael_bind_key",
+        "label": "Laat Kael de sleutel aan jouw signaal binden",
+        "action": "cooperate",
+        "nextDialogueId": "kael_10",
+        "dataEchoChange": 20,
         "securedSkill": "hardware_hacking"
       },
       {
-        "id": "kael_force",
-        "label": "Patch de sleutel zelf.",
+        "id": "kael_patch_key",
+        "label": "Patch de sleutel zelf aan de toonbank",
         "action": "force",
-        "nextDialogueId": "dr_vex_intro",
-        "nextLocationId": "cyber_clinic",
-        "qteId": "qte-black_market_patch"
+        "nextDialogueId": "kael_11",
+        "nextLocationId": "black_market",
+        "qteId": "qte-black_market_patch",
+        "dataEchoChange": 10
       }
     ]
   },
   {
-    "id": "dr_vex_intro",
+    "id": "kael_10",
+    "npcId": "kael",
+    "speakerName": "You",
+    "text": "Je laat Kael de sleutel binden. De chip wordt warm, alsof hij je naam probeert uit te spreken zonder mond.",
+    "choicesArray": [
+      {
+        "id": "kael_10_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "kael_12"
+      }
+    ]
+  },
+  {
+    "id": "kael_11",
+    "npcId": "kael",
+    "speakerName": "You",
+    "text": "Je soldeert onder Kaels lamp terwijl de chip pulseert. De rook ruikt naar plastic, ozon en slechte beslissingen.",
+    "choicesArray": [
+      {
+        "id": "kael_11_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "kael_12"
+      }
+    ]
+  },
+  {
+    "id": "kael_12",
+    "npcId": "kael",
+    "speakerName": "Kael",
+    "text": "Ga naar Vex. Niet omdat ze je zal redden, maar omdat ze precies kan vertellen hoeveel van jou al door anderen is aangeraakt.",
+    "choicesArray": [
+      {
+        "id": "kael_12_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": null,
+        "nextLocationId": "cyber_clinic",
+        "returnToMap": true
+      }
+    ]
+  },
+  {
+    "id": "dr_vex_1",
     "npcId": "dr_vex",
     "speakerName": "Dr. Vex",
-    "text": "Je interface kraakt onder oude signalen. Ik kan het schoonmaken, maar alleen als je stil blijft zitten. Anders doe je het met trillende handen.",
+    "text": "Ga zitten voordat je valt. Je pupilreactie loopt drie frames achter op je angst.",
     "choicesArray": [
       {
-        "id": "dr_vex_cooperate",
-        "label": "Laat Vex de interface stabiliseren.",
-        "action": "cooperate",
-        "nextDialogueId": "elias_intro",
-        "nextLocationId": "sky_platform",
-        "dataEchoChange": 10,
-        "securedSkill": "data_defragmentation"
-      },
-      {
-        "id": "dr_vex_force",
-        "label": "Stabiliseer de interface zelf.",
-        "action": "force",
-        "nextDialogueId": "elias_intro",
-        "nextLocationId": "sky_platform",
-        "qteId": "qte-clinic_stabilize"
+        "id": "dr_vex_1_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "dr_vex_2"
       }
     ]
   },
   {
-    "id": "elias_intro",
-    "npcId": "elias",
-    "speakerName": "Elias",
-    "text": "Daar is de poort. Iedereen die je onderweg hielp, hangt nu aan jouw keuzes. Ik kan de laatste laag openen, of jij breekt hem open.",
+    "id": "dr_vex_2",
+    "npcId": "dr_vex",
+    "speakerName": "You",
+    "text": "Je gaat zitten. De stoel sluit niet om je heen, maar wacht alsof hij weet dat je vanzelf stil zult worden.",
     "choicesArray": [
       {
-        "id": "elias_cooperate",
-        "label": "Laat Elias de poort openen.",
+        "id": "dr_vex_2_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "dr_vex_3"
+      }
+    ]
+  },
+  {
+    "id": "dr_vex_3",
+    "npcId": "dr_vex",
+    "speakerName": "Dr. Vex",
+    "text": "Jax heeft je huidlaag geraakt. Mira je bewegingslogs. Kael je hardwarehandtekening. Geen van hen heeft je schoon gelaten.",
+    "choicesArray": [
+      {
+        "id": "dr_vex_3_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "dr_vex_4"
+      }
+    ]
+  },
+  {
+    "id": "dr_vex_4",
+    "npcId": "dr_vex",
+    "speakerName": "You",
+    "text": "Je vraagt of ze schade bedoelt. Op het scherm naast je hartslag verschijnen drie vreemde schaduwen die niet bij organen horen.",
+    "choicesArray": [
+      {
+        "id": "dr_vex_4_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "dr_vex_5"
+      }
+    ]
+  },
+  {
+    "id": "dr_vex_5",
+    "npcId": "dr_vex",
+    "speakerName": "Dr. Vex",
+    "text": "Schade is romantisch. Jij bent herkenbaarder geworden. De Master Firewall blokkeert geen indringers; hij onthoudt ze.",
+    "choicesArray": [
+      {
+        "id": "dr_vex_5_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "dr_vex_6"
+      }
+    ]
+  },
+  {
+    "id": "dr_vex_6",
+    "npcId": "dr_vex",
+    "speakerName": "You",
+    "text": "Je hand trilt wanneer de naalden boven de stoel uitlijnen. Je probeert niet naar de weerkaatsing van je gezicht te kijken.",
+    "choicesArray": [
+      {
+        "id": "dr_vex_6_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "dr_vex_7"
+      }
+    ]
+  },
+  {
+    "id": "dr_vex_7",
+    "npcId": "dr_vex",
+    "speakerName": "Dr. Vex",
+    "text": "Een diepe scan kan je interface stabiliseren. Ik zie dan meer dan je comfortabel vindt. Of je blijft bij bewustzijn en volgt alleen mijn stem.",
+    "choicesArray": [
+      {
+        "id": "dr_vex_manual_stabilize",
+        "label": "Blijf bij bewustzijn en volg haar stem",
+        "action": "force",
+        "nextDialogueId": "dr_vex_9",
+        "nextLocationId": "cyber_clinic",
+        "qteId": "qte-clinic_stabilize",
+        "dataEchoChange": 10
+      },
+      {
+        "id": "dr_vex_deep_scan",
+        "label": "Laat Vex de diepe scan uitvoeren",
         "action": "cooperate",
+        "nextDialogueId": "dr_vex_8",
+        "dataEchoChange": 20,
+        "securedSkill": "data_defragmentation"
+      }
+    ]
+  },
+  {
+    "id": "dr_vex_8",
+    "npcId": "dr_vex",
+    "speakerName": "You",
+    "text": "Je laat de scan toe. Een koude lijn beweegt door je herinneringen en stopt bij plekken die jij nooit hebt opengemaakt.",
+    "choicesArray": [
+      {
+        "id": "dr_vex_8_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "dr_vex_10"
+      }
+    ]
+  },
+  {
+    "id": "dr_vex_9",
+    "npcId": "dr_vex",
+    "speakerName": "You",
+    "text": "Je volgt Vex' stem door losse frames van licht. Elke ademhaling trekt de kamer net iets dichter terug naar vorm.",
+    "choicesArray": [
+      {
+        "id": "dr_vex_9_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "dr_vex_10"
+      }
+    ]
+  },
+  {
+    "id": "dr_vex_10",
+    "npcId": "dr_vex",
+    "speakerName": "Dr. Vex",
+    "text": "Je bent stabiel genoeg om naar Elias te lopen. Niet beschermd. Bescherming is een verkoopwoord.",
+    "choicesArray": [
+      {
+        "id": "dr_vex_10_continue",
+        "label": "Verder",
+        "action": "continue",
         "nextDialogueId": null,
-        "dataEchoChange": 14,
+        "nextLocationId": "sky_platform",
+        "returnToMap": true
+      }
+    ]
+  },
+  {
+    "id": "elias_1",
+    "npcId": "elias",
+    "speakerName": "Elias",
+    "text": "De wind hierboven klinkt anders omdat de stad beneden al fluistert over je aankomst.",
+    "choicesArray": [
+      {
+        "id": "elias_1_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "elias_2"
+      }
+    ]
+  },
+  {
+    "id": "elias_2",
+    "npcId": "elias",
+    "speakerName": "You",
+    "text": "Je kijkt over de rand. Market Square, de Docks, de Black Market en de kliniek liggen als brandplekken in de regen.",
+    "choicesArray": [
+      {
+        "id": "elias_2_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "elias_3"
+      }
+    ]
+  },
+  {
+    "id": "elias_3",
+    "npcId": "elias",
+    "speakerName": "Elias",
+    "text": "Jax vouwde je door de markt. Mira sneed een pad langs de kades. Kael gaf je een sleutel met tanden. Vex hield je net lang genoeg heel.",
+    "choicesArray": [
+      {
+        "id": "elias_3_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "elias_4"
+      }
+    ]
+  },
+  {
+    "id": "elias_4",
+    "npcId": "elias",
+    "speakerName": "You",
+    "text": "Je vraagt hoe hij dat weet. Eigenlijk vraag je hoeveel van jou al openbaar is geworden.",
+    "choicesArray": [
+      {
+        "id": "elias_4_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "elias_5"
+      }
+    ]
+  },
+  {
+    "id": "elias_5",
+    "npcId": "elias",
+    "speakerName": "Elias",
+    "text": "Iedereen die jou hielp, liet een afdruk achter. Ik lees geen gedachten. Alleen de plekken waar mensen besloten dat jij belangrijker was dan hun rust.",
+    "choicesArray": [
+      {
+        "id": "elias_5_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "elias_6"
+      }
+    ]
+  },
+  {
+    "id": "elias_6",
+    "npcId": "elias",
+    "speakerName": "You",
+    "text": "Je legt de sleutel tegen de console. De Toren reageert niet met geluid, maar met een stilte die in je tanden trekt.",
+    "choicesArray": [
+      {
+        "id": "elias_6_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "elias_7"
+      }
+    ]
+  },
+  {
+    "id": "elias_7",
+    "npcId": "elias",
+    "speakerName": "Elias",
+    "text": "Ik kan die stilte voor je openhouden, maar ik moet je naam hard genoeg uitspreken dat de Toren hem begrijpt. Je kunt ook zelf breken wat voor je ligt.",
+    "choicesArray": [
+      {
+        "id": "elias_7_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "elias_8"
+      }
+    ]
+  },
+  {
+    "id": "elias_8",
+    "npcId": "elias",
+    "speakerName": "You",
+    "text": "Je denkt aan de stemmen achter je route. Geen van hen staat hier, maar hun sporen trekken mee naar de rand van de poort.",
+    "choicesArray": [
+      {
+        "id": "elias_8_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "elias_9"
+      }
+    ]
+  },
+  {
+    "id": "elias_9",
+    "npcId": "elias",
+    "speakerName": "Elias",
+    "text": "Dit is geen heldenmoment. Helden zijn wat de stad maakt nadat niemand de schade meer wil tellen.",
+    "choicesArray": [
+      {
+        "id": "elias_open_path",
+        "label": "Laat Elias de poort voor je openen",
+        "action": "cooperate",
+        "nextDialogueId": "elias_10",
+        "dataEchoChange": 20,
         "securedSkill": "firewall_bypass"
       },
       {
-        "id": "elias_force",
-        "label": "Forceer de laatste laag.",
+        "id": "elias_force_layer",
+        "label": "Breek zelf door de buitenste laag",
         "action": "force",
-        "nextDialogueId": null,
-        "qteId": "qte-sky_platform_firewall"
+        "nextDialogueId": "elias_11",
+        "nextLocationId": "sky_platform",
+        "qteId": "qte-sky_platform_firewall",
+        "dataEchoChange": 10
+      }
+    ]
+  },
+  {
+    "id": "elias_10",
+    "npcId": "elias",
+    "speakerName": "You",
+    "text": "Je laat Elias de poort openen. De Toren luistert, en voor een seconde voelt toestemming hetzelfde als verdwijnen.",
+    "choicesArray": [
+      {
+        "id": "elias_10_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "elias_12"
+      }
+    ]
+  },
+  {
+    "id": "elias_11",
+    "npcId": "elias",
+    "speakerName": "You",
+    "text": "Je breekt door de buitenste laag. De Firewall beweegt niet achteruit; hij opent zijn ogen.",
+    "choicesArray": [
+      {
+        "id": "elias_11_continue",
+        "label": "Verder",
+        "action": "continue",
+        "nextDialogueId": "elias_12"
+      }
+    ]
+  },
+  {
+    "id": "elias_12",
+    "npcId": "elias",
+    "speakerName": "Elias",
+    "text": "De Firewall zakt. Beneden valt elk scherm tegelijk zwart en daarna verschijnt er een licht dat niemand heeft geprogrammeerd. De stad is niet vrij. Nog niet.",
+    "choicesArray": [
+      {
+        "id": "elias_12_continue",
+        "label": "Laat de stad antwoorden",
+        "action": "continue",
+        "nextDialogueId": null
       }
     ]
   }

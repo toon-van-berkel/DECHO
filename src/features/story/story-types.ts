@@ -71,6 +71,7 @@ export type DialogueChoice = {
   action: StoryChoiceAction;
   nextDialogueId: string | null;
   nextLocationId?: string;
+  returnToMap?: boolean;
   qteId?: string;
   dataEchoChange?: number;
   securedSkill?: string;
@@ -93,7 +94,7 @@ export type CurrentDialogueView = {
 };
 
 export type ChoiceResult = {
-  nextScene: 'map' | 'location' | 'qte';
+  nextScene: 'map' | 'location' | 'qte' | 'ending';
   locationId: string;
   dialogueId: string;
   qteId?: string;

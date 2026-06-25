@@ -2,7 +2,7 @@
   "id": "market_square",
   "name": "Market Square",
   "backgroundResourceKey": "background-map",
-  "characterResourceKeysArray": [],
+  "characterResourceKeysArray": ["character-jax"],
   "npcIdsArray": ["jax"],
   "nextLocationId": "the_docks",
   "mapTheme": "cyan"

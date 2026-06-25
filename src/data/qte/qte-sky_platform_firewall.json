@@ -1,9 +1,9 @@
 {
   "id": "qte-sky_platform_firewall",
-  "title": "Final Firewall",
-  "prompt": "Break the last layer before it closes.",
-  "successText": "The last layer opens.",
-  "failText": "The layer pushes back.",
+  "title": "Laatste laag",
+  "prompt": "De Firewall slaat terug. Eén verkeerde puls en jouw spoor trekt iedereen mee.",
+  "successText": "De laag scheurt open zonder meteen te zingen.",
+  "failText": "De Toren hoort je door de barst heen ademen.",
   "sequenceLength": 6,
   "timeLimitMs": 5000
 }
