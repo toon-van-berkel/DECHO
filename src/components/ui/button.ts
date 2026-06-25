@@ -15,10 +15,18 @@ export type UiButtonOptions = {
   text: string;
   x: number;
   y: number;
+  z?: number;
   width: number;
   height: number;
   accent?: string;
   variant?: 'primary' | 'secondary';
+  hideArrow?: boolean;
+  renderIcon?: (
+    context: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    color: string,
+  ) => void;
   onClick: () => void;
 };
 
@@ -33,9 +41,9 @@ export class UiButton extends excalibur.ScreenElement {
     super({
       x: buttonOptions.x,
       y: buttonOptions.y,
+      z: buttonOptions.z ?? 100,
       width: buttonOptions.width,
       height: buttonOptions.height,
-      z: 100,
     });
 
     this.accentColor = buttonOptions.accent ?? THEME.accent.cyan;
@@ -82,14 +90,25 @@ export class UiButton extends excalibur.ScreenElement {
     );
   }
 
-  setEnabled(isButtonEnabled: boolean): void {
+  /**
+   * Enables or disables the button.
+   *
+   * By default a disabled button is hidden (legacy behavior). Pass
+   * keepVisible = true to keep it on screen as a dimmed, non-interactive row
+   * (used for empty load slots).
+   */
+  setEnabled(isButtonEnabled: boolean, keepVisible = false): void {
     this.isButtonEnabled = isButtonEnabled;
-    this.graphics.isVisible = isButtonEnabled;
+    this.graphics.isVisible = isButtonEnabled || keepVisible;
     this.pointer.useColliderShape = isButtonEnabled;
     this.pointer.useGraphicsBounds = isButtonEnabled;
     if (!isButtonEnabled) {
       this.isPointerHovering = false;
     }
+  }
+
+  setText(text: string): void {
+    this.buttonOptions.text = text;
   }
 
   private drawButton(context: CanvasRenderingContext2D): void {
@@ -117,6 +136,13 @@ export class UiButton extends excalibur.ScreenElement {
     context.strokeStyle = this.accentColor;
     context.stroke();
 
+    if (this.buttonOptions.renderIcon) {
+      this.buttonOptions.renderIcon(context, width, height, this.accentColor);
+      context.restore();
+      return;
+    }
+
+    const hideArrow = this.buttonOptions.hideArrow ?? false;
     context.textAlign = 'left';
     context.textBaseline = 'middle';
     context.fillStyle =
@@ -126,13 +152,15 @@ export class UiButton extends excalibur.ScreenElement {
       text.toUpperCase(),
       horizontalPadding,
       height / 2 + 1,
-      width - horizontalPadding * 2 - 28,
+      width - horizontalPadding * 2 - (hideArrow ? 0 : 28),
     );
 
-    context.textAlign = 'center';
-    context.fillStyle = withAlpha(this.accentColor, 0.78);
-    context.font = `800 14px ${THEME.font.heading}`;
-    context.fillText('>', arrowX, height / 2 + 1);
+    if (!hideArrow) {
+      context.textAlign = 'center';
+      context.fillStyle = withAlpha(this.accentColor, 0.78);
+      context.font = `800 14px ${THEME.font.heading}`;
+      context.fillText('>', arrowX, height / 2 + 1);
+    }
     context.restore();
   }
 }

@@ -7,6 +7,7 @@
  * Made by: Toon
  */
 
+import * as saveService from '../save/save-service';
 import * as storyHelpers from './story-helpers';
 import { storyDataObject } from './story-loader';
 import * as storyState from './story-state';
@@ -31,7 +32,9 @@ export function getCurrentDialogue(): storyTypes.CurrentDialogueView {
 export function goToLocation(locationId: string): storyTypes.CurrentDialogueView {
   const defaultDialogueId = getDefaultDialogueIdForLocation(locationId);
   storyState.setCurrentStoryPosition(locationId, defaultDialogueId);
-  return getCurrentDialogue();
+  const currentDialogueView = getCurrentDialogue();
+  saveService.autosave();
+  return currentDialogueView;
 }
 
 export function getLocationState(
@@ -73,6 +76,7 @@ export function chooseDialogueOption(
   const nextDialogueId = selectedChoice.nextDialogueId;
 
   if (!nextDialogueId) {
+    saveService.autosave();
     return storyHelpers.createStoryResponse(true, 'Story branch completed.', {
       nextScene: selectedChoice.qteId ? 'qte' : 'map',
       locationId: nextLocationId,
@@ -82,6 +86,7 @@ export function chooseDialogueOption(
   }
 
   storyState.setCurrentStoryPosition(nextLocationId, nextDialogueId);
+  saveService.autosave();
 
   if (selectedChoice.qteId) {
     return storyHelpers.createStoryResponse(true, 'QTE should start.', {
@@ -117,6 +122,7 @@ export function completeQte(
   }
 
   const currentStoryState = storyState.getStoryState();
+  saveService.autosave();
   return storyHelpers.createStoryResponse(true, 'QTE completed.', {
     nextScene: 'location',
     locationId: currentStoryState.currentLocationId,
