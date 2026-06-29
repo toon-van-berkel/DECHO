@@ -1,0 +1,82 @@
+name: Publish to itch.io
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish to itch.io
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      NODE_VERSION: 25.9.0
+      NPM_VERSION: 11.17.0
+      ITCHIO_USER: ${{ vars.ITCHIO_USER }}
+      ITCHIO_GAME: ${{ vars.ITCHIO_GAME }}
+      ITCHIO_CHANNEL: html5
+      BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Setup npm
+        run: npm install -g npm@${{ env.NPM_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Install Butler
+        run: |
+          curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip -d butler
+          chmod +x butler/butler
+          echo "$GITHUB_WORKSPACE/butler" >> $GITHUB_PATH
+
+      - name: Check Butler API key
+        run: |
+          if [ -z "$BUTLER_API_KEY" ]; then
+            echo "BUTLER_API_KEY is missing. Add it as a GitHub Actions repository secret."
+            exit 1
+          fi
+
+      - name: Check itch.io target
+        run: |
+          echo "ITCHIO_USER=$ITCHIO_USER"
+          echo "ITCHIO_GAME=$ITCHIO_GAME"
+          echo "ITCHIO_CHANNEL=$ITCHIO_CHANNEL"
+          echo "Target: $ITCHIO_USER/$ITCHIO_GAME:$ITCHIO_CHANNEL"
+
+          if [ -z "$ITCHIO_USER" ]; then
+            echo "ITCHIO_USER is missing. Add it as a GitHub Actions repository variable."
+            exit 1
+          fi
+
+          if [ -z "$ITCHIO_GAME" ]; then
+            echo "ITCHIO_GAME is missing. Add it as a GitHub Actions repository variable."
+            exit 1
+          fi
+
+          if [ -z "$ITCHIO_CHANNEL" ]; then
+            echo "ITCHIO_CHANNEL is missing."
+            exit 1
+          fi
+
+      - name: Publish build to itch.io
+        run: butler push dist "$ITCHIO_USER/$ITCHIO_GAME:$ITCHIO_CHANNEL"
