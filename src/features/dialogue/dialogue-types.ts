@@ -10,6 +10,7 @@
 export type DialogueOptionView = {
   id: string;
   label: string;
+  action: string;
 };
 
 export type DialogueView = {

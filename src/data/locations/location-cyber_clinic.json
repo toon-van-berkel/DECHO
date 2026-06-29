@@ -1,8 +1,8 @@
 {
   "id": "cyber_clinic",
   "name": "Cyber Clinic",
-  "backgroundResourceKey": "background-clinic",
-  "characterResourceKeysArray": ["character-mara-vex"],
+  "backgroundResourceKey": "background-labclean",
+  "characterResourceKeysArray": ["character-vex"],
   "npcIdsArray": ["dr_vex"],
   "nextLocationId": "sky_platform",
   "mapTheme": "green"

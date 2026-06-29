@@ -1,9 +1,9 @@
 {
   "id": "qte-dock_drone_path",
-  "title": "Drone Path",
-  "prompt": "Move between the scanner sweeps.",
-  "successText": "The drones miss you.",
-  "failText": "A drone locks onto your route.",
+  "title": "Onder de dronecirkel",
+  "prompt": "De containers schuiven open. Boven je zoeken drones naar een signaal dat niet in hun patroon past.",
+  "successText": "Je beweegt mee met het staal en verdwijnt onder de dronecirkel.",
+  "failText": "Een drone blijft een fractie te lang boven jouw route hangen.",
   "sequenceLength": 5,
   "timeLimitMs": 4500
 }
