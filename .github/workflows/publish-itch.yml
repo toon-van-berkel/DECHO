@@ -49,5 +49,34 @@ jobs:
           chmod +x butler/butler
           echo "$GITHUB_WORKSPACE/butler" >> $GITHUB_PATH
 
+      - name: Check Butler API key
+        run: |
+          if [ -z "$BUTLER_API_KEY" ]; then
+            echo "BUTLER_API_KEY is missing. Add it as a GitHub Actions repository secret."
+            exit 1
+          fi
+
+      - name: Check itch.io target
+        run: |
+          echo "ITCHIO_USER=$ITCHIO_USER"
+          echo "ITCHIO_GAME=$ITCHIO_GAME"
+          echo "ITCHIO_CHANNEL=$ITCHIO_CHANNEL"
+          echo "Target: $ITCHIO_USER/$ITCHIO_GAME:$ITCHIO_CHANNEL"
+
+          if [ -z "$ITCHIO_USER" ]; then
+            echo "ITCHIO_USER is missing. Add it as a GitHub Actions repository variable."
+            exit 1
+          fi
+
+          if [ -z "$ITCHIO_GAME" ]; then
+            echo "ITCHIO_GAME is missing. Add it as a GitHub Actions repository variable."
+            exit 1
+          fi
+
+          if [ -z "$ITCHIO_CHANNEL" ]; then
+            echo "ITCHIO_CHANNEL is missing."
+            exit 1
+          fi
+
       - name: Publish build to itch.io
         run: butler push dist "$ITCHIO_USER/$ITCHIO_GAME:$ITCHIO_CHANNEL"
