@@ -36,6 +36,10 @@ export class StartScreenScene extends excalibur.Scene {
       throw new Error('background-startscreen is missing from resources.');
     }
 
+    const coverScale = Math.max(
+      mapRenderSize.width / backgroundResource.width,
+      mapRenderSize.height / backgroundResource.height,
+    );
     const backgroundActor = new excalibur.Actor({
       pos: excalibur.vec(mapRenderSize.width / 2, mapRenderSize.height / 2),
       anchor: excalibur.vec(0.5, 0.5),
@@ -44,15 +48,8 @@ export class StartScreenScene extends excalibur.Scene {
       height: mapRenderSize.height,
     });
 
-    backgroundActor.graphics.use(
-      new excalibur.Sprite({
-        image: backgroundResource,
-        destSize: {
-          width: mapRenderSize.width,
-          height: mapRenderSize.height,
-        },
-      }),
-    );
+    backgroundActor.graphics.use(backgroundResource.toSprite());
+    backgroundActor.scale = excalibur.vec(coverScale, coverScale);
     return backgroundActor;
   }
 }
