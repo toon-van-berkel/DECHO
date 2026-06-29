@@ -1,9 +1,9 @@
 {
   "id": "qte-market_square_route",
-  "title": "Market Route",
-  "prompt": "Slip past the patrol path.",
-  "successText": "You pass without drawing attention.",
-  "failText": "The patrol catches your movement.",
+  "title": "Door de blinde hoek",
+  "prompt": "De scanner draait terug. Je hebt seconden om tussen de lichtbanen door te komen.",
+  "successText": "Je glipt door de dode hoek voordat de camera opnieuw ademt.",
+  "failText": "Een lichtbaan raakt je spoor en laat een korte echo achter.",
   "sequenceLength": 4,
   "timeLimitMs": 4000
 }

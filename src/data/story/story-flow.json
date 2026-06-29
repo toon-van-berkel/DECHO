@@ -1,6 +1,6 @@
 {
   "startLocationId": "market_square",
-  "startDialogueId": "jax_intro",
+  "startDialogueId": "jax_1",
   "requiredSkillsArray": [
     "patrol_prediction",
     "route_navigation",

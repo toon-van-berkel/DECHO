@@ -1,9 +1,9 @@
 {
   "id": "qte-clinic_stabilize",
-  "title": "Interface Stabilize",
-  "prompt": "Match the rhythm before the signal breaks.",
-  "successText": "Your interface settles.",
-  "failText": "The interface keeps flickering.",
+  "title": "Neurale storing",
+  "prompt": "Je zicht breekt in losse frames. Vex roept iets, maar de kliniek vervormt om je heen.",
+  "successText": "Je trekt je gedachten terug in één lijn.",
+  "failText": "Een losse herinnering blijft haken in de scannerlucht.",
   "sequenceLength": 5,
   "timeLimitMs": 4500
 }

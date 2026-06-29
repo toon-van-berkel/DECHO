@@ -10,10 +10,12 @@
 import * as excalibur from 'excalibur';
 import * as engineConfig from './core/engine/engine-config';
 import * as resourceLoader from './core/resources/resource-loader';
+import { EndingScene } from './scenes/ending/ending-scene';
 import { LocationScene } from './scenes/location/location-scene';
 import { MainMenuScene } from './scenes/main-menu/main-menu-scene';
 import { MapScene } from './scenes/map/map-scene';
 import { QteScene } from './scenes/qte/qte-scene';
+import { StartScreenScene } from './scenes/start-screen/start-screen-scene';
 
 const gameEngine = new excalibur.Engine({
   width: engineConfig.mapRenderSize.width,
@@ -27,12 +29,14 @@ const gameEngine = new excalibur.Engine({
     map: MapScene,
     location: LocationScene,
     qte: QteScene,
+    ending: EndingScene,
+    startScreen: StartScreenScene,
   },
 });
 
 async function startGame(): Promise<void> {
   // Excalibur 0.32 starts the clock before director initialization.
-  gameEngine.director.configureStart('mainMenu');
+  gameEngine.director.configureStart('startScreen');
   await gameEngine.director.onInitialize();
   await gameEngine.start(resourceLoader.resourceLoader);
 }

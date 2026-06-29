@@ -3,5 +3,5 @@
   "name": "Mira",
   "locationId": "the_docks",
   "requiredSkill": "route_navigation",
-  "defaultDialogueId": "mira_intro"
+  "defaultDialogueId": "mira_1"
 }

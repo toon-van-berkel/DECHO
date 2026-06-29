@@ -1,8 +1,8 @@
 {
   "id": "the_docks",
   "name": "The Docks",
-  "backgroundResourceKey": "background-docks",
-  "characterResourceKeysArray": ["character-rook"],
+  "backgroundResourceKey": "background-harborclean",
+  "characterResourceKeysArray": ["character-mira"],
   "npcIdsArray": ["mira"],
   "nextLocationId": "black_market",
   "mapTheme": "cyan"
