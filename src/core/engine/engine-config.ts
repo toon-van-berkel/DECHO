@@ -14,4 +14,7 @@ export const mapRenderSize = {
   height: 720,
 } as const;
 
-export const engineDisplayMode = excalibur.DisplayMode.FitScreenAndZoom;
+// FitScreen scales the whole game to the device while keeping the aspect ratio,
+// so the full screen is visible everywhere (letterboxed if needed). FitScreenAndZoom
+// was zooming in and clipping content differently per device.
+export const engineDisplayMode = excalibur.DisplayMode.FitScreen;
