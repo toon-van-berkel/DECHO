@@ -1,5 +1,22 @@
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: black;
-  }
+/* Full-viewport, centered game canvas.
+   With DisplayMode.FitScreen Excalibur scales the canvas to fit the screen
+   while keeping the aspect ratio; these rules remove default margins/scrollbars
+   and center the canvas, with black letterbox bars around it. */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: black;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
 }
