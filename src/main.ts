@@ -18,7 +18,6 @@ import { QteScene } from './scenes/qte/qte-scene';
 import { StartScreenScene } from './scenes/start-screen/start-screen-scene';
 
 const gameEngine = new excalibur.Engine({
-  canvasElementId: 'game',
   width: engineConfig.mapRenderSize.width,
   height: engineConfig.mapRenderSize.height,
   displayMode: engineConfig.engineDisplayMode,
