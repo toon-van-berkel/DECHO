@@ -1,6 +1,6 @@
 {
   "id": "market_square",
-  "name": "Market Square",
+  "name": "Marktplein",
   "backgroundResourceKey": "background-map",
   "characterResourceKeysArray": ["character-jax"],
   "npcIdsArray": ["jax"],

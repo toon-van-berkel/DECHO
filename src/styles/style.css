@@ -11,4 +11,22 @@ body,
 
 canvas {
   display: block;
+  margin: auto;
+}
+
+@media (max-width: 700px) and (orientation: portrait) {
+  #app::after {
+    content: 'Draai je scherm naar liggende stand om DECHO te spelen.';
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    padding: 32px;
+    background: hsl(222, 47%, 11%);
+    color: white;
+    font: 700 18px 'Chakra Petch', sans-serif;
+    text-align: center;
+  }
 }

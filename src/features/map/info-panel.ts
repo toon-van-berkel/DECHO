@@ -15,6 +15,7 @@ import {
   wrapText,
 } from '../../components/ui/hud-drawing';
 import { THEME } from '../../core/theme/theme-index';
+import * as levelService from '../levels/level-service';
 import type * as mapTypes from './map-types';
 
 const panelWidth = 390;
@@ -47,7 +48,7 @@ export class InfoPanel extends excalibur.ScreenElement {
     );
 
     this.travelButton = new UiButton({
-      text: 'Travel',
+      text: 'Reizen',
       x: panelPadding,
       y: 166,
       width: 160,
@@ -60,7 +61,7 @@ export class InfoPanel extends excalibur.ScreenElement {
     });
 
     this.shopButton = new UiButton({
-      text: 'Shop',
+      text: 'Winkel',
       x: 196,
       y: 166,
       width: 150,
@@ -85,11 +86,21 @@ export class InfoPanel extends excalibur.ScreenElement {
     this.updateActions();
   }
 
+  refresh(): void {
+    this.updateActions();
+  }
+
   private updateActions(): void {
     const hasSelectedLocation = this.selectedCheckpoint !== null;
-    this.travelButton.setEnabled(hasSelectedLocation);
+    const isCompleted = this.selectedCheckpoint
+      ? levelService.isLocationComplete(this.selectedCheckpoint.locationId)
+      : false;
+    this.travelButton.setText(isCompleted ? 'Afgerond' : 'Reizen');
+    this.travelButton.setEnabled(hasSelectedLocation && !isCompleted, isCompleted);
     this.shopButton.setEnabled(
-      hasSelectedLocation && this.selectedCheckpoint?.opensShop === true,
+      hasSelectedLocation &&
+        !isCompleted &&
+        this.selectedCheckpoint?.opensShop === true,
     );
   }
 
@@ -97,12 +108,17 @@ export class InfoPanel extends excalibur.ScreenElement {
     const accentColor = this.selectedCheckpoint
       ? THEME.accent[this.selectedCheckpoint.theme]
       : THEME.accent.cyan;
-    const titleText = this.selectedCheckpoint?.title ?? 'CITY MAP';
-    const subtitleText =
-      this.selectedCheckpoint?.subtitle ?? 'Select a marked location';
-    const descriptionText =
-      this.selectedCheckpoint?.description ??
-      'Hover and click a signal marker to inspect a route.';
+    const isCompleted = this.selectedCheckpoint
+      ? levelService.isLocationComplete(this.selectedCheckpoint.locationId)
+      : false;
+    const titleText = this.selectedCheckpoint?.title ?? 'STADSKAART';
+    const subtitleText = isCompleted
+      ? 'Afgerond'
+      : (this.selectedCheckpoint?.subtitle ?? 'Kies een gemarkeerde locatie');
+    const descriptionText = isCompleted
+      ? 'Deze locatie is afgerond. Hier is niets meer te onderzoeken.'
+      : (this.selectedCheckpoint?.description ??
+        'Klik op een signaalmarkering om de route te bekijken.');
     const linesArray = wrapText(descriptionText, 42).slice(0, 3);
 
     context.clearRect(0, 0, panelWidth, panelHeight);
@@ -129,7 +145,7 @@ export class InfoPanel extends excalibur.ScreenElement {
     if (!this.selectedCheckpoint) {
       context.fillStyle = THEME.color.muted;
       context.font = `700 12px ${THEME.font.label}`;
-      context.fillText('WAITING FOR SIGNAL', panelPadding, 184);
+      context.fillText('WACHTEN OP EEN SIGNAAL', panelPadding, 184);
     }
   }
 }

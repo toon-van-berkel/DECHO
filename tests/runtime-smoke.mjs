@@ -123,12 +123,30 @@ async function runSmokeTest() {
 
     await page.goto(gameUrl);
     await page.locator('canvas').waitFor({ state: 'visible' });
+    await page.waitForTimeout(2500);
 
-    // Main menu (fresh, no save): New Game -> slot panel -> pick empty slot 1.
-    await page.mouse.click(640, 327);
+    // Start screen -> New Game -> slot panel -> tutorial -> map.
+    await page.mouse.click(640, 643);
+    await page.waitForTimeout(400);
+    await page.mouse.click(640, 309);
     await page.waitForTimeout(400);
     await page.mouse.click(640, 285);
+    await page.waitForTimeout(500);
+    await page.mouse.click(790, 645);
     await waitForRenderedCanvas(page);
+
+    const freshRunState = await page.evaluate(() => {
+      const saveFile = JSON.parse(localStorage.getItem('decho.save.v1'));
+      return saveFile.slots[saveFile.activeSlotId].state;
+    });
+    if (
+      freshRunState.runStatus !== 'active' ||
+      freshRunState.completedLevelIdsArray.length !== 0 ||
+      freshRunState.completedQteIdsArray.length !== 0 ||
+      freshRunState.failedQteIdsArray.length !== 0
+    ) {
+      throw new Error('New run state was not reset correctly.');
+    }
 
     // Map: select a checkpoint, then Travel into the location scene.
     await page.mouse.click(640, 216);

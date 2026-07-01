@@ -61,7 +61,7 @@ export class PauseOverlay extends excalibur.ScreenElement {
     );
 
     this.resumeButton = new UiButton({
-      text: 'Resume',
+      text: 'Hervatten',
       x: CENTER_X - BUTTON_WIDTH / 2,
       y: BUTTON_START_Y,
       width: BUTTON_WIDTH,
@@ -72,7 +72,7 @@ export class PauseOverlay extends excalibur.ScreenElement {
     });
 
     this.settingsButton = new UiButton({
-      text: 'Settings',
+      text: 'Instellingen',
       x: CENTER_X - BUTTON_WIDTH / 2,
       y: BUTTON_START_Y + (BUTTON_HEIGHT + BUTTON_GAP),
       width: BUTTON_WIDTH,
@@ -83,7 +83,7 @@ export class PauseOverlay extends excalibur.ScreenElement {
     });
 
     this.backButton = new UiButton({
-      text: 'Back to Menu',
+      text: 'Terug naar menu',
       x: CENTER_X - BUTTON_WIDTH / 2,
       y: BUTTON_START_Y + 2 * (BUTTON_HEIGHT + BUTTON_GAP),
       width: BUTTON_WIDTH,
@@ -174,11 +174,11 @@ export class PauseOverlay extends excalibur.ScreenElement {
     context.textBaseline = 'alphabetic';
     context.fillStyle = THEME.color.text;
     context.font = `900 34px ${THEME.font.heading}`;
-    context.fillText('PAUSED', CARD_WIDTH / 2, 56);
+    context.fillText('GEPAUZEERD', CARD_WIDTH / 2, 56);
 
     context.fillStyle = THEME.color.muted;
     context.font = `700 12px ${THEME.font.label}`;
-    context.fillText('SIGNAL ROUTING SUSPENDED', CARD_WIDTH / 2, 78);
+    context.fillText('SIGNAALROUTING ONDERBROKEN', CARD_WIDTH / 2, 78);
     context.restore();
   }
 }

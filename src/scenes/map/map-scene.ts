@@ -14,6 +14,8 @@ import { fadeToScene } from '../../core/navigation/navigate';
 import { getBackgroundResource } from '../../core/resources/resource-loader';
 import { THEME, withAlpha } from '../../core/theme/theme-index';
 import { Checkpoint } from '../../features/map/checkpoint';
+import { LevelProgressHud } from '../../features/levels/level-progress-hud';
+import * as levelService from '../../features/levels/level-service';
 import { InfoPanel } from '../../features/map/info-panel';
 import { mapCheckpointsArray } from '../../features/map/map-data';
 import type * as mapTypes from '../../features/map/map-types';
@@ -22,6 +24,7 @@ import * as saveService from '../../features/save/save-service';
 import { ShopPanel } from '../../features/shop/shop-panel';
 import { SkillHud } from '../../features/skills/skill-hud';
 import * as storyService from '../../features/story/story-service';
+import * as runTimerService from '../../features/timer/run-timer-service';
 
 export class MapScene extends excalibur.Scene {
   private infoPanel?: InfoPanel;
@@ -41,6 +44,7 @@ export class MapScene extends excalibur.Scene {
     );
     this.add(this.infoPanel);
     this.add(new SkillHud());
+    this.add(new LevelProgressHud());
 
     mapCheckpointsArray.forEach((checkpointConfig) => {
       const checkpoint = new Checkpoint(
@@ -57,6 +61,7 @@ export class MapScene extends excalibur.Scene {
 
     this.pauseOverlay = new PauseOverlay(() => {
       this.isLeaving = true;
+      runTimerService.pauseRun();
       saveService.autosave();
       fadeToScene(engine, 'mainMenu');
     });
@@ -66,6 +71,15 @@ export class MapScene extends excalibur.Scene {
   override onActivate(): void {
     this.isLeaving = false;
     this.pauseOverlay?.hide();
+    this.checkpointsArray.forEach((checkpoint, index) => {
+      const checkpointConfig = mapCheckpointsArray[index];
+      checkpoint.setCompleted(
+        checkpointConfig
+          ? levelService.isLocationComplete(checkpointConfig.locationId)
+          : false,
+      );
+    });
+    this.infoPanel?.refresh();
   }
 
   override onPreUpdate(engine: excalibur.Engine): void {
@@ -92,6 +106,10 @@ export class MapScene extends excalibur.Scene {
     engine: excalibur.Engine,
     checkpointConfig: mapTypes.MapCheckpointConfig,
   ): void {
+    if (levelService.isLocationComplete(checkpointConfig.locationId)) {
+      this.infoPanel?.show(checkpointConfig);
+      return;
+    }
     storyService.goToLocation(checkpointConfig.locationId);
     void engine.goToScene('location');
   }
@@ -168,7 +186,7 @@ export class MapScene extends excalibur.Scene {
           context.fillStyle = THEME.color.muted;
           context.font = `700 12px ${THEME.font.label}`;
           context.textAlign = 'left';
-          context.fillText('NOVA CITY ROUTE GRID', 42, mapRenderSize.height - 17);
+          context.fillText('NOVA CITY ROUTENETWERK', 42, mapRenderSize.height - 17);
         },
       }),
     );

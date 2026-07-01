@@ -15,11 +15,14 @@ import {
   getCharacterResource,
 } from '../../core/resources/resource-loader';
 import { DialogueBox } from '../../features/dialogue/dialogue-box';
+import { LocationTaskHud } from '../../features/levels/location-task-hud';
+import * as levelService from '../../features/levels/level-service';
 import * as dialogueOptions from '../../features/dialogue/dialogue-options';
 import * as dialogueService from '../../features/dialogue/dialogue-service';
 import { PauseOverlay } from '../../features/menu/pause-overlay';
 import * as saveService from '../../features/save/save-service';
 import * as storyService from '../../features/story/story-service';
+import * as runTimerService from '../../features/timer/run-timer-service';
 import type * as storyTypes from '../../features/story/story-types';
 
 export class LocationScene extends excalibur.Scene {
@@ -33,6 +36,7 @@ export class LocationScene extends excalibur.Scene {
     // Created once and reused so it survives the per-dialogue re-render.
     this.pauseOverlay = new PauseOverlay(() => {
       this.isLeaving = true;
+      runTimerService.pauseRun();
       saveService.autosave();
       fadeToScene(engine, 'mainMenu');
     });
@@ -61,7 +65,12 @@ export class LocationScene extends excalibur.Scene {
 
     const currentDialogueView = storyService.getCurrentDialogue();
     this.addRendered(this.createBackground(currentDialogueView.location));
-    this.addCharacters(currentDialogueView.location);
+    this.addCharacters(
+      currentDialogueView.location,
+      currentDialogueView.dialogue.id,
+      currentDialogueView.npc.defaultDialogueId,
+    );
+    this.addRendered(new LocationTaskHud(currentDialogueView.location.id));
 
     this.dialogueBox = new DialogueBox();
     this.addRendered(this.dialogueBox);
@@ -139,7 +148,17 @@ export class LocationScene extends excalibur.Scene {
     return backgroundActor;
   }
 
-  private addCharacters(locationDataObject: storyTypes.LocationData): void {
+  private addCharacters(
+    locationDataObject: storyTypes.LocationData,
+    dialogueId: string,
+    defaultDialogueId: string,
+  ): void {
+    if (
+      levelService.isLocationComplete(locationDataObject.id) &&
+      dialogueId === defaultDialogueId
+    ) {
+      return;
+    }
     locationDataObject.characterResourceKeysArray.forEach((characterKey) => {
       const characterResource = getCharacterResource(characterKey);
       if (!characterResource) {

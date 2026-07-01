@@ -27,6 +27,7 @@ export class Checkpoint extends excalibur.Actor {
   private hoverTarget = 0;
   private pulseMs = 0;
   private isLocationSelected = false;
+  private isLocationCompleted = false;
 
   constructor(
     private readonly checkpointConfig: mapTypes.MapCheckpointConfig,
@@ -88,6 +89,10 @@ export class Checkpoint extends excalibur.Actor {
     this.isLocationSelected = selectedLocationId === this.checkpointConfig.id;
   }
 
+  setCompleted(isCompleted: boolean): void {
+    this.isLocationCompleted = isCompleted;
+  }
+
   private createLabel(
     text: string,
     yOffset: number,
@@ -138,6 +143,7 @@ export class Checkpoint extends excalibur.Actor {
     context.clearRect(0, 0, markerBitmapSize, markerBitmapSize);
     context.save();
     context.translate(center, center);
+    context.globalAlpha = this.isLocationCompleted ? 0.58 : 1;
 
     context.beginPath();
     pointsArray.forEach((point, pointIndex) => {
@@ -162,10 +168,18 @@ export class Checkpoint extends excalibur.Actor {
     context.strokeStyle = this.accentColor;
     context.stroke();
 
-    context.beginPath();
-    context.arc(0, 0, markerCoreRadius, 0, Math.PI * 2);
-    context.fillStyle = this.accentColor;
-    context.fill();
+    if (this.isLocationCompleted) {
+      context.fillStyle = THEME.accent.green;
+      context.font = `800 8px ${THEME.font.label}`;
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+      context.fillText('KLAAR', 0, 1);
+    } else {
+      context.beginPath();
+      context.arc(0, 0, markerCoreRadius, 0, Math.PI * 2);
+      context.fillStyle = this.accentColor;
+      context.fill();
+    }
 
     context.beginPath();
     context.arc(0, 0, radius + 9, 0, Math.PI * 2);

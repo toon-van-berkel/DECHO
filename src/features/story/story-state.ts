@@ -21,12 +21,16 @@ export function getStoryState(): storyTypes.StoryState {
  * reference. startStory() afterwards sets the opening location and dialogue.
  */
 export function resetState(): void {
+  gameStateObject.runStatus = 'active';
   gameStateObject.currentLocationId = '';
   gameStateObject.currentDialogueId = '';
   gameStateObject.dataEcho = 0;
   gameStateObject.securedSkillsArray = [];
   gameStateObject.completedQteIdsArray = [];
   gameStateObject.failedQteIdsArray = [];
+  gameStateObject.completedLevelIdsArray = [];
+  gameStateObject.runElapsedMs = 0;
+  gameStateObject.runStartedAtMs = null;
   gameStateObject.flagsObject = {};
   gameStateObject.npcStatesObject = {};
 }
@@ -38,12 +42,18 @@ export function resetState(): void {
  * arrays/records so the loaded save object is never mutated by later gameplay.
  */
 export function loadState(nextState: storyTypes.StoryState): void {
+  gameStateObject.runStatus = nextState.runStatus ?? 'active';
   gameStateObject.currentLocationId = nextState.currentLocationId;
   gameStateObject.currentDialogueId = nextState.currentDialogueId;
   gameStateObject.dataEcho = nextState.dataEcho;
   gameStateObject.securedSkillsArray = [...nextState.securedSkillsArray];
   gameStateObject.completedQteIdsArray = [...nextState.completedQteIdsArray];
   gameStateObject.failedQteIdsArray = [...nextState.failedQteIdsArray];
+  gameStateObject.completedLevelIdsArray = [
+    ...(nextState.completedLevelIdsArray ?? []),
+  ];
+  gameStateObject.runElapsedMs = nextState.runElapsedMs ?? 0;
+  gameStateObject.runStartedAtMs = null;
   gameStateObject.flagsObject = { ...nextState.flagsObject };
   gameStateObject.npcStatesObject = { ...nextState.npcStatesObject };
 }
@@ -74,4 +84,14 @@ export function updateQteState(qteId: string, isQtePassed: boolean): void {
   if (!targetArray.includes(qteId)) {
     targetArray.push(qteId);
   }
+}
+
+export function completeLevel(levelId: string): void {
+  if (!gameStateObject.completedLevelIdsArray.includes(levelId)) {
+    gameStateObject.completedLevelIdsArray.push(levelId);
+  }
+}
+
+export function setRunStatus(runStatus: storyTypes.StoryState['runStatus']): void {
+  gameStateObject.runStatus = runStatus;
 }

@@ -36,6 +36,10 @@ function isStateValid(value: unknown): value is storyTypes.StoryState {
 
   const state = value as Record<string, unknown>;
   return (
+    (state.runStatus === undefined ||
+      state.runStatus === 'active' ||
+      state.runStatus === 'won' ||
+      state.runStatus === 'lost') &&
     typeof state.currentLocationId === 'string' &&
     state.currentLocationId.length > 0 &&
     typeof state.currentDialogueId === 'string' &&
@@ -44,6 +48,13 @@ function isStateValid(value: unknown): value is storyTypes.StoryState {
     isStringArray(state.securedSkillsArray) &&
     isStringArray(state.completedQteIdsArray) &&
     isStringArray(state.failedQteIdsArray) &&
+    (state.completedLevelIdsArray === undefined ||
+      isStringArray(state.completedLevelIdsArray)) &&
+    (state.runElapsedMs === undefined ||
+      typeof state.runElapsedMs === 'number') &&
+    (state.runStartedAtMs === undefined ||
+      state.runStartedAtMs === null ||
+      typeof state.runStartedAtMs === 'number') &&
     typeof state.flagsObject === 'object' &&
     state.flagsObject !== null &&
     typeof state.npcStatesObject === 'object' &&
@@ -116,14 +127,19 @@ function writeFile(file: SaveFile): void {
 }
 
 function snapshotCurrentState(): storyTypes.StoryState {
-  return JSON.parse(
+  const stateSnapshot = JSON.parse(
     JSON.stringify(storyState.getStoryState()),
   ) as storyTypes.StoryState;
+  if (stateSnapshot.runStartedAtMs !== null) {
+    stateSnapshot.runElapsedMs += Date.now() - stateSnapshot.runStartedAtMs;
+    stateSnapshot.runStartedAtMs = null;
+  }
+  return stateSnapshot;
 }
 
 function deriveLabel(state: storyTypes.StoryState): string {
   const location = storyDataObject.locationsObject[state.currentLocationId];
-  return location?.name || state.currentLocationId || 'New Signal';
+  return location?.name || state.currentLocationId || 'Nieuw signaal';
 }
 
 function buildSlotFromCurrentState(slotId: SaveSlotId): SaveSlot {

@@ -14,4 +14,4 @@ export const mapRenderSize = {
   height: 720,
 } as const;
 
-export const engineDisplayMode = excalibur.DisplayMode.FitScreenAndZoom;
+export const engineDisplayMode = excalibur.DisplayMode.FitScreen;
