@@ -41,7 +41,7 @@ export class DialogueBox extends excalibur.ScreenElement {
   }
 
   setContent(speakerName: string, text: string): void {
-    this.speakerName = speakerName;
+    this.speakerName = speakerName === 'You' ? 'Jij' : speakerName;
     this.dialogueText = text;
   }
 

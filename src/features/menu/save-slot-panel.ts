@@ -46,8 +46,8 @@ const BUTTON_Z = 210;
 const TRASH_Z = 215;
 
 const MONTHS_ARRAY = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  'jan', 'feb', 'mrt', 'apr', 'mei', 'jun',
+  'jul', 'aug', 'sep', 'okt', 'nov', 'dec',
 ];
 
 function formatSavedAt(savedAtMs: number): string {
@@ -133,7 +133,7 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
   private readonly confirmNoButton: UiButton;
 
   constructor(
-    private readonly onEnterGame: () => void,
+    private readonly onEnterGame: (isNewGame: boolean) => void,
     private readonly onClosePanel: () => void,
   ) {
     super({
@@ -205,7 +205,7 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
     }
 
     this.backButton = new UiButton({
-      text: 'Back',
+      text: 'Terug',
       x: CENTER_X - 100,
       y: CARD_Y + 336,
       width: 200,
@@ -217,7 +217,7 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
     });
 
     this.confirmYesButton = new UiButton({
-      text: 'Overwrite',
+      text: 'Overschrijven',
       x: INNER_X,
       y: CARD_Y + 250,
       width: 240,
@@ -228,7 +228,7 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
     });
 
     this.confirmNoButton = new UiButton({
-      text: 'Cancel',
+      text: 'Annuleren',
       x: CARD_X + CARD_WIDTH - 24 - 240,
       y: CARD_Y + 250,
       width: 240,
@@ -292,7 +292,7 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
 
     if (this.mode === 'load') {
       if (slot && saveService.loadSlot(slotId)) {
-        this.onEnterGame();
+        this.onEnterGame(false);
       }
       return;
     }
@@ -305,7 +305,7 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
     }
 
     saveService.startNewGameInSlot(slotId);
-    this.onEnterGame();
+    this.onEnterGame(true);
   }
 
   private handleTrashClick(slotId: SaveSlotId): void {
@@ -333,7 +333,7 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
     }
 
     saveService.startNewGameInSlot(this.confirmSlotId);
-    this.onEnterGame();
+    this.onEnterGame(true);
   }
 
   private handleConfirmNo(): void {
@@ -377,7 +377,7 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
 
     if (isConfirming) {
       this.confirmYesButton.setText(
-        this.confirmKind === 'delete' ? 'Delete' : 'Overwrite',
+        this.confirmKind === 'delete' ? 'Verwijderen' : 'Overschrijven',
       );
     }
 
@@ -387,9 +387,9 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
   }
 
   private formatSlotLabel(slotIndex: number, slot: SaveSlot | null): string {
-    const slotName = `Slot ${slotIndex + 1}`;
+    const slotName = `Opslag ${slotIndex + 1}`;
     if (!slot) {
-      return `${slotName} · Empty`;
+      return `${slotName} · Leeg`;
     }
 
     return `${slotName} · ${slot.label} · ${formatSavedAt(slot.savedAtMs)}`;
@@ -410,7 +410,7 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
     context.fillStyle = THEME.accent.cyan;
     context.font = `900 30px ${THEME.font.heading}`;
     context.fillText(
-      this.mode === 'new' ? 'NEW GAME' : 'LOAD GAME',
+      this.mode === 'new' ? 'NIEUW SPEL' : 'SPEL LADEN',
       CARD_WIDTH / 2,
       58,
     );
@@ -424,9 +424,9 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
     context.fillText(
       isConfirming
         ? isDeleteConfirm
-          ? 'CONFIRM DELETE'
-          : 'CONFIRM OVERWRITE'
-        : 'SELECT A SAVE SLOT',
+          ? 'VERWIJDEREN BEVESTIGEN'
+          : 'OVERSCHRIJVEN BEVESTIGEN'
+        : 'KIES EEN OPSLAGPLAATS',
       CARD_WIDTH / 2,
       82,
     );
@@ -439,7 +439,7 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
       context.fillStyle = THEME.color.text;
       context.font = `800 22px ${THEME.font.heading}`;
       context.fillText(
-        `${isDeleteConfirm ? 'DELETE' : 'OVERWRITE'} SLOT ${this.confirmSlotId + 1}?`,
+        `${isDeleteConfirm ? 'VERWIJDER' : 'OVERSCHRIJF'} OPSLAG ${this.confirmSlotId + 1}?`,
         CENTER_X,
         CARD_Y + 168,
       );
@@ -448,8 +448,8 @@ export class SaveSlotPanel extends excalibur.ScreenElement {
       context.font = `400 14px ${THEME.font.body}`;
       context.fillText(
         isDeleteConfirm
-          ? 'This permanently erases this save.'
-          : 'This starts a new game and erases this save.',
+          ? 'Hiermee wordt deze opslag definitief verwijderd.'
+          : 'Hiermee start een nieuw spel en verdwijnt deze opslag.',
         CENTER_X,
         CARD_Y + 200,
       );

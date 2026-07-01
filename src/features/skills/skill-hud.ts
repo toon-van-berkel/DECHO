@@ -96,13 +96,13 @@ export class SkillHud extends excalibur.ScreenElement {
     context.textBaseline = 'alphabetic';
     context.fillStyle = THEME.color.text;
     context.font = `800 15px ${THEME.font.heading}`;
-    context.fillText('SKILL CACHE', 18, 28);
+    context.fillText('VAARDIGHEDEN', 18, 28);
 
     context.textAlign = 'right';
     context.fillStyle = THEME.color.muted;
     context.font = `700 11px ${THEME.font.label}`;
     context.fillText(
-      `${ownedCount}/${skillSlotsArray.length} SECURED`,
+      `${ownedCount}/${skillSlotsArray.length} BEVEILIGD`,
       panelWidth - 18,
       28,
     );
@@ -120,7 +120,7 @@ export class SkillHud extends excalibur.ScreenElement {
       context.textAlign = 'right';
       context.fillStyle = THEME.color.muted;
       context.font = `700 10px ${THEME.font.label}`;
-      context.fillText('NO ACTIVE SKILLS', panelWidth - 18, 84);
+      context.fillText('GEEN ACTIEVE VAARDIGHEDEN', panelWidth - 18, 84);
     }
   }
 

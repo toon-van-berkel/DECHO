@@ -50,7 +50,7 @@ export class SettingsPanel extends excalibur.ScreenElement {
     );
 
     this.backButton = new UiButton({
-      text: 'Back',
+      text: 'Terug',
       x: CENTER_X - 100,
       y: CARD_Y + 226,
       width: 200,
@@ -107,29 +107,29 @@ export class SettingsPanel extends excalibur.ScreenElement {
     context.textBaseline = 'alphabetic';
     context.fillStyle = THEME.accent.amber;
     context.font = `900 28px ${THEME.font.heading}`;
-    context.fillText('SETTINGS', CARD_WIDTH / 2, 54);
+    context.fillText('INSTELLINGEN', CARD_WIDTH / 2, 54);
 
     context.fillStyle = THEME.color.muted;
     context.font = `700 13px ${THEME.font.label}`;
-    context.fillText('AUDIO & DISPLAY', CARD_WIDTH / 2, 78);
+    context.fillText('AUDIO EN BEELD', CARD_WIDTH / 2, 78);
 
     drawDivider(context, 24, 94, CARD_WIDTH - 48);
 
     context.textAlign = 'left';
     context.fillStyle = THEME.color.softText;
     context.font = `700 16px ${THEME.font.label}`;
-    context.fillText('Sound', PADDING, 142);
+    context.fillText('Geluid', PADDING, 142);
 
     context.textAlign = 'right';
     context.fillStyle = THEME.color.muted;
     context.font = `700 13px ${THEME.font.label}`;
-    context.fillText('COMING SOON', CARD_WIDTH - PADDING, 142);
+    context.fillText('BINNENKORT', CARD_WIDTH - PADDING, 142);
 
     context.textAlign = 'center';
     context.fillStyle = withAlpha(THEME.color.softText, 0.7);
     context.font = `400 13px ${THEME.font.body}`;
     context.fillText(
-      'More options will arrive in a later build.',
+      'Meer opties worden later toegevoegd.',
       CARD_WIDTH / 2,
       182,
     );

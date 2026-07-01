@@ -1,6 +1,6 @@
 {
   "id": "cyber_clinic",
-  "name": "Cyber Clinic",
+  "name": "Cyberkliniek",
   "backgroundResourceKey": "background-labclean",
   "characterResourceKeysArray": ["character-vex"],
   "npcIdsArray": ["dr_vex"],

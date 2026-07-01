@@ -16,6 +16,7 @@ import { MainMenuScene } from './scenes/main-menu/main-menu-scene';
 import { MapScene } from './scenes/map/map-scene';
 import { QteScene } from './scenes/qte/qte-scene';
 import { StartScreenScene } from './scenes/start-screen/start-screen-scene';
+import { TutorialScene } from './scenes/tutorial/tutorial-scene';
 
 const gameEngine = new excalibur.Engine({
   width: engineConfig.mapRenderSize.width,
@@ -32,6 +33,7 @@ const gameEngine = new excalibur.Engine({
     qte: QteScene,
     ending: EndingScene,
     startScreen: StartScreenScene,
+    tutorial: TutorialScene,
   },
 });
 

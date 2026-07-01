@@ -1,6 +1,6 @@
 {
   "id": "the_docks",
-  "name": "The Docks",
+  "name": "De Dokken",
   "backgroundResourceKey": "background-harborclean",
   "characterResourceKeysArray": ["character-mira"],
   "npcIdsArray": ["mira"],

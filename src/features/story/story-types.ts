@@ -16,12 +16,16 @@ export type StoryResponse<T> = {
 };
 
 export type StoryState = {
+  runStatus: 'active' | 'won' | 'lost';
   currentLocationId: string;
   currentDialogueId: string;
   dataEcho: number;
   securedSkillsArray: string[];
   completedQteIdsArray: string[];
   failedQteIdsArray: string[];
+  completedLevelIdsArray: string[];
+  runElapsedMs: number;
+  runStartedAtMs: number | null;
   flagsObject: Record<string, boolean | string | number>;
   npcStatesObject: Record<string, NpcState>;
 };

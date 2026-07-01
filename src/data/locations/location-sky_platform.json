@@ -1,6 +1,6 @@
 {
   "id": "sky_platform",
-  "name": "Sky Platform",
+  "name": "Torenplatform",
   "backgroundResourceKey": "background-balconyclean",
   "characterResourceKeysArray": ["character-elias"],
   "npcIdsArray": ["elias"],

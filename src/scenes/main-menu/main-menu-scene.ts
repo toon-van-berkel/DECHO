@@ -17,13 +17,16 @@ import { SaveSlotPanel } from '../../features/menu/save-slot-panel';
 import type { SaveSlotPanelMode } from '../../features/menu/save-slot-panel';
 import { SettingsPanel } from '../../features/menu/settings-panel';
 import * as saveService from '../../features/save/save-service';
+import { ScoreboardPanel } from '../../features/scoreboard/scoreboard-panel';
+import * as storyService from '../../features/story/story-service';
+import * as runTimerService from '../../features/timer/run-timer-service';
 
 const MENU_PANEL = { x: 430, y: 104, width: 420, height: 440 };
 
 const BUTTON_WIDTH = 300;
 const BUTTON_X = (mapRenderSize.width - BUTTON_WIDTH) / 2;
-const BUTTON_HEIGHT = 50;
-const BUTTON_GAP = 16;
+const BUTTON_HEIGHT = 46;
+const BUTTON_GAP = 10;
 const BUTTON_AREA_TOP = 262;
 const BUTTON_AREA_HEIGHT = 262;
 
@@ -41,9 +44,10 @@ export class MainMenuScene extends excalibur.Scene {
   override onInitialize(): void {
     this.add(this.createMenuBackdrop());
     this.add(this.createHeader());
+    this.add(new ScoreboardPanel());
 
     this.slotPanel = new SaveSlotPanel(
-      () => this.enterGame(),
+      (isNewGame) => this.enterGame(isNewGame),
       () => this.closePanels(),
     );
     this.settingsPanel = new SettingsPanel(() => this.closePanels());
@@ -52,6 +56,7 @@ export class MainMenuScene extends excalibur.Scene {
   }
 
   override onActivate(): void {
+    runTimerService.pauseRun();
     this.rebuildMenuButtons();
     this.slotPanel?.close();
     this.settingsPanel?.close();
@@ -88,30 +93,39 @@ export class MainMenuScene extends excalibur.Scene {
 
     if (saveService.hasAnySave()) {
       buttonConfigsArray.push({
-        text: 'Continue',
+        text: 'Doorgaan',
         accent: THEME.accent.cyan,
         onClick: () => {
           if (saveService.continueActiveSlot()) {
-            this.enterGame();
+            this.enterGame(false);
           }
         },
       });
     }
 
     buttonConfigsArray.push({
-      text: 'New Game',
+      text: 'Nieuw spel',
       accent: THEME.accent.violet,
       onClick: () => this.openSlotPanel('new'),
     });
     buttonConfigsArray.push({
-      text: 'Load Game',
+      text: 'Spel laden',
       accent: THEME.accent.green,
       onClick: () => this.openSlotPanel('load'),
     });
     buttonConfigsArray.push({
-      text: 'Settings',
+      text: 'Instellingen',
       accent: THEME.accent.amber,
       onClick: () => this.openSettings(),
+    });
+    buttonConfigsArray.push({
+      text: 'Instructies',
+      accent: THEME.accent.cyan,
+      onClick: () => {
+        void this.engine.goToScene('tutorial', {
+          sceneActivationData: { canStartRun: false },
+        });
+      },
     });
 
     return buttonConfigsArray;
@@ -141,7 +155,20 @@ export class MainMenuScene extends excalibur.Scene {
     this.menuButtonsArray.forEach((button) => button.setEnabled(isEnabled));
   }
 
-  private enterGame(): void {
+  private enterGame(isNewGame: boolean): void {
+    if (isNewGame) {
+      void this.engine.goToScene('tutorial', {
+        sceneActivationData: { canStartRun: true },
+      });
+      return;
+    }
+    if (storyService.getStorySummary().runStatus !== 'active') {
+      void this.engine.goToScene('ending', {
+        sceneActivationData: { fromSave: true },
+      });
+      return;
+    }
+    runTimerService.resumeRun();
     fadeToScene(this.engine, 'map');
   }
 
@@ -171,7 +198,7 @@ export class MainMenuScene extends excalibur.Scene {
 
           context.fillStyle = withAlpha(THEME.accent.cyan, 0.92);
           context.font = `700 18px ${THEME.font.label}`;
-          context.fillText('SIGNAL ROUTING INTERFACE', 640, 218);
+          context.fillText('SIGNAALROUTING', 640, 218);
         },
       }),
     );

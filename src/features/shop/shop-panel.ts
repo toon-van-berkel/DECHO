@@ -19,12 +19,13 @@ const panelWidth = 330;
 const panelHeight = 154;
 
 export class ShopPanel extends excalibur.ScreenElement {
-  private locationName = 'Black Market';
+  private locationName = 'Zwarte markt';
   private accentColor: string = THEME.accent.amber;
+  private visibleTimeMs = 0;
 
   constructor() {
     super({
-      x: mapRenderSize.width - panelWidth - 34,
+      x: (mapRenderSize.width - panelWidth) / 2,
       y: 42,
       width: panelWidth,
       height: panelHeight,
@@ -45,6 +46,14 @@ export class ShopPanel extends excalibur.ScreenElement {
   show(locationName: string, accentColor: string): void {
     this.locationName = locationName;
     this.accentColor = accentColor;
+    this.visibleTimeMs = 0;
+  }
+
+  override onPreUpdate(_engine: excalibur.Engine, elapsedMs: number): void {
+    this.visibleTimeMs += elapsedMs;
+    if (this.visibleTimeMs >= 3000) {
+      this.kill();
+    }
   }
 
   private drawPanel(context: CanvasRenderingContext2D): void {
@@ -55,7 +64,7 @@ export class ShopPanel extends excalibur.ScreenElement {
     context.textBaseline = 'alphabetic';
     context.fillStyle = this.accentColor;
     context.font = `900 20px ${THEME.font.heading}`;
-    context.fillText('TOKEN SHOP', 20, 34);
+    context.fillText('WINKEL', 20, 34);
 
     context.fillStyle = THEME.color.muted;
     context.font = `700 12px ${THEME.font.label}`;
@@ -65,7 +74,7 @@ export class ShopPanel extends excalibur.ScreenElement {
 
     context.fillStyle = THEME.color.softText;
     context.font = `400 13px ${THEME.font.body}`;
-    context.fillText('Inventory sync is ready.', 20, 102);
-    context.fillText('Items can be connected later.', 20, 122);
+    context.fillText('Deze winkel is nog niet beschikbaar.', 20, 102);
+    context.fillText('Dit venster sluit automatisch.', 20, 122);
   }
 }

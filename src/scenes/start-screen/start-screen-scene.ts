@@ -19,7 +19,7 @@ export class StartScreenScene extends excalibur.Scene {
     this.add(this.createBackground());
     this.add(
       new UiButton({
-        text: 'Start Game',
+        text: 'Start spel',
         x: mapRenderSize.width / 2 - 150,
         y: mapRenderSize.height - 104,
         width: 300,

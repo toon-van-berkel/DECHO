@@ -9,6 +9,7 @@
 
 import storyFlowJson from '../../data/story/story-flow.json';
 import dialogueDataJson from '../../data/story/dialogues.json';
+import { extraQteDataArray } from '../../data/qte/extra-qte-data';
 import type * as storyTypes from './story-types';
 
 const locationFilesObject = import.meta.glob<storyTypes.LocationData>(
@@ -47,5 +48,8 @@ export const storyDataObject = {
   dialoguesObject: createRecordFromArray(
     dialogueDataJson as storyTypes.DialogueData[],
   ),
-  qteObject: createRecordFromFiles(qteFilesObject),
+  qteObject: {
+    ...createRecordFromFiles(qteFilesObject),
+    ...createRecordFromArray(extraQteDataArray),
+  },
 };

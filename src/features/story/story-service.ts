@@ -8,6 +8,7 @@
  */
 
 import * as saveService from '../save/save-service';
+import * as levelService from '../levels/level-service';
 import * as storyHelpers from './story-helpers';
 import { storyDataObject } from './story-loader';
 import * as storyState from './story-state';
@@ -71,6 +72,8 @@ export function chooseDialogueOption(
     storyState.secureSkill(selectedChoice.securedSkill);
   }
 
+  levelService.completeLevelsForChoice(choiceId);
+
   const nextLocationId =
     selectedChoice.nextLocationId ?? currentDialogueView.location.id;
   const nextDialogueId = selectedChoice.nextDialogueId;
@@ -86,6 +89,9 @@ export function chooseDialogueOption(
   }
 
   if (!nextDialogueId) {
+    if (!selectedChoice.qteId) {
+      resolveRunStatus();
+    }
     saveService.autosave();
     return storyHelpers.createStoryResponse(true, 'Story branch completed.', {
       nextScene: selectedChoice.qteId ? 'qte' : 'ending',
@@ -125,6 +131,11 @@ export function completeQte(
   isQtePassed: boolean,
 ): storyTypes.StoryResponse<storyTypes.ChoiceResult> {
   storyState.updateQteState(qteId, isQtePassed);
+  levelService.completeLevelsForQte(qteId);
+
+  if (!isQtePassed) {
+    storyState.addDataEcho(5);
+  }
 
   if (isQtePassed) {
     const currentDialogueView = getCurrentDialogue();
@@ -142,6 +153,33 @@ export function completeQte(
 
 export function getStorySummary(): storyTypes.StoryState {
   return storyState.getStoryState();
+}
+
+export function setRunStatus(
+  runStatus: storyTypes.StoryState['runStatus'],
+): void {
+  storyState.setRunStatus(runStatus);
+}
+
+export function resolveRunStatus(): storyTypes.StoryState['runStatus'] {
+  const summary = storyState.getStoryState();
+  if (summary.runStatus !== 'active') {
+    return summary.runStatus;
+  }
+
+  const requiredSkillCount = storyDataObject.flow.requiredSkillsArray.length;
+  const missingSkillCount = Math.max(
+    requiredSkillCount - new Set(summary.securedSkillsArray).size,
+    0,
+  );
+  const runStatus =
+    missingSkillCount >= 3 ||
+    summary.dataEcho >= 80 ||
+    summary.failedQteIdsArray.length >= 3
+      ? 'lost'
+      : 'won';
+  storyState.setRunStatus(runStatus);
+  return runStatus;
 }
 
 function getDialogueView(

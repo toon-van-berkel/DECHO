@@ -1,6 +1,6 @@
 {
   "id": "black_market",
-  "name": "Black Market",
+  "name": "Zwarte Markt",
   "backgroundResourceKey": "background-storeclean",
   "characterResourceKeysArray": ["character-keal"],
   "npcIdsArray": ["kael"],

@@ -32,6 +32,11 @@ export class QteUi extends excalibur.ScreenElement {
   private totalTimeMs = 1;
   private titleText = '';
   private promptText = '';
+  private successText = '';
+  private failText = '';
+  private resultText = '';
+  private resultDisplayRemainingMs = 0;
+  private pendingResult?: qteTypes.QteResult;
   private onFinished?: (result: qteTypes.QteResult) => void;
 
   constructor() {
@@ -60,11 +65,26 @@ export class QteUi extends excalibur.ScreenElement {
     this.totalTimeMs = qteRunConfig.timeLimitMs;
     this.titleText = qteRunConfig.title;
     this.promptText = qteRunConfig.prompt;
+    this.successText = qteRunConfig.successText;
+    this.failText = qteRunConfig.failText;
+    this.pendingResult = undefined;
     this.onFinished = onFinished;
   }
 
   override onPreUpdate(engine: excalibur.Engine, elapsedMs: number): void {
     if (!this.onFinished) {
+      return;
+    }
+
+    if (this.pendingResult) {
+      this.resultDisplayRemainingMs -= elapsedMs;
+      if (this.resultDisplayRemainingMs <= 0) {
+        const finishedCallback = this.onFinished;
+        const finishedResult = this.pendingResult;
+        this.onFinished = undefined;
+        this.pendingResult = undefined;
+        finishedCallback(finishedResult);
+      }
       return;
     }
 
@@ -108,6 +128,29 @@ export class QteUi extends excalibur.ScreenElement {
 
     context.clearRect(0, 0, panelWidth, panelHeight);
     drawHudPanel(context, panelWidth, panelHeight, THEME.accent.violet);
+
+    if (this.pendingResult) {
+      const accentColor = this.pendingResult.isSuccess
+        ? THEME.accent.green
+        : THEME.accent.red;
+      context.textAlign = 'center';
+      context.textBaseline = 'alphabetic';
+      context.fillStyle = accentColor;
+      context.font = `900 30px ${THEME.font.heading}`;
+      context.fillText(
+        this.pendingResult.isSuccess ? 'GESLAAGD' : 'MISLUKT',
+        panelWidth / 2,
+        96,
+      );
+      drawDivider(context, 72, 120, panelWidth - 144);
+      context.fillStyle = THEME.color.softText;
+      context.font = `400 16px ${THEME.font.body}`;
+      context.fillText(this.resultText, panelWidth / 2, 168, panelWidth - 100);
+      context.fillStyle = THEME.color.muted;
+      context.font = `700 12px ${THEME.font.label}`;
+      context.fillText('TERUG NAAR HET VERHAAL...', panelWidth / 2, 222);
+      return;
+    }
 
     context.textAlign = 'center';
     context.textBaseline = 'alphabetic';
@@ -191,10 +234,11 @@ export class QteUi extends excalibur.ScreenElement {
   }
 
   private finish(isSuccess: boolean): void {
-    const finishedCallback = this.onFinished;
-    this.onFinished = undefined;
-    finishedCallback?.(
-      qteResult.createQteResult(isSuccess, this.remainingTimeMs),
+    this.pendingResult = qteResult.createQteResult(
+      isSuccess,
+      this.remainingTimeMs,
     );
+    this.resultText = isSuccess ? this.successText : this.failText;
+    this.resultDisplayRemainingMs = 1400;
   }
 }

@@ -17,6 +17,8 @@ export type QteKeyConfig = {
 export type QteRunConfig = {
   title: string;
   prompt: string;
+  successText: string;
+  failText: string;
   sequenceLength: number;
   timeLimitMs: number;
 };
