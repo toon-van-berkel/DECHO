@@ -25,7 +25,7 @@
     "excalibur": "0.32.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^26.0.1",
     "typescript": "6.0.3",
     "vite": "8.1.0"
